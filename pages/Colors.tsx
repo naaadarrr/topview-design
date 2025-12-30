@@ -16,6 +16,29 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+    }
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) {
+      checkScroll();
+      el.addEventListener('scroll', checkScroll);
+      window.addEventListener('resize', checkScroll);
+      return () => {
+        el.removeEventListener('scroll', checkScroll);
+        window.removeEventListener('resize', checkScroll);
+      };
+    }
+  }, []);
 
   const copyToClipboard = (value: string) => {
     navigator.clipboard.writeText(value);
@@ -75,6 +98,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
 
   const handleMouseUp = () => {
     setIsDragging(false);
+    checkScroll();
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -214,20 +238,20 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
           ))}
         </div>
 
-        {/* Navigation Arrows - Sides, Hover Only, Subtle Background */}
+        {/* Navigation Arrows - Sides, Hover Only, Distinct Background */}
         <button 
           onClick={() => scroll('left')}
-          className="absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/15 backdrop-blur-md text-white/40 hover:text-white transition-all opacity-0 group-hover/section:opacity-100 z-20 rounded-full"
+          className={`absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-black/20 hover:bg-black/40 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollLeft ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
         >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
         <button 
           onClick={() => scroll('right')}
-          className="absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/15 backdrop-blur-md text-white/40 hover:text-white transition-all opacity-0 group-hover/section:opacity-100 z-20 rounded-full"
+          className={`absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-black/20 hover:bg-black/40 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollRight ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
         >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M9 6l6 6-6 6" />
           </svg>
         </button>
