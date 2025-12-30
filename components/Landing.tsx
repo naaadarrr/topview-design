@@ -18,15 +18,11 @@ const Landing: React.FC<LandingProps> = ({ onSelect, language, onLanguageChange 
   ];
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col font-sans fade-in">
-      {/* Top Header */}
-      <header className="px-8 py-6 flex justify-between items-center relative">
+    <div className="min-h-screen bg-white text-black flex flex-col font-sans slide-up overflow-x-hidden">
+      {/* Top Header - Standard 88px */}
+      <header className="h-[88px] px-10 flex justify-between items-center relative flex-shrink-0 border-b border-black/5">
         <div className="flex items-center">
            <img src="/TopviewDesignLogo.svg" alt="TopView.AI" className="h-10 invert" />
-        </div>
-        
-        <div className="absolute left-1/2 -translate-x-1/2 md:block hidden">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-black/40">{t.brandGuidelines}</span>
         </div>
 
         {/* Language Switcher */}
@@ -42,7 +38,7 @@ const Landing: React.FC<LandingProps> = ({ onSelect, language, onLanguageChange 
             onClick={() => onLanguageChange('zh')}
             className={`transition-colors hover:text-black ${language === 'zh' ? 'text-black' : ''}`}
           >
-            中文
+            中
           </button>
         </div>
       </header>

@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <nav className="w-full lg:w-72 flex-shrink-0 lg:fixed lg:top-0 lg:left-0 lg:h-screen bg-transparent border-b lg:border-b-0 lg:border-r border-white/10 px-10 py-0 z-50 flex flex-col justify-between">
       <div>
-        <div className="h-[72px] flex items-center cursor-pointer mb-0" onClick={onLogoClick || (() => onNavigate('logo'))}>
+        <div className="h-[88px] flex items-center cursor-pointer mb-0" onClick={onLogoClick || (() => onNavigate('logo'))}>
           <img src="/TopviewDesignLogo.svg" alt="TopView" className="h-10" />
         </div>
         
@@ -55,25 +55,6 @@ const Sidebar: React.FC<SidebarProps> = ({
               </button>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Language Switcher */}
-      <div className="pb-12 pt-8 border-t border-white/5">
-        <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-widest text-neutral-500">
-          <button 
-            onClick={() => onLanguageChange('en')}
-            className={`transition-colors hover:text-white ${language === 'en' ? 'text-white' : ''}`}
-          >
-            EN
-          </button>
-          <span className="w-[1px] h-3 bg-white/10"></span>
-          <button 
-            onClick={() => onLanguageChange('zh')}
-            className={`transition-colors hover:text-white ${language === 'zh' ? 'text-white' : ''}`}
-          >
-            中文
-          </button>
         </div>
       </div>
     </nav>

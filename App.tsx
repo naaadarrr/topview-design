@@ -19,13 +19,9 @@ const App: React.FC = () => {
   useEffect(() => {
     // Splash screen timer
     const timer = setTimeout(() => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        setActiveSection(hash);
-        setView('content');
-      } else {
-        setView('catalog');
-      }
+      // Force loading catalog page on fresh entry/refresh as requested
+      setView('catalog');
+      window.location.hash = ''; 
     }, 2500);
     return () => clearTimeout(timer);
   }, []);
@@ -84,10 +80,38 @@ const App: React.FC = () => {
       
       <main 
         ref={mainRef}
-        className="flex-1 lg:ml-72 px-6 md:px-12 lg:px-20 py-12 md:py-24 overflow-y-auto overflow-x-hidden bg-[#111111]"
+        className="flex-1 lg:ml-72 flex flex-col overflow-y-auto overflow-x-hidden bg-[#111111]"
       >
-        <div className="max-w-7xl mx-auto">
+        {/* Unified Top Header for Content Pages - 88px */}
+        <header className="h-[88px] px-10 md:px-20 flex justify-between items-center flex-shrink-0 z-50 border-b border-white/10">
+          <div className="flex items-center">
+            {/* Breadcrumb or placeholder for logic later if needed */}
+            <span className="text-[11px] font-bold uppercase tracking-widest text-white/20">
+              Topview.design / {activeSection}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-widest text-white/40">
+            <button 
+              onClick={() => setLanguage('en')}
+              className={`transition-colors hover:text-white ${language === 'en' ? 'text-white' : ''}`}
+            >
+              EN
+            </button>
+            <span className="w-[1px] h-3 bg-white/10"></span>
+            <button 
+              onClick={() => setLanguage('zh')}
+              className={`transition-colors hover:text-white ${language === 'zh' ? 'text-white' : ''}`}
+            >
+              中
+            </button>
+          </div>
+        </header>
+
+        <div className="flex-1 px-10 md:px-20 py-12 md:py-16">
+          <div className="max-w-7xl mx-auto">
             {renderContent()}
+          </div>
         </div>
       </main>
     </div>
