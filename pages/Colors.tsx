@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { TOPVIEW_BLUE_SCALE } from '../constants';
 import { Language, translations } from '../translations';
@@ -12,6 +12,10 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
   const [copied, setCopied] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   const copyToClipboard = (value: string) => {
     navigator.clipboard.writeText(value);
@@ -59,6 +63,40 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
     { id: '06', w: 'w-[736px]' }
   ];
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
+    const walk = (x - startX) * 2;
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollLeft - walk;
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 400;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (selectedIndex !== null) {
@@ -74,7 +112,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
   };
 
   return (
-    <div className="max-w-full text-white space-y-48 pb-40">
+    <div className="max-w-full text-white space-y-48 pb-40 overflow-x-visible">
       {/* 1. 主题色介绍 */}
       <section className="fade-in">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
@@ -152,22 +190,47 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
       </section>
 
       {/* Color Exhibition Section */}
-      <section className="fade-in pt-12" style={{ animationDelay: '0.15s' }}>
-        <div className="flex gap-8 overflow-x-auto pb-12 -mx-4 px-4 no-scrollbar items-start">
+      <section className="fade-in pt-12 relative group/section overflow-visible" style={{ animationDelay: '0.15s' }}>
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto pb-12 -mx-6 md:-mx-12 lg:-mx-20 px-6 md:px-12 lg:px-20 no-scrollbar items-start cursor-grab active:cursor-grabbing scroll-smooth snap-x snap-mandatory"
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+        >
           {exhibitionItems.map((item, index) => (
             <div 
               key={item.id} 
-              className={`flex-shrink-0 ${item.w} bg-neutral-900 cursor-zoom-in`}
-              onClick={() => setSelectedIndex(index)}
+              className={`flex-shrink-0 ${item.w} cursor-zoom-in snap-start`}
+              onClick={() => !isDragging && setSelectedIndex(index)}
             >
               <img 
                 src={`/color/${item.id}.png`} 
                 alt={`Color Case ${item.id}`} 
-                className="w-full h-auto block"
+                className="w-full h-auto block select-none pointer-events-none"
               />
             </div>
           ))}
         </div>
+
+        {/* Navigation Arrows - Sides, Hover Only, Subtle Background */}
+        <button 
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/15 backdrop-blur-md text-white/40 hover:text-white transition-all opacity-0 group-hover/section:opacity-100 z-20 rounded-full"
+        >
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button 
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/15 backdrop-blur-md text-white/40 hover:text-white transition-all opacity-0 group-hover/section:opacity-100 z-20 rounded-full"
+        >
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </button>
       </section>
 
       {/* 2. 辅助色 */}
@@ -198,7 +261,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                                 <span className="w-12 text-white/40">To:</span> <span className="text-white font-bold">{color.to}</span>
                             </div>
                             <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40">Type:</span> <span className="text-white font-bold">{color.type}</span>
+                                <span className="w-12 text-white/40 text-white font-bold">Type:</span> <span className="text-white font-bold">{color.type}</span>
                             </div>
                             <div className="flex gap-8 py-1">
                                 <span className="w-12 text-white/40">Angle:</span> <span className="text-white font-bold">{color.angle}</span>
@@ -267,6 +330,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
               { id: '4', ratio: '8.42:1', color: '#7881FF', status: 'Pass (AAA)', name: 'Blue 300' }
             ].map((item) => {
               const isFail = item.status.includes('Fail');
+              const isRecommended = item.id === '4';
               return (
                 <div 
                   key={item.id} 
@@ -294,6 +358,12 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                     </div>
                   </div>
                   
+                  {isRecommended && (
+                    <div className="absolute bottom-0 left-0 right-0 bg-[#3643FF] py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-center z-20">
+                      <span className="text-[10px] font-bold text-white uppercase tracking-widest">{t.bestPractice}</span>
+                    </div>
+                  )}
+                  
                   <div 
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                       style={{ background: `radial-gradient(circle at center, ${item.color}15 0%, transparent 70%)` }}
@@ -305,7 +375,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         </div>
       </section>
 
-      {/* 4. Related product design sections */}
+      {/* 4. Related Specs Section */}
       <section className="fade-in" style={{ animationDelay: '0.3s' }}>
         <div className="flex flex-col gap-4 mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.related}</h2>

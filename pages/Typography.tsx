@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Language, translations } from '../translations';
 
@@ -9,6 +9,10 @@ interface TypographyProps {
 const Typography: React.FC<TypographyProps> = ({ language }) => {
   const t = translations[language].typography;
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   const exhibitionItems = [
     { id: '01', w: 'w-[656px]' },
@@ -19,6 +23,40 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
     { id: '06', w: 'w-[604px]' },
     { id: '07', w: 'w-[635px]' }
   ];
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
+    const walk = (x - startX) * 2;
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollLeft - walk;
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 400;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -42,7 +80,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
   ];
 
   return (
-    <div className="max-w-full text-white space-y-32 pb-32">
+    <div className="max-w-full text-white space-y-32 pb-32 overflow-x-visible">
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
         <h1 className="text-[100px] lg:text-[120px] font-heading leading-none tracking-tight">
           {t.title}
@@ -110,22 +148,47 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
       </div>
 
       {/* 案例展示 Section */}
-      <section className="fade-in pt-12" style={{ animationDelay: '0.2s' }}>
-        <div className="flex gap-8 overflow-x-auto pb-12 -mx-4 px-4 no-scrollbar items-start">
+      <section className="fade-in pt-12 relative group/section overflow-visible" style={{ animationDelay: '0.2s' }}>
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto pb-12 -mx-6 md:-mx-12 lg:-mx-20 px-6 md:px-12 lg:px-20 no-scrollbar items-start cursor-grab active:cursor-grabbing scroll-smooth snap-x snap-mandatory"
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+        >
           {exhibitionItems.map((item, index) => (
             <div 
               key={item.id} 
-              className={`flex-shrink-0 ${item.w} bg-neutral-900 cursor-zoom-in`}
-              onClick={() => setSelectedIndex(index)}
+              className={`flex-shrink-0 ${item.w} cursor-zoom-in snap-start`}
+              onClick={() => !isDragging && setSelectedIndex(index)}
             >
               <img 
                 src={`/typography/${item.id}.png`} 
                 alt={`Typography Case ${item.id}`} 
-                className="w-full h-auto block"
+                className="w-full h-auto block select-none pointer-events-none"
               />
             </div>
           ))}
         </div>
+
+        {/* Navigation Arrows - Sides, Hover Only, Subtle Background */}
+        <button 
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/15 backdrop-blur-md text-white/40 hover:text-white transition-all opacity-0 group-hover/section:opacity-100 z-20 rounded-full"
+        >
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button 
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/15 backdrop-blur-md text-white/40 hover:text-white transition-all opacity-0 group-hover/section:opacity-100 z-20 rounded-full"
+        >
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </button>
       </section>
 
       {/* Lightbox Modal */}

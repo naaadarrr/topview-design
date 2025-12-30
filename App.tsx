@@ -73,7 +73,7 @@ const App: React.FC = () => {
 
   // Content Pages - With Sidebar
   return (
-    <div className="h-screen flex flex-col lg:flex-row bg-[#111111] text-white fade-in relative overflow-hidden">
+    <div className="h-screen flex flex-col lg:flex-row bg-[#111111] text-white fade-in relative">
       <Sidebar 
         activeId={activeSection} 
         onNavigate={handleNavigate} 
@@ -84,7 +84,7 @@ const App: React.FC = () => {
       
       <main 
         ref={mainRef}
-        className="flex-1 lg:ml-72 px-6 md:px-12 lg:px-20 py-12 md:py-24 overflow-y-auto bg-[#111111]"
+        className="flex-1 lg:ml-72 px-6 md:px-12 lg:px-20 py-12 md:py-24 overflow-y-auto overflow-x-hidden bg-[#111111]"
       >
         <div className="max-w-7xl mx-auto">
             {renderContent()}
