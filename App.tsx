@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Logos from './pages/Logos';
@@ -7,12 +6,14 @@ import Typography from './pages/Typography';
 import Motion from './pages/Motion';
 import Splash from './components/Splash';
 import Landing from './components/Landing';
+import { Language } from './translations';
 
 type ViewState = 'splash' | 'catalog' | 'content';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('splash');
   const [activeSection, setActiveSection] = useState('logo');
+  const [language, setLanguage] = useState<Language>('en');
   const mainRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -49,23 +50,37 @@ const App: React.FC = () => {
     return <Splash />;
   }
 
+  // Catalog / Landing Page - No Sidebar
   if (view === 'catalog') {
-    return <Landing onSelect={handleNavigate} />;
+    return (
+      <Landing 
+        onSelect={handleNavigate} 
+        language={language} 
+        onLanguageChange={setLanguage}
+      />
+    );
   }
 
   const renderContent = () => {
     switch (activeSection) {
-      case 'logo': return <Logos />;
-      case 'colors': return <Colors />;
-      case 'typography': return <Typography />;
-      case 'motion': return <Motion />;
-      default: return <Logos />;
+      case 'logo': return <Logos language={language} />;
+      case 'colors': return <Colors language={language} />;
+      case 'typography': return <Typography language={language} />;
+      case 'motion': return <Motion language={language} />;
+      default: return <Logos language={language} />;
     }
   };
 
+  // Content Pages - With Sidebar
   return (
     <div className="h-screen flex flex-col lg:flex-row bg-[#111111] text-white fade-in relative overflow-hidden">
-      <Sidebar activeId={activeSection} onNavigate={handleNavigate} onLogoClick={goHome} />
+      <Sidebar 
+        activeId={activeSection} 
+        onNavigate={handleNavigate} 
+        onLogoClick={goHome} 
+        language={language}
+        onLanguageChange={setLanguage}
+      />
       
       <main 
         ref={mainRef}

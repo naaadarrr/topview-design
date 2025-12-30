@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { Language, translations } from '../translations';
 
-const Typography: React.FC = () => {
+interface TypographyProps {
+  language: Language;
+}
+
+const Typography: React.FC<TypographyProps> = ({ language }) => {
+  const t = translations[language].typography;
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const exhibitionItems = [
@@ -39,10 +45,10 @@ const Typography: React.FC = () => {
     <div className="max-w-full text-white space-y-32 pb-32">
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
         <h1 className="text-[100px] lg:text-[120px] font-heading leading-none tracking-tight">
-          Typography
+          {t.title}
         </h1>
         <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
-          We use Outfit for high-impact branding and Inter for functional product interfaces.
+          {t.desc}
         </p>
       </div>
 
@@ -51,16 +57,16 @@ const Typography: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="p-12 rounded-[10px] bg-neutral-900 border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">Brand & Marketing</span>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">{t.brandMarketing}</span>
               <p className="text-8xl font-outfit font-black tracking-tighter">Outfit</p>
             </div>
             <div>
-              <p className="font-sans font-bold text-white/40 text-sm mb-8 uppercase tracking-widest">Weights: 400, 500, 600, 700, 800, 900</p>
+              <p className="font-sans font-bold text-white/40 text-sm mb-8 uppercase tracking-widest">{t.weights}: 400, 500, 600, 700, 800, 900</p>
               <button 
                 onClick={() => window.open('https://fonts.google.com/specimen/Outfit', '_blank')}
                 className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#3643FF] hover:text-white transition-all duration-300"
               >
-                Download on Google Fonts
+                {t.downloadGoogleFonts}
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
             </div>
@@ -68,16 +74,16 @@ const Typography: React.FC = () => {
 
           <div className="p-12 rounded-[10px] bg-neutral-900 border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">Product & UI</span>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">{t.productUI}</span>
               <p className="text-8xl font-inter font-bold tracking-tight">Inter</p>
             </div>
             <div>
-              <p className="font-sans font-bold text-white/40 text-sm mb-8 uppercase tracking-widest">Weights: 300, 400, 500, 600, 700</p>
+              <p className="font-sans font-bold text-white/40 text-sm mb-8 uppercase tracking-widest">{t.weights}: 300, 400, 500, 600, 700</p>
               <button 
                 onClick={() => window.open('https://fonts.google.com/specimen/Inter', '_blank')}
                 className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#3643FF] hover:text-white transition-all duration-300"
               >
-                Download on Google Fonts
+                {t.downloadGoogleFonts}
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
             </div>

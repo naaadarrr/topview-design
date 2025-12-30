@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { TOPVIEW_BLUE_SCALE } from '../constants';
+import { Language, translations } from '../translations';
 
-const Colors: React.FC = () => {
+interface ColorsProps {
+  language: Language;
+}
+
+const Colors: React.FC<ColorsProps> = ({ language }) => {
+  const t = translations[language].colors;
   const [copied, setCopied] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -73,10 +79,10 @@ const Colors: React.FC = () => {
       <section className="fade-in">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
           <h1 className="text-[100px] lg:text-[120px] font-heading leading-none tracking-tight">
-            Color
+            {t.title}
           </h1>
           <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
-            Our brand color palette is centered around TopView Blue. We leverage high-vibrancy blues and sophisticated transparencies to create depth in our AI interfaces.
+            {t.desc}
           </p>
         </div>
 
@@ -167,9 +173,9 @@ const Colors: React.FC = () => {
       {/* 2. 辅助色 */}
       <section className="fade-in" style={{ animationDelay: '0.1s' }}>
         <div className="flex flex-col gap-4 mb-16">
-            <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">Supporting colors</h2>
+            <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.supporting}</h2>
             <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
-                Black and white provide balance to TopView Blue, helping maintain visual clarity and avoid overuse of our signature color. The Blue Sky Gradient adds depth and movement.
+                {t.supportingDesc}
             </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -223,9 +229,9 @@ const Colors: React.FC = () => {
       {/* 3. Accessibility */}
       <section className="fade-in" style={{ animationDelay: '0.2s' }}>
         <div className="flex flex-col gap-4 mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">Accessibility</h2>
+          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.accessibility}</h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
-            Good accessibility starts with legible text. In digital design, this means ensuring strong contrast between text and background colors.
+            {t.accessibilityDesc}
           </p>
         </div>
 
@@ -252,7 +258,7 @@ const Colors: React.FC = () => {
 
         {/* Dark Background Contrast Subsection */}
         <div className="mt-32">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-10 font-sans">Dark Background Contrast (WCAG)</h3>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-10 font-sans">{language === 'zh' ? '暗色背景对比度 (WCAG)' : 'Dark Background Contrast (WCAG)'}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {[
               { id: '8', ratio: '3.13:1', color: 'var(--topview-blue)', status: 'Fail (Small Text)', name: 'Blue 600' },
@@ -302,16 +308,16 @@ const Colors: React.FC = () => {
       {/* 4. Related product design sections */}
       <section className="fade-in" style={{ animationDelay: '0.3s' }}>
         <div className="flex flex-col gap-4 mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">Related product design sections</h2>
+          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.related}</h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white font-normal">
-            Additional resources and guidelines for integrating our color system into product interfaces.
+            {language === 'zh' ? '将我们的颜色系统集成到产品界面的其他资源和指南。' : 'Additional resources and guidelines for integrating our color system into product interfaces.'}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Color Tokens Card */}
             <div className="group relative bg-neutral-900 border border-white/5 rounded-[10px] p-8 transition-all duration-500 overflow-hidden hover:bg-neutral-800">
                 <div className="absolute top-6 right-6 px-3 py-1 bg-white/5 backdrop-blur-md rounded-full z-10">
-                    <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Coming soon</span>
+                    <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">{t.comingSoon}</span>
                 </div>
                 <div className="aspect-video bg-[#111111] border border-white/5 rounded-[10px] mb-8 flex items-center justify-center p-12">
                     <div className="flex items-center gap-6 transition-transform group-hover:scale-105">
@@ -326,8 +332,8 @@ const Colors: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <h4 className="text-xl font-bold mb-2 font-sans group-hover:text-[#3643FF] transition-colors text-white">Color tokens</h4>
-                <p className="text-sm text-neutral-500 font-sans">Guidelines on how we structure colors in our design system.</p>
+                <h4 className="text-xl font-bold mb-2 font-sans group-hover:text-[#3643FF] transition-colors text-white">{t.colorTokens}</h4>
+                <p className="text-sm text-neutral-500 font-sans">{t.colorTokensDesc}</p>
             </div>
         </div>
       </section>
