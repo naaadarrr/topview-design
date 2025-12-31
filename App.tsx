@@ -17,6 +17,13 @@ const App: React.FC = () => {
   const mainRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // Reset scroll to top whenever the section or view changes
+    if (mainRef.current) {
+      mainRef.current.scrollTop = 0;
+    }
+  }, [activeSection, view]);
+
+  useEffect(() => {
     // Splash screen timer
     const timer = setTimeout(() => {
       // Force loading catalog page on fresh entry/refresh as requested
@@ -30,11 +37,6 @@ const App: React.FC = () => {
     setActiveSection(id);
     window.location.hash = id;
     setView('content');
-    
-    // Scroll the main content area to top
-    if (mainRef.current) {
-      mainRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
   };
 
   const goHome = () => {
@@ -69,7 +71,7 @@ const App: React.FC = () => {
 
   // Content Pages - With Sidebar and Fixed Header
   return (
-    <div className="h-screen flex flex-col bg-[#111111] text-white fade-in relative">
+    <div className="h-screen flex flex-col bg-[#111111] text-white relative">
       {/* Unified Fixed Top Header - 80px */}
       <header className="fixed top-0 left-0 right-0 h-[80px] bg-[#111111]/80 backdrop-blur-xl z-[100] border-b border-white/10 flex items-center justify-between px-10">
         <div 

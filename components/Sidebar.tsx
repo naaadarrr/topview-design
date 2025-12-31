@@ -35,10 +35,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             <button
               key={item.id}
               onClick={() => onNavigate(item.id)}
-              className={`w-full text-left px-0 py-1 text-[24px] leading-[32px] transition-all duration-300 ${
+              className={`w-full text-left px-0 py-1 text-[24px] font-heading leading-[32px] ${
                 activeId === item.id 
                   ? 'bg-gradient-to-r from-[#7881FF] to-[#C1C5FF] bg-clip-text text-transparent font-medium' 
-                  : 'text-neutral-500 hover:text-white'
+                  : 'text-neutral-500'
               }`}
             >
               {getLabel(item.id)}
