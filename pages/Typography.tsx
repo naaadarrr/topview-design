@@ -96,15 +96,24 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
     }
   };
 
-  const weightHierarchy = [
-    { left: { label: 'Extralight', weight: 'font-extralight' }, right: { label: 'Semibold', weight: 'font-semibold' } },
-    { left: { label: 'Light', weight: 'font-light' }, right: { label: 'Bold', weight: 'font-bold' } },
-    { left: { label: 'Regular', weight: 'font-normal' }, right: { label: 'Black', weight: 'font-black' } },
-    { left: { label: 'Medium', weight: 'font-medium' }, right: { label: 'Extrablack', weight: 'font-black' } },
+  const textStyles = [
+    { id: '2xs', size: '10px', line: '14px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: 'xs', size: '12px', line: '16px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: 'sm', size: '14px', line: '20px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: 'md', size: '16px', line: '24px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: 'lg', size: '18px', line: '28px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: 'xl', size: '20px', line: '30px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: '2xl', size: '24px', line: '32px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: '3xl', size: '30px', line: '38px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: '4xl', size: '36px', line: '44px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: '5xl', size: '48px', line: '60px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: '6xl', size: '60px', line: '72px', sample: 'Create Any Video, Just Tell Your Agent' },
+    { id: '7xl', size: '72px', line: '92px', sample: 'Create Any Video, Just Tell Your Agent' },
   ];
 
   return (
-    <div className="max-w-full text-white space-y-32 pb-32 overflow-x-visible">
+    <div className="max-w-full text-white space-y-48 pb-32 overflow-x-visible">
+      {/* 1. Header */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
         <h1 className="text-[100px] lg:text-[120px] font-heading leading-none tracking-tight">
           {t.title}
@@ -114,10 +123,10 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
         </p>
       </div>
 
+      {/* 2. Fonts Section */}
       <div className="space-y-24 fade-in" style={{ animationDelay: '0.1s' }}>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="p-12 rounded-[10px] bg-neutral-900 border border-white/5 h-[400px] flex flex-col justify-between">
+          <div className="p-12 rounded-[10px] bg-[#222222] border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">{t.brandMarketing}</span>
               <p className="text-8xl font-outfit font-black tracking-tighter">Outfit</p>
@@ -134,7 +143,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
             </div>
           </div>
 
-          <div className="p-12 rounded-[10px] bg-neutral-900 border border-white/5 h-[400px] flex flex-col justify-between">
+          <div className="p-12 rounded-[10px] bg-[#222222] border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">{t.productUI}</span>
               <p className="text-8xl font-inter font-bold tracking-tight">Inter</p>
@@ -151,27 +160,35 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
             </div>
           </div>
         </div>
-
-        {/* Font Weight Hierarchy Section */}
-        <section className="pt-12">
-          <div className="bg-black border border-white/5 rounded-[10px] overflow-hidden">
-            <div className="flex flex-col">
-              {weightHierarchy.map((row, idx) => (
-                <div key={idx} className="grid grid-cols-2 border-b border-white/10 last:border-0">
-                  <div className={`p-8 md:p-12 ${row.left.weight} font-outfit text-[32px] tracking-tight text-white border-r border-white/10`}>
-                    {row.left.label}
-                  </div>
-                  <div className={`p-8 md:p-12 ${row.right.weight} font-outfit text-[32px] tracking-tight text-white`}>
-                    {row.right.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
       </div>
 
-      {/* 案例展示 Section */}
+      {/* 3. Text Styles (Chakra UI Inspired) */}
+      <section className="fade-in pt-12" style={{ animationDelay: '0.15s' }}>
+        <div className="flex flex-col gap-4 mb-16">
+          <h2 className="text-[44px] md:text-[56px] font-heading tracking-tight">Text Styles</h2>
+          <p className="text-sm text-white/40 font-sans">Hierarchical scale inspired by industry standards.</p>
+        </div>
+        
+        <div className="space-y-12">
+          {textStyles.map((style) => (
+            <div key={style.id} className="group border-b border-white/5 pb-8 last:border-0">
+              <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4 mb-4">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
+                  textStyle: {style.id} — {style.size} / {style.line}
+                </span>
+              </div>
+              <p 
+                className="font-inter font-medium tracking-tight text-white"
+                style={{ fontSize: style.size, lineHeight: style.line }}
+              >
+                {style.sample}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. Exhibition Section */}
       <section className="fade-in pt-12 relative group/section overflow-visible" style={{ animationDelay: '0.2s' }}>
         <div 
           ref={scrollRef}
@@ -196,10 +213,9 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
           ))}
         </div>
 
-        {/* Navigation Arrows - Sides, Hover Only, Distinct Background */}
         <button 
           onClick={() => scroll('left')}
-          className={`absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-black/20 hover:bg-black/40 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollLeft ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
+          className={`absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/20 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollLeft ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
         >
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M15 18l-6-6 6-6" />
@@ -207,7 +223,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
         </button>
         <button 
           onClick={() => scroll('right')}
-          className={`absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-black/20 hover:bg-black/40 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollRight ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
+          className={`absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/20 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollRight ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
         >
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M9 6l6 6-6 6" />

@@ -169,7 +169,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
           </div>
 
           <div className="flex flex-col items-start gap-12">
-            <div className="text-white font-sans text-[10px] leading-loose uppercase tracking-[0.15em] font-medium space-y-1 transition-all">
+            <div className="text-white font-sans text-[10px] leading-loose uppercase tracking-[0.15em] font-medium space-y-1">
               <div className="flex gap-8">
                 <span className="w-12 inline-block text-white/50">NAME:</span> <span className="font-bold">{primaryColor.name}</span>
               </div>
@@ -241,7 +241,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         {/* Navigation Arrows - Sides, Hover Only, Distinct Background */}
         <button 
           onClick={() => scroll('left')}
-          className={`absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-black/20 hover:bg-black/40 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollLeft ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
+          className={`absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/20 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollLeft ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
         >
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M15 18l-6-6 6-6" />
@@ -249,7 +249,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         </button>
         <button 
           onClick={() => scroll('right')}
-          className={`absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-black/20 hover:bg-black/40 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollRight ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
+          className={`absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/20 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollRight ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
         >
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M9 6l6 6-6 6" />
@@ -397,6 +397,120 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             })}
           </div>
         </div>
+
+        {/* Incorrect Examples Section */}
+        <div className="mt-48">
+          <div className="flex flex-col gap-4 mb-16">
+            <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.incorrect}</h2>
+            <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
+              {t.incorrectDesc}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Color Usage Card */}
+            <div className="bg-white/5 rounded-[12px] p-8">
+              <div className="bg-[#222222] rounded-[8px] aspect-video flex items-center justify-center p-8 mb-8 border border-white/5">
+                <div className="flex gap-4">
+                  {/* Correct */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-16 h-24 bg-[#3643FF] rounded-sm relative">
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3643FF" strokeWidth="4">
+                          <path d="M20 6L9 17L4 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Incorrect 1 */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-16 h-24 bg-[#4E40F3] rounded-sm relative">
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 z-10">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
+                          <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Incorrect 2 */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-16 h-24 bg-[#6255FF] rounded-sm relative">
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 z-10">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
+                          <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h4 className="text-xl font-bold mb-2 font-sans transition-colors">{language === 'zh' ? '不要替代品牌蓝' : "Don't substitute Brand Blue"}</h4>
+              <p className="text-sm text-white/40 font-sans leading-relaxed">{language === 'zh' ? '始终使用提供的 Topview Blue，除非有特定的 UI 或无障碍需求。' : 'Always use the provided Topview Blue unless you have a specific UI or accessibility need.'}</p>
+            </div>
+
+            {/* Gradient Usage Card */}
+            <div className="bg-white/5 rounded-[12px] p-8">
+              <div className="bg-[#222222] rounded-[8px] aspect-video flex items-center justify-center p-8 mb-8 border border-white/5">
+                <div className="flex gap-4">
+                  {/* Correct Gradient 1 */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div 
+                      className="w-16 h-24 rounded-sm relative"
+                      style={{ background: 'linear-gradient(180deg, #3341FF 0%, #81A2FC 100%)' }}
+                    >
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3643FF" strokeWidth="4">
+                          <path d="M20 6L9 17L4 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Correct Gradient 2 */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div 
+                      className="w-16 h-24 rounded-sm relative"
+                      style={{ background: 'linear-gradient(90deg, #7881FF 0.04%, #C1C5FF 99.93%)' }}
+                    >
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3643FF" strokeWidth="4">
+                          <path d="M20 6L9 17L4 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Incorrect Gradient 1 */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div 
+                      className="w-16 h-24 rounded-sm relative"
+                      style={{ background: 'linear-gradient(83.305deg, rgb(30, 52, 255) 1.5249%, rgb(48, 213, 229) 44.341%, rgb(223, 224, 255) 68.597%, rgb(229, 59, 229) 97.781%)' }}
+                    >
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 z-10">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
+                          <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Incorrect Gradient 2 */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div 
+                      className="w-16 h-24 rounded-sm relative"
+                      style={{ background: 'linear-gradient(90deg, #5943F5 11.11%, #89FCC1 47.91%, #BB5BFF 81.55%), linear-gradient(77deg, #1E34FF 1.52%, #30D5E5 44.34%, #DFE0FF 68.6%, #E53BE5 97.78%)' }}
+                    >
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 z-10">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
+                          <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h4 className="text-xl font-bold mb-2 font-sans transition-colors">{language === 'zh' ? '避免浑浊或复杂的渐变' : "Don't make muddy gradients"}</h4>
+              <p className="text-sm text-white/40 font-sans leading-relaxed">{language === 'zh' ? '渐变应保持明亮。如果使用渐变，请确保在起始色和结束色之间不会变成灰色或紫色。' : 'Gradients should be bright. If you are using gradients, make sure they do not turn muddy or grey in between.'}</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* 4. Related Specs Section */}
@@ -409,7 +523,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Color Tokens Card */}
-            <div className="group relative bg-neutral-900 border border-white/5 rounded-[10px] p-8 transition-all duration-500 overflow-hidden hover:bg-neutral-800">
+            <div className="group relative bg-[#222222] border border-white/5 rounded-[10px] p-8 transition-all duration-500 overflow-hidden hover:bg-neutral-800">
                 <div className="absolute top-6 right-6 px-3 py-1 bg-white/5 backdrop-blur-md rounded-full z-10">
                     <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">{t.comingSoon}</span>
                 </div>
@@ -426,7 +540,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                         </div>
                     </div>
                 </div>
-                <h4 className="text-xl font-bold mb-2 font-sans group-hover:text-[#3643FF] transition-colors text-white">{t.colorTokens}</h4>
+                <h4 className="text-xl font-bold mb-2 font-sans group-hover:bg-gradient-to-r group-hover:from-[#7881FF] group-hover:to-[#C1C5FF] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 text-white">{t.colorTokens}</h4>
                 <p className="text-sm text-neutral-500 font-sans">{t.colorTokensDesc}</p>
             </div>
         </div>

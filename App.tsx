@@ -67,30 +67,20 @@ const App: React.FC = () => {
     }
   };
 
-  // Content Pages - With Sidebar
+  // Content Pages - With Sidebar and Fixed Header
   return (
-    <div className="h-screen flex flex-col lg:flex-row bg-[#111111] text-white fade-in relative">
-      <Sidebar 
-        activeId={activeSection} 
-        onNavigate={handleNavigate} 
-        onLogoClick={goHome} 
-        language={language}
-        onLanguageChange={setLanguage}
-      />
-      
-      <main 
-        ref={mainRef}
-        className="flex-1 lg:ml-72 flex flex-col overflow-y-auto overflow-x-hidden bg-[#111111]"
-      >
-        {/* Unified Top Header for Content Pages - 88px */}
-        <header className="h-[88px] px-10 md:px-20 flex justify-between items-center flex-shrink-0 z-50 border-b border-white/10">
-          <div className="flex items-center">
-            {/* Breadcrumb or placeholder for logic later if needed */}
-            <span className="text-[11px] font-bold uppercase tracking-widest text-white/20">
-              Topview.design / {activeSection}
-            </span>
-          </div>
+    <div className="h-screen flex flex-col bg-[#111111] text-white fade-in relative">
+      {/* Unified Fixed Top Header - 80px */}
+      <header className="fixed top-0 left-0 right-0 h-[80px] bg-[#111111]/80 backdrop-blur-xl z-[100] border-b border-white/10 flex items-center justify-between px-10">
+        <div 
+          className="flex items-center cursor-pointer h-full" 
+          onClick={goHome}
+          style={{ width: '248px' }} // Sidebar width - padding
+        >
+          <img src="/TopviewDesignLogo.svg" alt="TopView" className="h-10" />
+        </div>
 
+        <div className="flex-1 flex justify-end items-center ml-10">
           <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-widest text-white/40">
             <button 
               onClick={() => setLanguage('en')}
@@ -106,14 +96,28 @@ const App: React.FC = () => {
               中
             </button>
           </div>
-        </header>
-
-        <div className="flex-1 px-10 md:px-20 py-12 md:py-16">
-          <div className="max-w-7xl mx-auto">
-            {renderContent()}
-          </div>
         </div>
-      </main>
+      </header>
+
+      <div className="flex flex-1 pt-[80px]">
+        <Sidebar 
+          activeId={activeSection} 
+          onNavigate={handleNavigate} 
+          language={language}
+          onLanguageChange={setLanguage}
+        />
+        
+        <main 
+          ref={mainRef}
+          className="flex-1 lg:ml-72 flex flex-col overflow-y-auto overflow-x-hidden"
+        >
+          <div className="flex-1 px-10 md:px-20 py-16 md:py-24">
+            <div className="max-w-7xl mx-auto">
+              {renderContent()}
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 };

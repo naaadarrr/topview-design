@@ -18,7 +18,7 @@ const Introduction: React.FC = () => {
             <h3 className="text-5xl font-heading tracking-tight mb-4 text-white">Infinite Scale.</h3>
             <p className="text-white font-sans text-lg max-w-xs opacity-90">Dynamic tokens designed for multi-modal AI interactions.</p>
         </div>
-        <div className="bg-neutral-900 rounded-[10px] p-16 aspect-[4/3] flex flex-col justify-end group cursor-pointer transition-transform duration-500 hover:scale-[1.01]">
+        <div className="bg-[#222222] rounded-[10px] p-16 aspect-[4/3] flex flex-col justify-end group cursor-pointer transition-transform duration-500 hover:scale-[1.01]">
             <h3 className="text-5xl font-heading tracking-tight mb-4 text-[#3643FF]">Pure Logic.</h3>
             <p className="text-white font-sans text-lg max-w-xs opacity-70">Deterministic design patterns for machine-augmented creativity.</p>
         </div>
