@@ -186,6 +186,16 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
             </div>
           ))}
         </div>
+
+        <div className="mt-20">
+          <button 
+            onClick={() => window.open('https://chakra-ui.com/docs/theming/typography', '_blank')}
+            className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#3643FF] hover:text-white transition-all duration-300"
+          >
+            Chakra UI Typography
+            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+          </button>
+        </div>
       </section>
 
       {/* 4. Exhibition Section */}

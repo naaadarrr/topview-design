@@ -49,19 +49,7 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
           <div className="group bg-white/5 hover:bg-white/10 transition-all duration-500 rounded-[12px] p-6 md:p-8 w-fit max-w-full overflow-hidden">
             <div className="bg-black rounded-[8px] flex items-center justify-center p-6 md:p-12 mb-8 border border-white/5 w-fit">
               <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center justify-center">
-                {/* Incorrect Example (item2.png) */}
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-64 md:w-80 lg:w-[400px] aspect-square rounded-sm relative">
-                    <img src="/motion/item2.png" alt="Incorrect Motion" className="w-full h-full object-contain rounded-sm" />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 z-10">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                        <path d="M18 6L6 18M6 6l12 12" />
-                      </svg>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">Avoid Outlines</span>
-                </div>
-                {/* Correct Example (item1.png) */}
+                {/* Correct Example (item1.png - No Outline) */}
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-64 md:w-80 lg:w-[400px] aspect-square rounded-sm relative group/item">
                     <img src="/motion/item1.png" alt="Correct Motion" className="w-full h-full object-contain rounded-sm" />
@@ -72,6 +60,18 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
                     </div>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">Correct Alignment</span>
+                </div>
+                {/* Incorrect Example (item2.png - With Outline) */}
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-64 md:w-80 lg:w-[400px] aspect-square rounded-sm relative">
+                    <img src="/motion/item2.png" alt="Incorrect Motion" className="w-full h-full object-contain rounded-sm" />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 z-10">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">Avoid Outlines</span>
                 </div>
               </div>
             </div>

@@ -138,7 +138,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
   return (
     <div className="max-w-full text-white space-y-48 pb-40 overflow-x-visible">
       {/* 1. 主题色介绍 */}
-      <section className="fade-in">
+      <section>
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
           <h1 className="text-[100px] lg:text-[120px] font-heading leading-none tracking-tight">
             {t.title}
@@ -149,8 +149,8 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         </div>
 
         <div 
-          className="group relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[10px] p-4 flex flex-col justify-end transition-all duration-700 overflow-hidden hover:brightness-110 cursor-none"
-          style={{ backgroundColor: primaryColor.hex }}
+          className="group relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[10px] p-4 flex flex-col justify-end overflow-hidden hover:brightness-110 cursor-none"
+          style={{ backgroundColor: primaryColor.hex, transition: 'filter 0.7s ease' }}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
