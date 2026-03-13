@@ -6,7 +6,7 @@ const Splash: React.FC = () => {
     <div className="fixed inset-0 bg-[#111111] z-[100] flex items-center justify-center overflow-hidden">
       <div className="relative flex items-center justify-center">
         <div className="w-24 h-24 animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]">
-          <img src="/TopviewDesignLogo.svg" alt="TopView Logo" className="w-full h-full" />
+          <img src="/logo/Topview_Logo_New_RGB/SVG/Symbol_White.svg" alt="TopView Logo" className="w-full h-full" />
         </div>
       </div>
       

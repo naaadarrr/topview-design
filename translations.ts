@@ -7,6 +7,7 @@ export const translations = {
       colors: "Color",
       typography: "Typography",
       motion: "Motion",
+      components: "Components",
       language: "Language"
     },
     landing: {
@@ -14,7 +15,11 @@ export const translations = {
       logo: "Logo",
       colors: "Color",
       typography: "Typography",
-      motion: "Motion"
+      motion: "Motion",
+      components: "Components"
+    },
+    components: {
+      button: "Button"
     },
     logos: {
       title: "Logo",
@@ -66,6 +71,7 @@ export const translations = {
       colors: "颜色",
       typography: "字体",
       motion: "动效",
+      components: "组件",
       language: "语言"
     },
     landing: {
@@ -73,7 +79,11 @@ export const translations = {
       logo: "标志",
       colors: "颜色",
       typography: "字体",
-      motion: "动效"
+      motion: "动效",
+      components: "组件"
+    },
+    components: {
+      button: "按钮"
     },
     logos: {
       title: "标志",

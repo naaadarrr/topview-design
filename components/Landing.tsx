@@ -15,6 +15,7 @@ const Landing: React.FC<LandingProps> = ({ onSelect, language, onLanguageChange 
     { id: 'colors', label: t.colors },
     { id: 'typography', label: t.typography },
     { id: 'motion', label: t.motion },
+    { id: 'landing-modules', label: t.landingModules },
   ];
 
   return (
@@ -22,7 +23,7 @@ const Landing: React.FC<LandingProps> = ({ onSelect, language, onLanguageChange 
       {/* Top Header - Standard 80px */}
       <header className="h-[80px] px-10 flex justify-between items-center relative flex-shrink-0 border-b border-black/5">
         <div className="flex items-center">
-           <img src="/TopviewDesignLogo.svg" alt="TopView.AI" className="h-10 invert" />
+           <img src="/logo/Topview_Logo_New_RGB/SVG/Horizontal_Black.svg" alt="TopView.AI" className="h-10" />
         </div>
 
         {/* Language Switcher */}

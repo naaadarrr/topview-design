@@ -4,6 +4,7 @@ import Logos from './pages/Logos';
 import Colors from './pages/Colors';
 import Typography from './pages/Typography';
 import Motion from './pages/Motion';
+import ButtonPage from './pages/Components/Button';
 import Splash from './components/Splash';
 import Landing from './components/Landing';
 import { Language } from './translations';
@@ -65,6 +66,7 @@ const App: React.FC = () => {
       case 'colors': return <Colors language={language} />;
       case 'typography': return <Typography language={language} />;
       case 'motion': return <Motion language={language} />;
+      case 'button': return <ButtonPage language={language} />;
       default: return <Logos language={language} />;
     }
   };
@@ -79,7 +81,7 @@ const App: React.FC = () => {
           onClick={goHome}
           style={{ width: '248px' }} // Sidebar width - padding
         >
-          <img src="/TopviewDesignLogo.svg" alt="TopView" className="h-10" />
+          <img src="/logo/Topview_Logo_New_RGB/SVG/Horizontal_White.svg" alt="TopView" className="h-10" />
         </div>
 
         <div className="flex-1 flex justify-end items-center ml-10">

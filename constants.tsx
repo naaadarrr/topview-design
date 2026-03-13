@@ -97,4 +97,51 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'colors', label: 'Color', path: '/colors' },
   { id: 'typography', label: 'Typography', path: '/typography' },
   { id: 'motion', label: 'Motion', path: '/motion' },
+  { 
+    id: 'components', 
+    label: 'Components', 
+    path: '/components',
+    children: [
+      { id: 'button', label: 'Button', path: '/components/button' }
+    ]
+  },
+];
+
+export const LANDING_MODULES: import('./types').LandingModule[] = [
+  // How to Series
+  {
+    id: 'how-to-01',
+    title: 'How It Works (3 Steps)',
+    category: 'how-to',
+    thumbnail: '/landing/how-to-01.png', // Needs screenshot
+    figmaNodeId: '6867:23533',
+    figmaUrl: 'https://www.figma.com/design/nVMnG7HHhuaDazIbIRDevj/%E5%AE%98%E7%BD%91-Website?node-id=6867-23533&m=dev',
+    componentName: 'HowToStep1'
+  },
+  {
+    id: 'how-to-02',
+    title: 'How it works - Step 02',
+    category: 'how-to',
+    thumbnail: '/landing/how-to-02.png',
+    figmaNodeId: '123:457',
+    figmaUrl: 'https://www.figma.com/design/your-file-id?node-id=123:457'
+  },
+  // Why use TopView
+  {
+    id: 'why-use-01',
+    title: 'Value Proposition 01',
+    category: 'why-use',
+    thumbnail: '/landing/why-use-01.png',
+    figmaNodeId: '123:458',
+    figmaUrl: 'https://www.figma.com/design/your-file-id?node-id=123:458'
+  },
+  // Features
+  {
+    id: 'feature-01',
+    title: 'Feature Showcase 01',
+    category: 'features',
+    thumbnail: '/landing/feature-01.png',
+    figmaNodeId: '123:459',
+    figmaUrl: 'https://www.figma.com/design/your-file-id?node-id=123:459'
+  }
 ];

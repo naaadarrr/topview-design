@@ -18,12 +18,19 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
     document.body.removeChild(link);
   };
 
+  const svgToPngPath = (svgPath: string) => svgPath.replace('/SVG/', '/PNG/').replace('.svg', '.png');
+
   const handleDownloadAll = () => {
     const logos = [
-      { path: '/logo/Type=Horizontal black.svg', name: 'TopView-Horizontal-Black.svg' },
-      { path: '/logo/Type=Horizontal white.svg', name: 'TopView-Horizontal-White.svg' },
-      { path: '/logo/Type=Vertical black.svg', name: 'TopView-Vertical-Black.svg' },
-      { path: '/logo/Type=Vertical white.svg', name: 'TopView-Vertical-White.svg' }
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Horizontal_Black.svg', name: 'TopView-Horizontal-Black.svg' },
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Horizontal_White.svg', name: 'TopView-Horizontal-White.svg' },
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Horizontal_Blue.svg', name: 'TopView-Horizontal-Blue.svg' },
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Vertical_Black.svg', name: 'TopView-Vertical-Black.svg' },
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Vertical_White.svg', name: 'TopView-Vertical-White.svg' },
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Vertical_Blue.svg', name: 'TopView-Vertical-Blue.svg' },
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Symbol_Black.svg', name: 'TopView-Symbol-Black.svg' },
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Symbol_White.svg', name: 'TopView-Symbol-White.svg' },
+      { path: '/logo/Topview_Logo_New_RGB/SVG/Symbol_Blue.svg', name: 'TopView-Symbol-Blue.svg' }
     ];
 
     logos.forEach((logo, index) => {
@@ -33,21 +40,32 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
     });
   };
 
-  const LogoCard = ({ path, name, dark = false }: { path: string, name: string, dark?: boolean }) => (
-    <div className={`group relative ${dark ? 'bg-[#222222]' : 'bg-neutral-100'} rounded-[10px] p-24 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-inner`}>
-      <img src={path} alt={name} className="h-16 relative z-10" />
-      
-      {/* Hover Download Button - Bottom Left, No Overlay */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-start p-6 z-20">
-        <button 
-          onClick={() => handleDownload(path, name)}
-          className="bg-white text-black px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#3643FF] hover:text-white shadow-2xl"
-        >
-          Download SVG
-        </button>
+  const LogoCard = ({ path, nameBase, dark = false }: { path: string, nameBase: string, dark?: boolean }) => {
+    const pngPath = svgToPngPath(path);
+    const nameSvg = `${nameBase}.svg`;
+    const namePng = `${nameBase}.png`;
+    return (
+      <div className={`group relative ${dark ? 'bg-[#222222]' : 'bg-neutral-100'} rounded-[10px] p-24 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-inner`}>
+        <img src={path} alt={nameBase} className="h-16 relative z-10" />
+        
+        {/* Hover Download Buttons - SVG + PNG */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-start gap-3 p-6 z-20">
+          <button 
+            onClick={() => handleDownload(path, nameSvg)}
+            className="bg-white text-black px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#3643FF] hover:text-white shadow-2xl"
+          >
+            Download SVG
+          </button>
+          <button 
+            onClick={() => handleDownload(pngPath, namePng)}
+            className="bg-white text-black px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#3643FF] hover:text-white shadow-2xl"
+          >
+            Download PNG
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="max-w-full text-white space-y-32">
@@ -64,19 +82,34 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
       <div className="space-y-32 fade-in" style={{ animationDelay: '0.1s' }}>
         <section>
           <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans">Horizontal</h3>
-          <LogoCard path="/logo/Type=Horizontal black.svg" name="TopView-Horizontal-Black.svg" />
+          <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_Black.svg" nameBase="TopView-Horizontal-Black" />
         </section>
 
         <section>
           <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans">Horizontal Reverse</h3>
-          <LogoCard path="/logo/Type=Horizontal white.svg" name="TopView-Horizontal-White.svg" dark />
+          <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_White.svg" nameBase="TopView-Horizontal-White" dark />
+        </section>
+
+        <section>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans">Horizontal Blue</h3>
+          <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_Blue.svg" nameBase="TopView-Horizontal-Blue" />
         </section>
 
         <section>
           <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans">Vertical</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <LogoCard path="/logo/Type=Vertical black.svg" name="TopView-Vertical-Black.svg" />
-            <LogoCard path="/logo/Type=Vertical white.svg" name="TopView-Vertical-White.svg" dark />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_Black.svg" nameBase="TopView-Vertical-Black" />
+            <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_White.svg" nameBase="TopView-Vertical-White" dark />
+            <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_Blue.svg" nameBase="TopView-Vertical-Blue" />
+          </div>
+        </section>
+
+        <section>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans">Symbol</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_Black.svg" nameBase="TopView-Symbol-Black" />
+            <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_White.svg" nameBase="TopView-Symbol-White" dark />
+            <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_Blue.svg" nameBase="TopView-Symbol-Blue" />
           </div>
         </section>
 
