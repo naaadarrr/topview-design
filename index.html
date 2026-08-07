@@ -20,11 +20,17 @@
             --topview-purple: #731DFB;
             --bg-dark: #111111;
         }
+        html, body, #root {
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
         body {
             font-family: 'Instrument Sans', sans-serif;
             background-color: var(--bg-dark);
             color: #ffffff;
             -webkit-font-smoothing: antialiased;
+            margin: 0;
         }
         .font-sans {
             font-family: 'Instrument Sans', sans-serif;

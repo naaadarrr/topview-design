@@ -87,7 +87,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-white relative overflow-hidden">
+    <div className="h-full bg-[#0a0a0c] text-white relative overflow-hidden">
       {/* Catalog / Landing Page - Fixed Overlay, slides up to exit / down to re-enter */}
       {(view === 'catalog' || isCatalogExiting) && (
         <div 
@@ -103,10 +103,10 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Content Pages - Bento modular layout; only main content scrolls */}
-      <div className="h-screen flex flex-col bg-[#0a0a0c] text-white relative overflow-hidden">
+      {/* Content shell locked to viewport — only <main> may scroll */}
+      <div className="fixed inset-0 flex flex-col bg-[#0a0a0c] text-white overflow-hidden">
         {/* Fixed Header Module */}
-        <div className="fixed top-0 left-0 right-0 z-[100] px-4 md:px-6 pt-4">
+        <div className="shrink-0 px-4 md:px-6 pt-4">
           <header className="max-w-[1600px] mx-auto h-[80px] rounded-2xl border border-white/10 flex items-center px-5 md:px-6 bg-[#0a0a0c]">
             <div 
               className="flex items-center cursor-pointer h-full gap-3" 
@@ -124,10 +124,10 @@ const App: React.FC = () => {
           </header>
         </div>
 
-        <div className="flex-1 pt-[112px] pb-4 px-4 md:px-6 max-w-[1600px] w-full mx-auto min-h-0">
-          <div className="items-start lg:grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 md:gap-6 h-full">
+        <div className="flex-1 min-h-0 pb-4 px-4 md:px-6 max-w-[1600px] w-full mx-auto pt-4 overflow-hidden">
+          <div className="items-stretch lg:grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 md:gap-6 h-full min-h-0 overflow-hidden">
             {/* Sidebar Module — fixed, no scroll */}
-            <aside className="hidden lg:block h-[calc(100vh-128px)] shrink-0">
+            <aside className="hidden lg:block h-full min-h-0 shrink-0 overflow-hidden">
               <div className="h-full w-full rounded-2xl border border-white/10 overflow-hidden">
                 <Sidebar 
                   activeId={activeSection} 
@@ -141,7 +141,7 @@ const App: React.FC = () => {
             {/* Content Module — sole scroll container */}
             <main 
               ref={mainRef}
-              className="min-w-0 min-h-0 rounded-2xl border border-white/10 overflow-y-auto h-[calc(100vh-128px)]"
+              className="min-w-0 min-h-0 h-full rounded-2xl border border-white/10 overflow-y-auto overscroll-contain"
             >
               <div className="px-6 py-10 md:px-16 md:py-16">
                 <div className="max-w-6xl mx-auto">
