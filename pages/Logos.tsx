@@ -212,7 +212,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
     <div className="max-w-full text-white space-y-32">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
-        <h1 className="catalog-title text-[24px] leading-[32px] tracking-tight">
+        <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
           {t.title}
         </h1>
         <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">

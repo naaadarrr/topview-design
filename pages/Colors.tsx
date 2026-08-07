@@ -140,7 +140,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
       {/* 1. 主题色介绍 */}
       <section>
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
-          <h1 className="catalog-title text-[24px] leading-[32px] tracking-tight">
+          <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
             {t.title}
           </h1>
           <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">

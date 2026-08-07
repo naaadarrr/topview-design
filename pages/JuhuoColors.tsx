@@ -36,7 +36,7 @@ const JuhuoColors: React.FC<JuhuoColorsProps> = ({ language }) => {
               alt="Juhuo"
               className="h-16 w-16 rounded-2xl object-contain bg-black"
             />
-            <h1 className="catalog-title text-[24px] leading-[32px] tracking-tight">
+            <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
               {t.title}
             </h1>
           </div>

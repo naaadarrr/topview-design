@@ -113,7 +113,7 @@ const VisualStyle: React.FC<VisualStyleProps> = ({ language }) => {
 
         {/* Hero */}
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
-          <h1 className="catalog-title text-[24px] leading-[32px] tracking-tight">
+          <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
             {isZh ? '视觉风格' : 'Visual Style'}
           </h1>
           <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
