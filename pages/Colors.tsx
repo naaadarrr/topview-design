@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { TOPVIEW_BLUE_SCALE } from '../constants';
+import { TOPVIEW_PURPLE_SCALE } from '../constants';
 import { Language, translations } from '../translations';
 
 interface ColorsProps {
@@ -47,11 +47,11 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
   };
 
   const primaryColor = {
-    name: 'TOPVIEW BLUE',
-    cmyk: '79 / 74 / 0 / 0',
-    rgb: '54 / 67 / 255',
-    hex: '#3643FF',
-    pms: '2728 C'
+    name: 'TOPVIEW PURPLE',
+    cmyk: '54 / 88 / 0 / 0',
+    rgb: '115 / 29 / 251',
+    hex: '#731DFB',
+    pms: '—'
   };
 
   const supportingColors = [
@@ -59,18 +59,18 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
     { name: 'White', cmyk: '0/0/0/0', rgb: '255/255/255', hex: '#FFFFFF', pms: 'Bright White C' },
     { 
       name: 'Fill Gradient', 
-      from: '#3341FF', 
-      to: '#81A2FC', 
-      css: 'linear-gradient(180deg, #3341FF 0%, #81A2FC 100%)', 
+      from: '#731DFB', 
+      to: '#A873FF', 
+      css: 'linear-gradient(180deg, #731DFB 0%, #A873FF 100%)', 
       type: 'Linear Gradient', 
       angle: '180deg',
       description: 'Primary fill gradient'
     },
     { 
       name: 'Text Gradient', 
-      from: '#7881FF', 
-      to: '#C1C5FF', 
-      css: 'linear-gradient(90deg, #7881FF 0.04%, #C1C5FF 99.93%)', 
+      from: '#A873FF', 
+      to: '#E2CCFF', 
+      css: 'linear-gradient(90deg, #A873FF 0.04%, #E2CCFF 99.93%)', 
       type: 'Linear Gradient', 
       angle: '90deg',
       description: 'Used for headings and emphasis'
@@ -189,7 +189,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         {/* Color Scale Row */}
         <div className="mt-12">
           <div className="flex w-full h-24 rounded-[10px] overflow-hidden border border-white/5">
-            {TOPVIEW_BLUE_SCALE.map((color) => (
+            {TOPVIEW_PURPLE_SCALE.map((color) => (
               <div 
                 key={color.name}
                 className="flex-1 group relative cursor-pointer hover:z-10"
@@ -323,21 +323,21 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Blue Background */}
-            <div className="bg-[#3643FF] aspect-square rounded-[10px] flex flex-col items-center justify-center gap-6 relative group overflow-hidden">
-                <span className="text-[64px] font-outfit font-medium text-white relative z-10 transition-transform duration-700">Text</span>
+            {/* Purple Background */}
+            <div className="bg-[#731DFB] aspect-square rounded-[10px] flex flex-col items-center justify-center gap-6 relative group overflow-hidden">
+                <span className="text-[64px] font-heading font-medium text-white relative z-10 transition-transform duration-700">Text</span>
                 <span className="text-[10px] font-sans tracking-widest uppercase text-white/60 relative z-10 font-bold">Pass, AAA (7.08:1)</span>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </div>
             {/* Black Background */}
             <div className="bg-[#000000] aspect-square rounded-[10px] border border-white/5 flex flex-col items-center justify-center gap-6 relative group overflow-hidden">
-                <span className="text-[64px] font-outfit font-medium text-[#5E69FF] relative z-10 transition-transform duration-700">Text</span>
+                <span className="text-[64px] font-heading font-medium text-[#8F47FF] relative z-10 transition-transform duration-700">Text</span>
                 <span className="text-[10px] font-sans tracking-widest uppercase text-white/60 relative z-10 font-bold">Pass, AA (4.94:1)</span>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(94,105,255,0.1)_0%,_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </div>
             {/* White Background */}
             <div className="bg-white aspect-square rounded-[10px] border border-white/5 flex flex-col items-center justify-center gap-6 relative group overflow-hidden">
-                <span className="text-[64px] font-outfit font-medium text-[#3643FF] relative z-10 transition-transform duration-700">Text</span>
+                <span className="text-[64px] font-heading font-medium text-[#731DFB] relative z-10 transition-transform duration-700">Text</span>
                 <span className="text-[10px] font-sans tracking-widest uppercase text-black/40 relative z-10 font-bold">Pass, AA (6.16:1)</span>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(54,67,255,0.05)_0%,_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </div>
@@ -348,10 +348,10 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
           <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-10 font-sans">{language === 'zh' ? '暗色背景对比度 (WCAG)' : 'Dark Background Contrast (WCAG)'}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {[
-              { id: '8', ratio: '3.13:1', color: 'var(--topview-blue)', status: 'Fail (Small Text)', name: 'Blue 600' },
-              { id: '7', ratio: '4.94:1', color: '#3643FF', status: 'Pass (AA)', name: 'Blue 500' },
-              { id: '9', ratio: '6.38:1', color: '#5E69FF', status: 'Pass (AA)', name: 'Blue 400' },
-              { id: '4', ratio: '8.42:1', color: '#7881FF', status: 'Pass (AAA)', name: 'Blue 300' }
+              { id: '8', ratio: '3.13:1', color: 'var(--topview-blue)', status: 'Fail (Small Text)', name: 'Purple 600' },
+              { id: '7', ratio: '4.94:1', color: '#731DFB', status: 'Pass (AA)', name: 'Purple 500' },
+              { id: '9', ratio: '6.38:1', color: '#8F47FF', status: 'Pass (AA)', name: 'Purple 400' },
+              { id: '4', ratio: '8.42:1', color: '#A873FF', status: 'Pass (AAA)', name: 'Purple 300' }
             ].map((item) => {
               const isFail = item.status.includes('Fail');
               const isRecommended = item.id === '4';
@@ -362,7 +362,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                 >
                   <div className="relative">
                     <span 
-                      className="text-[64px] font-outfit font-medium transition-all duration-700 relative z-10"
+                      className="text-[64px] font-heading font-medium transition-all duration-700 relative z-10"
                       style={{ color: item.color }}
                     >
                       Text
@@ -383,7 +383,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                   </div>
                   
                   {isRecommended && (
-                    <div className="absolute bottom-0 left-0 right-0 bg-[#3643FF] py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-center z-20">
+                    <div className="absolute bottom-0 left-0 right-0 bg-[#731DFB] py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-center z-20">
                       <span className="text-[10px] font-bold text-white uppercase tracking-widest">{t.bestPractice}</span>
                     </div>
                   )}
@@ -414,9 +414,9 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                 <div className="flex gap-4">
                   {/* Correct */}
                   <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-24 bg-[#3643FF] rounded-sm relative">
+                    <div className="w-16 h-24 bg-[#731DFB] rounded-sm relative">
                       <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3643FF" strokeWidth="4">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#731DFB" strokeWidth="4">
                           <path d="M20 6L9 17L4 12" />
                         </svg>
                       </div>
@@ -444,8 +444,8 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                   </div>
                 </div>
               </div>
-              <h4 className="text-xl font-bold mb-2 font-sans transition-colors">{language === 'zh' ? '不要替代品牌蓝' : "Don't substitute Brand Blue"}</h4>
-              <p className="text-sm text-white/40 font-sans leading-relaxed">{language === 'zh' ? '始终使用提供的 Topview Blue，除非有特定的 UI 或无障碍需求。' : 'Always use the provided Topview Blue unless you have a specific UI or accessibility need.'}</p>
+              <h4 className="text-xl font-bold mb-2 font-sans transition-colors">{language === 'zh' ? '不要替代品牌紫' : "Don't substitute Brand Purple"}</h4>
+              <p className="text-sm text-white/40 font-sans leading-relaxed">{language === 'zh' ? '始终使用提供的 Topview Purple，除非有特定的 UI 或无障碍需求。' : 'Always use the provided Topview Purple unless you have a specific UI or accessibility need.'}</p>
             </div>
 
             {/* Gradient Usage Card */}
@@ -456,10 +456,10 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                   <div className="flex flex-col items-center gap-2">
                     <div 
                       className="w-16 h-24 rounded-sm relative"
-                      style={{ background: 'linear-gradient(180deg, #3341FF 0%, #81A2FC 100%)' }}
+                      style={{ background: 'linear-gradient(180deg, #731DFB 0%, #A873FF 100%)' }}
                     >
                       <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3643FF" strokeWidth="4">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#731DFB" strokeWidth="4">
                           <path d="M20 6L9 17L4 12" />
                         </svg>
                       </div>
@@ -469,10 +469,10 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                   <div className="flex flex-col items-center gap-2">
                     <div 
                       className="w-16 h-24 rounded-sm relative"
-                      style={{ background: 'linear-gradient(90deg, #7881FF 0.04%, #C1C5FF 99.93%)' }}
+                      style={{ background: 'linear-gradient(90deg, #A873FF 0.04%, #E2CCFF 99.93%)' }}
                     >
                       <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3643FF" strokeWidth="4">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#731DFB" strokeWidth="4">
                           <path d="M20 6L9 17L4 12" />
                         </svg>
                       </div>
@@ -529,7 +529,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                 </div>
                 <div className="aspect-video bg-[#111111] border border-white/5 rounded-[10px] mb-8 flex items-center justify-center p-12">
                     <div className="flex items-center gap-6 transition-transform group-hover:scale-105">
-                        <div className="w-20 h-20 bg-[#3643FF] rounded-sm shadow-2xl"></div>
+                        <div className="w-20 h-20 bg-[#731DFB] rounded-sm shadow-2xl"></div>
                         <div className="space-y-1">
                             <p className="text-[10px] font-mono text-neutral-500">text/brand</p>
                             <p className="text-[10px] font-mono text-neutral-500">base/topview-blue/10</p>
@@ -540,7 +540,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                         </div>
                     </div>
                 </div>
-                <h4 className="text-xl font-bold mb-2 font-sans group-hover:bg-gradient-to-r group-hover:from-[#7881FF] group-hover:to-[#C1C5FF] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 text-white">{t.colorTokens}</h4>
+                <h4 className="text-xl font-bold mb-2 font-sans group-hover:bg-gradient-to-r group-hover:from-[#A873FF] group-hover:to-[#E2CCFF] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 text-white">{t.colorTokens}</h4>
                 <p className="text-sm text-neutral-500 font-sans">{t.colorTokensDesc}</p>
             </div>
         </div>

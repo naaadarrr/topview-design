@@ -3,25 +3,28 @@ import React from 'react';
 import { ColorSwatch, NavItem } from './types';
 
 export const CORE_COLORS: ColorSwatch[] = [
-  { name: 'TopView Blue', hex: '#3643FF', description: 'Our signature brand color. Vibrant, digital, and authoritative.', textColor: '#FFFFFF' },
+  { name: 'TopView Purple', hex: '#731DFB', description: 'Our signature brand color. Vibrant, digital, and authoritative.', textColor: '#FFFFFF' },
   { name: 'Deep Night', hex: '#0B1020', description: 'The darkest foundation for our interface and typography.', textColor: '#FFFFFF' },
   { name: 'Pure White', hex: '#FFFFFF', description: 'Clean slate for clarity and focus.', textColor: '#000000' },
   { name: 'Soft Gray', hex: '#F9FAFB', description: 'Subtle contrast for secondary surfaces.', textColor: '#000000' },
 ];
 
-export const TOPVIEW_BLUE_SCALE: ColorSwatch[] = [
-  { name: 'Blue 50', hex: '#EBECFF', description: 'Subtle Backgrounds' },
-  { name: 'Blue 100', hex: '#C1C5FF', description: 'Disabled States' },
-  { name: 'Blue 200', hex: '#A3A9FF', description: 'Light Borders' },
-  { name: 'Blue 300', hex: '#7881FF', description: 'Accent Hover' },
-  { name: 'Blue 400', hex: '#5E69FF', description: 'Secondary Actions' },
-  { name: 'Blue 500', hex: '#3643FF', description: 'Brand Primary' },
-  { name: 'Blue 600', hex: '#313DE8', description: 'Primary Hover' },
-  { name: 'Blue 700', hex: '#2630B5', description: 'Primary Pressed' },
-  { name: 'Blue 800', hex: '#1E258C', description: 'Deep Accents' },
-  { name: 'Blue 900', hex: '#171C6B', description: 'Text Overlays' },
-  { name: 'Blue 950', hex: '#0B1020', description: 'Grounding' },
+export const TOPVIEW_PURPLE_SCALE: ColorSwatch[] = [
+  { name: 'Purple 50', hex: '#F4EBFF', description: 'Subtle Backgrounds' },
+  { name: 'Purple 100', hex: '#E2CCFF', description: 'Disabled States' },
+  { name: 'Purple 200', hex: '#CBA6FF', description: 'Light Borders' },
+  { name: 'Purple 300', hex: '#A873FF', description: 'Accent Hover' },
+  { name: 'Purple 400', hex: '#8F47FF', description: 'Secondary Actions' },
+  { name: 'Purple 500', hex: '#731DFB', description: 'Brand Primary' },
+  { name: 'Purple 600', hex: '#6819E3', description: 'Primary Hover' },
+  { name: 'Purple 700', hex: '#5114B1', description: 'Primary Pressed' },
+  { name: 'Purple 800', hex: '#3F0F8A', description: 'Deep Accents' },
+  { name: 'Purple 900', hex: '#300C69', description: 'Text Overlays' },
+  { name: 'Purple 950', hex: '#1A0638', description: 'Grounding' },
 ];
+
+/** @deprecated Use TOPVIEW_PURPLE_SCALE */
+export const TOPVIEW_BLUE_SCALE = TOPVIEW_PURPLE_SCALE;
 
 export const ALPHA_SCALES = {
   white: [
@@ -97,14 +100,10 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'colors', label: 'Color', path: '/colors' },
   { id: 'typography', label: 'Typography', path: '/typography' },
   { id: 'motion', label: 'Motion', path: '/motion' },
-  { 
-    id: 'components', 
-    label: 'Components', 
-    path: '/components',
-    children: [
-      { id: 'button', label: 'Button', path: '/components/button' }
-    ]
-  },
+];
+
+export const JUHUO_NAV_ITEMS: NavItem[] = [
+  { id: 'juhuo-colors', label: 'Color', path: '/juhuo/colors' },
 ];
 
 export const LANDING_MODULES: import('./types').LandingModule[] = [

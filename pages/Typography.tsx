@@ -123,19 +123,19 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
         </p>
       </div>
 
-      {/* 2. Fonts Section */}
+      {/* 2. Fonts Section — Current */}
       <div className="space-y-24 fade-in" style={{ animationDelay: '0.1s' }}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="p-12 rounded-[10px] bg-[#222222] border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">{t.brandMarketing}</span>
-              <p className="text-8xl font-outfit font-black tracking-tighter">Outfit</p>
+              <p className="text-6xl md:text-7xl font-darker font-bold tracking-tighter leading-[0.95]">Darker Grotesque</p>
             </div>
             <div>
-              <p className="font-sans font-bold text-white/40 text-sm mb-8 uppercase tracking-widest">{t.weights}: 400, 500, 600, 700, 800, 900</p>
+              <p className="font-sans font-bold text-white/40 text-sm mb-8 uppercase tracking-widest">{t.weights}: 300–900</p>
               <button 
-                onClick={() => window.open('https://fonts.google.com/specimen/Outfit', '_blank')}
-                className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#3643FF] hover:text-white transition-all duration-300"
+                onClick={() => window.open('https://fonts.google.com/specimen/Darker+Grotesque', '_blank')}
+                className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#731DFB] hover:text-white transition-all duration-300"
               >
                 {t.downloadGoogleFonts}
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -146,17 +146,60 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
           <div className="p-12 rounded-[10px] bg-[#222222] border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">{t.productUI}</span>
-              <p className="text-8xl font-inter font-bold tracking-tight">Inter</p>
+              <p className="text-5xl md:text-6xl font-sans font-semibold tracking-tight leading-[0.95]">Instrument Sans</p>
             </div>
             <div>
-              <p className="font-sans font-bold text-white/40 text-sm mb-8 uppercase tracking-widest">{t.weights}: 300, 400, 500, 600, 700</p>
+              <p className="font-sans font-bold text-white/40 text-sm mb-8 uppercase tracking-widest">{t.weights}: 400, 500, 600, 700</p>
               <button 
-                onClick={() => window.open('https://fonts.google.com/specimen/Inter', '_blank')}
-                className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#3643FF] hover:text-white transition-all duration-300"
+                onClick={() => window.open('https://fonts.google.com/specimen/Instrument+Sans', '_blank')}
+                className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#731DFB] hover:text-white transition-all duration-300"
               >
                 {t.downloadGoogleFonts}
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Legacy fonts */}
+        <div className="space-y-8">
+          <div className="flex items-center gap-4">
+            <h3 className="text-sm font-sans font-bold uppercase tracking-widest text-white/30">{t.legacy}</h3>
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 opacity-50">
+            <div className="p-12 rounded-[10px] bg-[#1a1a1a] border border-white/5 border-dashed h-[320px] flex flex-col justify-between">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-600 mb-8 block font-sans">{t.legacyBrand}</span>
+                <p className="text-7xl font-outfit font-black tracking-tighter">Outfit</p>
+              </div>
+              <div>
+                <p className="font-sans font-bold text-white/30 text-sm mb-6 uppercase tracking-widest">{t.weights}: 400–900</p>
+                <button 
+                  onClick={() => window.open('https://fonts.google.com/specimen/Outfit', '_blank')}
+                  className="group relative flex items-center gap-3 px-6 py-3 bg-white/10 text-white/70 rounded-full font-sans font-bold text-sm hover:bg-white/20 transition-all duration-300"
+                >
+                  {t.downloadGoogleFonts}
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-12 rounded-[10px] bg-[#1a1a1a] border border-white/5 border-dashed h-[320px] flex flex-col justify-between">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-600 mb-8 block font-sans">{t.legacyProduct}</span>
+                <p className="text-7xl font-inter font-bold tracking-tight">Inter</p>
+              </div>
+              <div>
+                <p className="font-sans font-bold text-white/30 text-sm mb-6 uppercase tracking-widest">{t.weights}: 300–700</p>
+                <button 
+                  onClick={() => window.open('https://fonts.google.com/specimen/Inter', '_blank')}
+                  className="group relative flex items-center gap-3 px-6 py-3 bg-white/10 text-white/70 rounded-full font-sans font-bold text-sm hover:bg-white/20 transition-all duration-300"
+                >
+                  {t.downloadGoogleFonts}
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -178,7 +221,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
                 </span>
               </div>
               <p 
-                className="font-inter font-medium tracking-tight text-white"
+                className="font-sans font-medium tracking-tight text-white"
                 style={{ fontSize: style.size, lineHeight: style.line }}
               >
                 {style.sample}
@@ -190,7 +233,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
         <div className="mt-20">
           <button 
             onClick={() => window.open('https://chakra-ui.com/docs/theming/typography', '_blank')}
-            className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#3643FF] hover:text-white transition-all duration-300"
+            className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#731DFB] hover:text-white transition-all duration-300"
           >
             Chakra UI Typography
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>

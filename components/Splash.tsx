@@ -1,17 +1,53 @@
+import React, { useState, useEffect } from 'react';
+import { GlobalCanvasLoadingOverlay } from '../loadingOverlay';
 
-import React from 'react';
+interface SplashProps {
+  onComplete?: () => void;
+}
 
-const Splash: React.FC = () => {
-  return (
-    <div className="fixed inset-0 bg-[#111111] z-[100] flex items-center justify-center overflow-hidden">
-      <div className="relative flex items-center justify-center">
-        <div className="w-24 h-24 animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]">
-          <img src="/logo/Topview_Logo_New_RGB/SVG/Symbol_White.svg" alt="TopView Logo" className="w-full h-full" />
-        </div>
-      </div>
+const Splash: React.FC<SplashProps> = ({ onComplete }) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let animationFrameId: number;
+    const startTime = performance.now();
+    const duration = 2100; // 2.1s duration for 0 -> 100 counter
+
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const rawProgress = Math.min(1, elapsed / duration);
       
-      {/* Background radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(54,67,255,0.05)_0%,_transparent_70%)] pointer-events-none"></div>
+      // Smooth cubic ease-out curve for natural counting speed
+      const eased = 1 - Math.pow(1 - rawProgress, 2.5);
+      const currentVal = Math.min(100, Math.floor(eased * 100));
+
+      setProgress(currentVal);
+
+      if (rawProgress < 1) {
+        animationFrameId = requestAnimationFrame(animate);
+      } else {
+        setProgress(100);
+        if (onComplete) {
+          setTimeout(onComplete, 250);
+        }
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [onComplete]);
+
+  return (
+    <div style={{ position: 'fixed', inset: 0 }}>
+      <GlobalCanvasLoadingOverlay 
+        visible={true} 
+        text={`${progress}%`}
+      />
     </div>
   );
 };

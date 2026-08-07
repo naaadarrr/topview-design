@@ -79,7 +79,7 @@ const ButtonPage: React.FC<ButtonPageProps> = ({ language }) => {
         </h2>
         <div className="flex flex-wrap gap-6 items-center">
           <Button variant="primary">Default</Button>
-          <Button variant="primary" className="hover:bg-[#313DE8]">Hover</Button>
+          <Button variant="primary" className="hover:bg-[#6819E3]">Hover</Button>
           <Button variant="primary" disabled>Disabled</Button>
           <Button variant="primary" isLoading>Loading</Button>
         </div>

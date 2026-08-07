@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
   const baseStyles = "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
   
   const variants = {
-    primary: "bg-[#3643FF] text-white hover:bg-[#313DE8] active:bg-[#2630B5] focus:ring-[#3643FF]",
+    primary: "bg-[#731DFB] text-white hover:bg-[#6819E3] active:bg-[#5114B1] focus:ring-[#731DFB]",
     secondary: "bg-white text-black hover:bg-neutral-100 active:bg-neutral-200 focus:ring-white",
     outline: "bg-transparent border border-white/20 text-white hover:bg-white/5 active:bg-white/10 focus:ring-white",
     ghost: "bg-transparent text-white hover:bg-white/5 active:bg-white/10 focus:ring-white",

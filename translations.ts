@@ -8,7 +8,8 @@ export const translations = {
       typography: "Typography",
       motion: "Motion",
       components: "Components",
-      language: "Language"
+      language: "Language",
+      juhuoColors: "Color"
     },
     landing: {
       brandGuidelines: "Brand Guidelines",
@@ -16,7 +17,10 @@ export const translations = {
       colors: "Color",
       typography: "Typography",
       motion: "Motion",
-      components: "Components"
+      components: "Components",
+      topviewLine: "TopView",
+      juhuoLine: "Juhuo",
+      juhuoColors: "Color"
     },
     components: {
       button: "Button"
@@ -41,12 +45,30 @@ export const translations = {
       colorTokens: "Color tokens",
       colorTokensDesc: "Systematic color organization for developers."
     },
+    juhuoColors: {
+      title: "Color",
+      desc: "Flame-inspired palette derived from the Juhuo logo — warm red-orange gradients for live content and trending media.",
+      supporting: "Supporting Colors",
+      supportingDesc: "Neutrals and brand gradients for visual balance.",
+      accessibility: "Accessibility",
+      accessibilityDesc: "Contrast standards for interface legibility on dark backgrounds.",
+      bestPractice: "Recommended for primary text",
+      incorrect: "Incorrect Examples",
+      incorrectDesc: "Usage examples to avoid for brand consistency.",
+      dontSubstitute: "Don't substitute Brand Flame",
+      dontSubstituteDesc: "Always use the provided Juhuo Flame palette. Avoid generic reds or oranges that shift the brand warmth.",
+      dontMuddyGradients: "Keep gradients warm and clean",
+      dontMuddyGradientsDesc: "Gradients should stay within the red-orange-peach range. Avoid multi-hue or muddy transitions."
+    },
     typography: {
       title: "Typography",
-      desc: "Outfit for branding, Inter for interface.",
+      desc: "Darker Grotesque for titles, Instrument Sans for body.",
       weights: "Weights",
-      brandMarketing: "Brand",
-      productUI: "Product",
+      brandMarketing: "Titles",
+      productUI: "Body",
+      legacy: "Legacy",
+      legacyBrand: "Brand (legacy)",
+      legacyProduct: "Product (legacy)",
       downloadGoogleFonts: "Google Fonts"
     },
     motion: {
@@ -72,7 +94,8 @@ export const translations = {
       typography: "字体",
       motion: "动效",
       components: "组件",
-      language: "语言"
+      language: "语言",
+      juhuoColors: "颜色"
     },
     landing: {
       brandGuidelines: "品牌指南",
@@ -80,7 +103,10 @@ export const translations = {
       colors: "颜色",
       typography: "字体",
       motion: "动效",
-      components: "组件"
+      components: "组件",
+      topviewLine: "TopView",
+      juhuoLine: "聚火",
+      juhuoColors: "颜色"
     },
     components: {
       button: "按钮"
@@ -105,12 +131,30 @@ export const translations = {
       colorTokens: "颜色令牌",
       colorTokensDesc: "面向开发的系统化颜色管理。"
     },
+    juhuoColors: {
+      title: "颜色",
+      desc: "源自聚火 Logo 的火焰色系——以暖红橙渐变传递热点内容与直播媒体的能量感。",
+      supporting: "辅助色",
+      supportingDesc: "中性色与品牌渐变，用于视觉平衡。",
+      accessibility: "无障碍",
+      accessibilityDesc: "暗色背景下的对比度标准。",
+      bestPractice: "建议作为主文本色",
+      incorrect: "错误示例",
+      incorrectDesc: "为保持品牌一致性，应避免使用的示例。",
+      dontSubstitute: "不要替代品牌火焰色",
+      dontSubstituteDesc: "始终使用提供的聚火火焰色阶，避免使用偏离品牌暖感的通用红/橙色。",
+      dontMuddyGradients: "保持渐变温暖纯净",
+      dontMuddyGradientsDesc: "渐变应保持在红-橙-蜜桃色范围内，避免多色相或浑浊过渡。"
+    },
     typography: {
       title: "字体",
-      desc: "Outfit 用于品牌识别，Inter 用于产品界面。",
+      desc: "标题默认 Darker Grotesque，正文使用 Instrument Sans。",
       weights: "字重",
-      brandMarketing: "品牌",
-      productUI: "产品",
+      brandMarketing: "标题",
+      productUI: "正文",
+      legacy: "旧字体",
+      legacyBrand: "品牌（旧）",
+      legacyProduct: "产品（旧）",
       downloadGoogleFonts: "Google Fonts"
     },
     motion: {

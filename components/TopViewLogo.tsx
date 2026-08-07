@@ -7,7 +7,7 @@ interface LogoProps {
   color?: string;
 }
 
-const TopViewLogo: React.FC<LogoProps> = ({ className = "h-8", iconOnly = false, color = "#3643FF" }) => {
+const TopViewLogo: React.FC<LogoProps> = ({ className = "h-8", iconOnly = false, color = "#731DFB" }) => {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       {/* Five-bar Icon */}
@@ -22,7 +22,7 @@ const TopViewLogo: React.FC<LogoProps> = ({ className = "h-8", iconOnly = false,
       {!iconOnly && (
         <span 
           className="font-display font-black tracking-tighter uppercase whitespace-nowrap font-sans"
-          style={{ fontSize: '120%', color: color === '#3643FF' ? '#FFFFFF' : color }}
+          style={{ fontSize: '120%', color: color === '#731DFB' ? '#FFFFFF' : color }}
         >
           TopView<span className="opacity-40">.AI</span>
         </span>

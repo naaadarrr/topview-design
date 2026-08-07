@@ -54,7 +54,7 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
                   <div className="w-64 md:w-80 lg:w-[400px] aspect-square rounded-sm relative group/item">
                     <img src="/motion/item1.png" alt="Correct Motion" className="w-full h-full object-contain rounded-sm" />
                     <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3643FF" strokeWidth="4">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#731DFB" strokeWidth="4">
                         <path d="M20 6L9 17L4 12" />
                       </svg>
                     </div>
@@ -102,12 +102,12 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
                 playsInline
               />
             </div>
-            <h4 className="text-xl font-bold mb-2 font-sans group-hover:bg-gradient-to-r group-hover:from-[#7881FF] group-hover:to-[#C1C5FF] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 text-white">{t.heroSpec}</h4>
+            <h4 className="text-xl font-bold mb-2 font-sans group-hover:bg-gradient-to-r group-hover:from-[#A873FF] group-hover:to-[#E2CCFF] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 text-white">{t.heroSpec}</h4>
             <p className="text-sm text-neutral-500 font-sans mb-8">{t.heroDesc}</p>
             
             <button 
               onClick={() => window.open('/HERO_ANIMATION_SPEC.md', '_blank')}
-              className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#3643FF] hover:text-white transition-all duration-300"
+              className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#731DFB] hover:text-white transition-all duration-300"
             >
               {t.downloadSpec}
               <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
