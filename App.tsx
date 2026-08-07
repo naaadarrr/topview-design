@@ -103,8 +103,8 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Content Pages - Bento modular layout */}
-      <div className="min-h-screen flex flex-col bg-[#0a0a0c] text-white relative">
+      {/* Content Pages - Bento modular layout; only main content scrolls */}
+      <div className="h-screen flex flex-col bg-[#0a0a0c] text-white relative overflow-hidden">
         {/* Fixed Header Module */}
         <div className="fixed top-0 left-0 right-0 z-[100] px-4 md:px-6 pt-4">
           <header className="max-w-[1600px] mx-auto h-[80px] rounded-2xl border border-white/10 flex items-center px-5 md:px-6 bg-[#0a0a0c]">
@@ -124,11 +124,11 @@ const App: React.FC = () => {
           </header>
         </div>
 
-        <div className="flex-1 pt-[112px] pb-4 px-4 md:px-6 max-w-[1600px] w-full mx-auto">
-          <div className="items-start lg:grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 md:gap-6">
-            {/* Sidebar Module */}
-            <aside className="hidden lg:block sticky top-[112px] h-[calc(100vh-128px)] shrink-0">
-              <div className="h-full w-full rounded-2xl border border-white/10 overflow-y-auto">
+        <div className="flex-1 pt-[112px] pb-4 px-4 md:px-6 max-w-[1600px] w-full mx-auto min-h-0">
+          <div className="items-start lg:grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 md:gap-6 h-full">
+            {/* Sidebar Module — fixed, no scroll */}
+            <aside className="hidden lg:block h-[calc(100vh-128px)] shrink-0">
+              <div className="h-full w-full rounded-2xl border border-white/10 overflow-hidden">
                 <Sidebar 
                   activeId={activeSection} 
                   onNavigate={handleNavigate} 
@@ -138,10 +138,10 @@ const App: React.FC = () => {
               </div>
             </aside>
 
-            {/* Content Module */}
+            {/* Content Module — sole scroll container */}
             <main 
               ref={mainRef}
-              className="min-w-0 rounded-2xl border border-white/10 overflow-y-auto h-[calc(100vh-128px)]"
+              className="min-w-0 min-h-0 rounded-2xl border border-white/10 overflow-y-auto h-[calc(100vh-128px)]"
             >
               <div className="px-6 py-10 md:px-16 md:py-16">
                 <div className="max-w-6xl mx-auto">

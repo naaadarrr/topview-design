@@ -5,7 +5,7 @@ const Introduction: React.FC = () => {
   return (
     <div className="max-w-6xl text-white">
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
-        <h1 className="text-[100px] lg:text-[120px] font-heading leading-none tracking-tight">
+        <h1 className="catalog-title text-[24px] leading-[32px] tracking-tight">
           Visual Intelligence.
         </h1>
         <p className="max-w-md text-[20px] font-sans leading-snug text-white mt-4 md:mt-10 font-normal">

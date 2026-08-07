@@ -113,7 +113,7 @@ const VisualStyle: React.FC<VisualStyleProps> = ({ language }) => {
 
         {/* Hero */}
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
-          <h1 className="text-[100px] lg:text-[120px] font-heading leading-none tracking-tight">
+          <h1 className="catalog-title text-[24px] leading-[32px] tracking-tight">
             {isZh ? '视觉风格' : 'Visual Style'}
           </h1>
           <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
@@ -125,7 +125,7 @@ const VisualStyle: React.FC<VisualStyleProps> = ({ language }) => {
 
         {/* Main Reference */}
         <section className="fade-in" style={{ animationDelay: '0.08s' }}>
-          <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans">
+          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">
             {isZh ? '主参考图' : 'Main Reference'}
           </h3>
           <div className="rounded-[16px] overflow-hidden max-w-[480px]">
@@ -139,7 +139,7 @@ const VisualStyle: React.FC<VisualStyleProps> = ({ language }) => {
 
         {/* Gallery */}
         <section className="fade-in relative group/section overflow-visible" style={{ animationDelay: '0.1s' }}>
-          <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans">
+          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">
             {isZh ? '风格样例' : 'Style Gallery'}
           </h3>
           <div

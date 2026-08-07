@@ -115,7 +115,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
     <div className="max-w-full text-white space-y-48 pb-32 overflow-x-visible">
       {/* 1. Header */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
-        <h1 className="text-[100px] lg:text-[120px] font-heading leading-none tracking-tight">
+        <h1 className="catalog-title text-[24px] leading-[32px] tracking-tight">
           {t.title}
         </h1>
         <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
