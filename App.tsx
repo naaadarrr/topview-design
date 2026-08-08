@@ -165,10 +165,10 @@ const App: React.FC = () => {
 
               <main
                 ref={mainRef}
-                className="min-w-0 min-h-0 h-full rounded-2xl border border-white/10 overflow-y-auto overscroll-contain"
+                className="min-w-0 min-h-0 h-full rounded-2xl border border-white/10 overflow-y-auto overflow-x-hidden overscroll-contain"
               >
-                <div className="px-6 py-10 md:px-16 md:py-16">
-                  <div className="max-w-6xl mx-auto">
+                <div className="p-6 md:p-8 h-full min-w-0">
+                  <div className="w-full min-w-0 max-w-full">
                     {renderContent()}
                   </div>
                 </div>

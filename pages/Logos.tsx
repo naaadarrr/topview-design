@@ -109,12 +109,12 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
       { path: '/logo/Topview_Logo_New_RGB/PNG/Symbol_Black.png', name: 'PNG/Symbol_Black.png' },
       { path: '/logo/Topview_Logo_New_RGB/PNG/Symbol_White.png', name: 'PNG/Symbol_White.png' },
       { path: '/logo/Topview_Logo_New_RGB/PNG/Symbol_Purple.png', name: 'PNG/Symbol_Purple.png' },
-      { path: '/favicon_io/favicon.ico', name: 'Favicon/favicon.ico' },
-      { path: '/favicon_io/favicon-32x32.png', name: 'Favicon/favicon-32x32.png' },
-      { path: '/favicon_io/favicon-16x16.png', name: 'Favicon/favicon-16x16.png' },
-      { path: '/favicon_io/apple-touch-icon.png', name: 'Favicon/apple-touch-icon.png' },
-      { path: '/favicon_io/android-chrome-192x192.png', name: 'Favicon/android-chrome-192x192.png' },
-      { path: '/favicon_io/android-chrome-512x512.png', name: 'Favicon/android-chrome-512x512.png' },
+      { path: '/logo/favicon/favicon.ico', name: 'Favicon/favicon.ico' },
+      { path: '/logo/favicon/favicon-32x32.png', name: 'Favicon/favicon-32x32.png' },
+      { path: '/logo/favicon/favicon-16x16.png', name: 'Favicon/favicon-16x16.png' },
+      { path: '/logo/favicon/apple-touch-icon.png', name: 'Favicon/apple-touch-icon.png' },
+      { path: '/logo/favicon/android-chrome-192x192.png', name: 'Favicon/android-chrome-192x192.png' },
+      { path: '/logo/favicon/android-chrome-512x512.png', name: 'Favicon/android-chrome-512x512.png' },
       { path: '/logo/Topview_Logo_New_RGB/Topview%20Japan%20logo/TopviewJapan_new_logo.png', name: 'Japan/TopviewJapan_new_logo.png' },
     ];
 
@@ -168,10 +168,10 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         style={{ aspectRatio: '1024 / 288' }}
       >
         <div ref={containerRef} className="w-full h-full" />
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-start p-6 z-20">
+        <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-300 flex items-end justify-start p-3 md:p-4 z-20">
           <button
             onClick={() => handleDownload(src, downloadName)}
-            className="bg-white text-black px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#731DFB] hover:text-white shadow-2xl"
+            className="bg-white text-black px-3 py-2 md:px-4 md:py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transform translate-y-2 group-hover:translate-y-0 transition-[transform,background-color,color] duration-300 hover:bg-[#731DFB] hover:text-white shadow-lg whitespace-nowrap"
           >
             Download Lottie JSON
           </button>
@@ -185,20 +185,20 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
     const nameSvg = `${nameBase}.svg`;
     const namePng = `${nameBase}.png`;
     return (
-      <div className={`group relative ${dark ? 'bg-[#222222]' : 'bg-neutral-100'} rounded-[10px] p-24 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-inner`}>
-        <img src={path} alt={nameBase} className="h-16 relative z-10" />
-        
-        {/* Hover Download Buttons - SVG + PNG */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-start gap-3 p-6 z-20">
-          <button 
+      <div className={`group relative ${dark ? 'bg-[#222222]' : 'bg-neutral-100'} rounded-[10px] p-12 md:p-14 min-h-[200px] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-inner min-w-0`}>
+        <img src={path} alt={nameBase} className="h-14 md:h-16 relative z-10 max-w-full object-contain" />
+
+        {/* Hover Download Buttons — wrap + compact so they stay inside the card */}
+        <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-300 flex flex-wrap items-end justify-start gap-2 p-3 md:p-4 z-20">
+          <button
             onClick={() => handleDownload(path, nameSvg)}
-            className="bg-white text-black px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#731DFB] hover:text-white shadow-2xl"
+            className="bg-white text-black px-3 py-2 md:px-4 md:py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transform translate-y-2 group-hover:translate-y-0 transition-[transform,background-color,color] duration-300 hover:bg-[#731DFB] hover:text-white shadow-lg whitespace-nowrap"
           >
             Download SVG
           </button>
-          <button 
+          <button
             onClick={() => handleDownload(pngPath, namePng)}
-            className="bg-white text-black px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#731DFB] hover:text-white shadow-2xl"
+            className="bg-white text-black px-3 py-2 md:px-4 md:py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transform translate-y-2 group-hover:translate-y-0 transition-[transform,background-color,color] duration-300 hover:bg-[#731DFB] hover:text-white shadow-lg whitespace-nowrap"
           >
             Download PNG
           </button>
@@ -209,7 +209,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
 
   return (
     <>
-    <div className="max-w-full text-white space-y-32">
+    <div className="w-full min-w-0 max-w-full overflow-x-hidden text-white space-y-32">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
         <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
@@ -238,7 +238,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
 
         <section>
           <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Vertical</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 min-w-0">
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_Black.svg" nameBase="TopView-Vertical-Black" />
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_White.svg" nameBase="TopView-Vertical-White" dark />
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_Purple.svg" nameBase="TopView-Vertical-Purple" />
@@ -247,7 +247,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
 
         <section>
           <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Symbol</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 min-w-0">
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_Black.svg" nameBase="TopView-Symbol-Black" />
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_White.svg" nameBase="TopView-Symbol-White" dark />
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_Purple.svg" nameBase="TopView-Symbol-Purple" />
@@ -272,18 +272,18 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
               { file: 'android-chrome-192x192.png', label: '192×192 (Android)' },
               { file: 'android-chrome-512x512.png', label: '512×512 (Android)' },
             ].map(({ file, label }) => {
-              const path = `/favicon_io/${file}`;
+              const path = `/logo/favicon/${file}`;
               return (
                 <div
                   key={file}
-                  className="group relative bg-neutral-100 rounded-[10px] p-8 flex flex-col items-center justify-center gap-4 overflow-hidden transition-all duration-500 shadow-inner"
+                  className="group relative bg-neutral-100 rounded-[10px] p-6 md:p-8 min-h-[140px] flex flex-col items-center justify-center gap-4 overflow-hidden transition-all duration-500 shadow-inner min-w-0"
                 >
                   <img src={path} alt={label} className="w-12 h-12 object-contain relative z-10" />
                   <span className="text-[10px] font-sans text-neutral-400 tracking-widest text-center">{label}</span>
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center p-4 z-20">
+                  <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-300 flex items-end justify-center p-3 z-20">
                     <button
                       onClick={() => handleDownload(path, file)}
-                      className="bg-white text-black px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#731DFB] hover:text-white shadow-2xl"
+                      className="bg-white text-black px-3 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transform translate-y-2 group-hover:translate-y-0 transition-[transform,background-color,color] duration-300 hover:bg-[#731DFB] hover:text-white shadow-lg whitespace-nowrap"
                     >
                       Download
                     </button>
@@ -296,19 +296,19 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
 
         <section>
           <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Japan</h3>
-          <div className="group relative w-full md:w-1/3 bg-[#222222] rounded-[10px] p-24 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-inner">
+          <div className="group relative w-full md:w-1/3 min-w-0 bg-[#222222] rounded-[10px] p-12 md:p-14 min-h-[200px] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-inner">
             <img
               src="/logo/Topview_Logo_New_RGB/Topview%20Japan%20logo/TopviewJapan_new_logo.png"
               alt="TopView Japan Logo"
-              className="h-16 relative z-10 object-contain"
+              className="h-14 md:h-16 relative z-10 object-contain max-w-full"
             />
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-start p-6 z-20">
+            <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-300 flex items-end justify-start p-3 md:p-4 z-20">
               <button
                 onClick={() => handleDownload(
                   '/logo/Topview_Logo_New_RGB/Topview%20Japan%20logo/TopviewJapan_new_logo.png',
                   'TopView-Japan-Logo.png'
                 )}
-                className="bg-white text-black px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-[#731DFB] hover:text-white shadow-2xl"
+                className="bg-white text-black px-3 py-2 md:px-4 md:py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transform translate-y-2 group-hover:translate-y-0 transition-[transform,background-color,color] duration-300 hover:bg-[#731DFB] hover:text-white shadow-lg whitespace-nowrap"
               >
                 Download PNG
               </button>
@@ -330,11 +330,11 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
           </div>
         </section>
 
-        {/* Logo Exhibition */}
-        <section className="fade-in relative group/section overflow-visible pb-24">
+        {/* Logo Exhibition — scroll stays inside this strip; no page-level horizontal bar */}
+        <section className="fade-in relative group/section overflow-hidden pb-24 min-w-0">
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto pb-12 -mx-6 md:-mx-12 lg:-mx-20 px-6 md:px-12 lg:px-20 no-scrollbar items-start cursor-grab active:cursor-grabbing scroll-smooth snap-x snap-mandatory"
+            className="flex gap-4 overflow-x-auto overflow-y-hidden pb-12 no-scrollbar items-start cursor-grab active:cursor-grabbing scroll-smooth snap-x snap-mandatory w-full min-w-0"
             onMouseDown={handleMouseDown}
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
