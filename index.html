@@ -11,6 +11,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Instrument Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              heading: ['"Instrument Serif"', 'Georgia', 'serif'],
+            },
+          },
+        },
+      };
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- display=block avoids FOUT/flash when Instrument Serif swaps in on catalog -->
@@ -33,11 +45,14 @@
             -webkit-font-smoothing: antialiased;
             margin: 0;
         }
-        .font-sans {
-            font-family: 'Instrument Sans', sans-serif;
+        /* Beat Tailwind defaults + heading element rules for UI labels */
+        .font-sans,
+        h1.font-sans, h2.font-sans, h3.font-sans, h4.font-sans {
+            font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif !important;
         }
         /* Content page titles + catalog/sidebar display face */
-        h1, h2, h3, h4, .font-heading, .catalog-title {
+        h1:not(.font-sans), h2:not(.font-sans), h3:not(.font-sans), h4:not(.font-sans),
+        .font-heading, .catalog-title {
             font-family: 'Instrument Serif', 'Times New Roman', Times, serif;
             font-synthesis: none;
         }

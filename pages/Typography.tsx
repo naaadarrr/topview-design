@@ -128,7 +128,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="p-12 rounded-[10px] bg-[#222222] border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">{t.brandMarketing}</span>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-white mb-8 block font-sans">{t.brandMarketing}</span>
               <p className="text-6xl md:text-7xl font-darker font-bold tracking-tighter leading-[0.95]">Darker Grotesque</p>
             </div>
             <div>
@@ -145,7 +145,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
 
           <div className="p-12 rounded-[10px] bg-[#222222] border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-8 block font-sans">{t.productUI}</span>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-white mb-8 block font-sans">{t.productUI}</span>
               <p className="text-5xl md:text-6xl font-sans font-semibold tracking-tight leading-[0.95]">Instrument Sans</p>
             </div>
             <div>

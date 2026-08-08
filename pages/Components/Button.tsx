@@ -25,7 +25,7 @@ const ButtonPage: React.FC<ButtonPageProps> = ({ language }) => {
       />
 
       <section className="space-y-12">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans border-b border-white/10 pb-4">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-white mb-8 font-sans border-b border-white/10 pb-4">
           Variants
         </h2>
         <div className="flex flex-wrap gap-6 items-center">
@@ -39,7 +39,7 @@ const ButtonPage: React.FC<ButtonPageProps> = ({ language }) => {
       </section>
 
       <section className="space-y-12">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans border-b border-white/10 pb-4">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-white mb-8 font-sans border-b border-white/10 pb-4">
           Sizes
         </h2>
         <div className="flex flex-wrap gap-6 items-end">
@@ -63,7 +63,7 @@ const ButtonPage: React.FC<ButtonPageProps> = ({ language }) => {
       </section>
 
       <section className="space-y-12">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans border-b border-white/10 pb-4">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-white mb-8 font-sans border-b border-white/10 pb-4">
           Shapes
         </h2>
         <div className="flex flex-wrap gap-6 items-center">
@@ -74,7 +74,7 @@ const ButtonPage: React.FC<ButtonPageProps> = ({ language }) => {
       </section>
 
       <section className="space-y-12">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans border-b border-white/10 pb-4">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-white mb-8 font-sans border-b border-white/10 pb-4">
           States
         </h2>
         <div className="flex flex-wrap gap-6 items-center">
@@ -86,7 +86,7 @@ const ButtonPage: React.FC<ButtonPageProps> = ({ language }) => {
       </section>
 
       <section className="space-y-12">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-8 font-sans border-b border-white/10 pb-4">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-white mb-8 font-sans border-b border-white/10 pb-4">
           Icons
         </h2>
         <div className="flex flex-wrap gap-6 items-center">

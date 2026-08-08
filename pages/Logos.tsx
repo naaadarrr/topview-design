@@ -222,22 +222,22 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
 
       <div className="space-y-32 fade-in" style={{ animationDelay: '0.1s' }}>
         <section>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Horizontal</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Horizontal</h3>
           <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_Black.svg" nameBase="TopView-Horizontal-Black" />
         </section>
 
         <section>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Horizontal Reverse</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Horizontal Reverse</h3>
           <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_White.svg" nameBase="TopView-Horizontal-White" dark />
         </section>
 
         <section>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Horizontal Purple</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Horizontal Purple</h3>
           <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_Purple.svg" nameBase="TopView-Horizontal-Purple" />
         </section>
 
         <section>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Vertical</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Vertical</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 min-w-0">
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_Black.svg" nameBase="TopView-Vertical-Black" />
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_White.svg" nameBase="TopView-Vertical-White" dark />
@@ -246,7 +246,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         </section>
 
         <section>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Symbol</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Symbol</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 min-w-0">
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_Black.svg" nameBase="TopView-Symbol-Black" />
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_White.svg" nameBase="TopView-Symbol-White" dark />
@@ -255,7 +255,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         </section>
 
         <section>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Logo Animation</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Logo Animation</h3>
           <div className="flex flex-col gap-6">
             <LogoAnimation src="/lottie/topview-logo-purple.json" downloadName="TopView-Logo-Animation-Light.json" />
             <LogoAnimation src="/lottie/topview-logo-white.json" downloadName="TopView-Logo-Animation-Dark.json" dark />
@@ -263,7 +263,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         </section>
 
         <section>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Favicon</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Favicon</h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             {[
               { file: 'favicon-16x16.png', label: '16×16' },
@@ -295,7 +295,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         </section>
 
         <section>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Japan</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Japan</h3>
           <div className="group relative w-full md:w-1/3 min-w-0 bg-[#222222] rounded-[10px] p-12 md:p-14 min-h-[200px] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-inner">
             <img
               src="/logo/Topview_Logo_New_RGB/Topview%20Japan%20logo/TopviewJapan_new_logo.png"
@@ -318,7 +318,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
 
         {/* Download Section */}
         <section className="pb-4">
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">Download All Assets</h3>
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">Download All Assets</h3>
           <div className="flex flex-col items-start gap-6">
             <button
               onClick={handleDownloadAll}

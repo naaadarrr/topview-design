@@ -132,7 +132,7 @@ const App: React.FC = () => {
       {/* Content shell — only <main> may scroll */}
       {showContent && (
         <div className="fixed inset-0 flex flex-col bg-[#0a0a0c] text-white overflow-hidden">
-          <div className="shrink-0 px-4 md:px-6 pt-4">
+          <div className="shrink-0 px-4 pt-4">
             <header className="max-w-[1600px] mx-auto h-[80px] rounded-2xl border border-white/10 flex items-center px-5 md:px-6 bg-[#0a0a0c]">
               <div
                 className="flex items-center cursor-pointer h-full gap-3"
@@ -150,8 +150,8 @@ const App: React.FC = () => {
             </header>
           </div>
 
-          <div className="flex-1 min-h-0 pb-4 px-4 md:px-6 max-w-[1600px] w-full mx-auto pt-4 overflow-hidden">
-            <div className="items-stretch lg:grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 md:gap-6 h-full min-h-0 overflow-hidden">
+          <div className="flex-1 min-h-0 pb-4 px-4 max-w-[1600px] w-full mx-auto pt-4 overflow-hidden">
+            <div className="items-stretch lg:grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 h-full min-h-0 overflow-hidden">
               <aside className="hidden lg:block h-full min-h-0 shrink-0 overflow-hidden">
                 <div className="h-full w-full rounded-2xl border border-white/10 overflow-hidden">
                   <Sidebar

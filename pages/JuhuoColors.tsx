@@ -386,7 +386,7 @@ const JuhuoColors: React.FC<JuhuoColorsProps> = ({ language }) => {
         </div>
 
         <div className="mt-32">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-10 font-sans">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-10 font-sans">
             {language === 'zh' ? '暗色背景对比度 (WCAG)' : 'Dark Background Contrast (WCAG)'}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">

@@ -125,7 +125,7 @@ const VisualStyle: React.FC<VisualStyleProps> = ({ language }) => {
 
         {/* Main Reference */}
         <section className="fade-in" style={{ animationDelay: '0.08s' }}>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">
             {isZh ? '主参考图' : 'Main Reference'}
           </h3>
           <div className="rounded-[16px] overflow-hidden max-w-[480px]">
@@ -139,7 +139,7 @@ const VisualStyle: React.FC<VisualStyleProps> = ({ language }) => {
 
         {/* Gallery */}
         <section className="fade-in relative group/section overflow-visible" style={{ animationDelay: '0.1s' }}>
-          <h3 className="text-xs font-bold tracking-widest text-neutral-500 mb-8 font-sans capitalize">
+          <h3 className="text-xs font-bold tracking-widest text-white mb-8 font-sans capitalize">
             {isZh ? '风格样例' : 'Style Gallery'}
           </h3>
           <div
