@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useState } from 'react';
 import { TOPVIEW_PURPLE_SCALE } from '../constants';
 import { Language, translations } from '../translations';
 
@@ -11,34 +10,6 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
   const t = translations[language].colors;
   const [copied, setCopied] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const checkScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 10);
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
-    }
-  };
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (el) {
-      checkScroll();
-      el.addEventListener('scroll', checkScroll);
-      window.addEventListener('resize', checkScroll);
-      return () => {
-        el.removeEventListener('scroll', checkScroll);
-        window.removeEventListener('resize', checkScroll);
-      };
-    }
-  }, []);
 
   const copyToClipboard = (value: string) => {
     navigator.clipboard.writeText(value);
@@ -77,66 +48,8 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
     }
   ];
 
-  const exhibitionItems = [
-    { id: '01', w: 'w-[400px]' },
-    { id: '02', w: 'w-[758px]' },
-    { id: '03', w: 'w-[840px]' },
-    { id: '04', w: 'w-[984px]' },
-    { id: '05', w: 'w-[706px]' },
-    { id: '06', w: 'w-[736px]' }
-  ];
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
-    setScrollLeft(scrollRef.current?.scrollLeft || 0);
-  };
-
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    checkScroll();
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
-    const walk = (x - startX) * 2;
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollLeft - walk;
-    }
-  };
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = 400;
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex - 1 + exhibitionItems.length) % exhibitionItems.length);
-    }
-  };
-
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex + 1) % exhibitionItems.length);
-    }
-  };
-
   return (
-    <div className="max-w-full text-white space-y-48 pb-40 overflow-x-visible">
+    <div className="max-w-full text-white space-y-48 pb-40 overflow-x-hidden">
       {/* 1. 主题色介绍 */}
       <section>
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
@@ -211,50 +124,6 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* Color Exhibition Section */}
-      <section className="fade-in pt-12 relative group/section overflow-visible" style={{ animationDelay: '0.15s' }}>
-        <div 
-          ref={scrollRef}
-          className="flex gap-4 overflow-x-auto pb-12 -mx-6 md:-mx-12 lg:-mx-20 px-6 md:px-12 lg:px-20 no-scrollbar items-start cursor-grab active:cursor-grabbing scroll-smooth snap-x snap-mandatory"
-          onMouseDown={handleMouseDown}
-          onMouseLeave={handleMouseLeave}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
-        >
-          {exhibitionItems.map((item, index) => (
-            <div 
-              key={item.id} 
-              className={`flex-shrink-0 ${item.w} cursor-zoom-in snap-start`}
-              onClick={() => !isDragging && setSelectedIndex(index)}
-            >
-              <img 
-                src={`/color/${item.id}.png`} 
-                alt={`Color Case ${item.id}`} 
-                className="w-full h-auto block select-none pointer-events-none"
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Navigation Arrows - Sides, Hover Only, Distinct Background */}
-        <button 
-          onClick={() => scroll('left')}
-          className={`absolute left-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/20 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollLeft ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
-        >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-        <button 
-          onClick={() => scroll('right')}
-          className={`absolute right-0 top-[40%] -translate-y-1/2 w-20 h-20 flex items-center justify-center bg-white/5 hover:bg-white/20 backdrop-blur-md text-white transition-all z-20 rounded-full ${canScrollRight ? 'opacity-0 group-hover/section:opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'}`}
-        >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M9 6l6 6-6 6" />
-          </svg>
-        </button>
       </section>
 
       {/* 2. 辅助色 */}
@@ -545,58 +414,6 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             </div>
         </div>
       </section>
-
-      {/* Lightbox Modal */}
-      {selectedIndex !== null && createPortal(
-        <div 
-          className="fixed inset-0 z-[9999] bg-black backdrop-blur-md flex items-center justify-center cursor-zoom-out"
-          onClick={() => setSelectedIndex(null)}
-        >
-          {/* Controls */}
-          <div className="absolute top-8 right-8 flex items-center gap-8 z-[110]">
-            <span className="font-mono text-xs text-white/40 tracking-widest">
-              {String(selectedIndex + 1).padStart(2, '0')} / {String(exhibitionItems.length).padStart(2, '0')}
-            </span>
-            <button 
-              className="text-white/60 hover:text-white transition-colors p-2"
-              onClick={() => setSelectedIndex(null)}
-            >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
-          <button 
-            className="absolute left-8 p-4 text-white/20 hover:text-white transition-colors z-[110] hidden md:block"
-            onClick={handlePrev}
-          >
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-
-          <button 
-            className="absolute right-8 p-4 text-white/20 hover:text-white transition-colors z-[110] hidden md:block"
-            onClick={handleNext}
-          >
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-
-          <div className="relative w-full h-full flex items-center justify-center p-12 md:p-24 lg:p-32">
-            <img 
-              key={exhibitionItems[selectedIndex].id}
-              src={`/color/${exhibitionItems[selectedIndex].id}.png`} 
-              alt="Enlarged Case" 
-              className="max-w-full max-h-full object-contain shadow-2xl animate-[scaleIn_0.4s_cubic-bezier(0.16,1,0.3,1)]"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-        </div>,
-        document.body
-      )}
     </div>
   );
 };
