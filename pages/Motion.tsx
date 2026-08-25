@@ -12,7 +12,7 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
   return (
     <div className="max-w-full text-white space-y-32 pb-40">
       {/* Philosophy Section */}
-      <section className="fade-in">
+      <section id="motion-principles" className="fade-in scroll-mt-8">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
           <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
             {t.title}
@@ -36,7 +36,7 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
       </section>
 
       {/* Incorrect Examples Section - Moved above Specs */}
-      <section className="fade-in pt-20" style={{ animationDelay: '0.2s' }}>
+      <section id="motion-incorrect" className="fade-in pt-20 scroll-mt-8" style={{ animationDelay: '0.2s' }}>
         <div className="flex flex-col gap-4 mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{translations[language].colors.incorrect}</h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
@@ -82,7 +82,7 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
       </section>
 
       {/* Related Specs Section */}
-      <section className="fade-in pt-20" style={{ animationDelay: '0.3s' }}>
+      <section id="motion-spec" className="fade-in pt-20 scroll-mt-8" style={{ animationDelay: '0.3s' }}>
         <div className="flex flex-col gap-4 mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.spec}</h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 mt-4 md:mt-10 font-normal">

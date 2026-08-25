@@ -14,13 +14,133 @@ export const TOPVIEW_PURPLE_SCALE: ColorSwatch[] = [
   { name: 'Purple 100', hex: '#E2CCFF', description: 'Disabled States' },
   { name: 'Purple 200', hex: '#CBA6FF', description: 'Light Borders' },
   { name: 'Purple 300', hex: '#A873FF', description: 'Accent Hover' },
-  { name: 'Purple 400', hex: '#8F47FF', description: 'Secondary Actions' },
+  { name: 'Purple 400', hex: '#9452FF', description: 'Slider / Switch / Secondary Actions' },
   { name: 'Purple 500', hex: '#731DFB', description: 'Brand Primary' },
   { name: 'Purple 600', hex: '#6819E3', description: 'Primary Hover' },
   { name: 'Purple 700', hex: '#5114B1', description: 'Primary Pressed' },
   { name: 'Purple 800', hex: '#3F0F8A', description: 'Deep Accents' },
   { name: 'Purple 900', hex: '#300C69', description: 'Text Overlays' },
   { name: 'Purple 950', hex: '#1A0638', description: 'Grounding' },
+];
+
+export type SupportingColor = {
+  name: string;
+  hex: string;
+  rgb: string;
+  usage: string;
+};
+
+export const TOPVIEW_SUPPORTING_COLORS: SupportingColor[] = [
+  { name: 'White', hex: '#FFFFFF', rgb: '255 / 255 / 255', usage: 'Primary text on dark' },
+  { name: 'Team Sky', hex: '#3D7AE8', rgb: '61 / 122 / 232', usage: 'Team plan CTA' },
+  { name: 'Accent Blue', hex: '#2F6BFF', rgb: '47 / 107 / 255', usage: 'Accent badge / blue CTA' },
+  { name: 'Credits Lilac', hex: '#D4B5FF', rgb: '212 / 181 / 255', usage: 'Credits icon / status text' },
+  { name: 'Promo Pink', hex: '#F0B7FF', rgb: '240 / 183 / 255', usage: 'Strikethrough / promo' },
+  { name: 'Credits Magenta', hex: '#ED1572', rgb: '237 / 21 / 114', usage: 'Credits badge' },
+  { name: 'Enterprise Gold', hex: '#FFD666', rgb: '255 / 214 / 102', usage: 'Enterprise CTA stop' },
+];
+
+export type GradientSwatch = {
+  name: string;
+  css: string;
+  from: string;
+  to: string;
+  type: string;
+  angle: string;
+  description: string;
+};
+
+export const TOPVIEW_GRADIENTS: GradientSwatch[] = [
+  {
+    name: 'Home Title',
+    css: 'linear-gradient(90deg, #AEB4BE 0%, #F2F4F7 28%, #FFFFFF 50%, #F2F4F7 72%, #AEB4BE 100%)',
+    from: '#AEB4BE',
+    to: '#FFFFFF',
+    type: 'Linear',
+    angle: '90deg',
+    description: 'Homepage hero title',
+  },
+  {
+    name: 'Home Accent',
+    css: 'linear-gradient(150deg, #C9A4FF 0%, #9B4DFF 45%, #731DFB 100%)',
+    from: '#C9A4FF',
+    to: '#731DFB',
+    type: 'Linear',
+    angle: '150deg',
+    description: 'Homepage title hover / highlight',
+  },
+  {
+    name: 'Fill Gradient',
+    css: 'linear-gradient(180deg, #731DFB 0%, #A873FF 100%)',
+    from: '#731DFB',
+    to: '#A873FF',
+    type: 'Linear',
+    angle: '180deg',
+    description: 'Primary fill',
+  },
+  {
+    name: 'Text Gradient',
+    css: 'linear-gradient(90deg, #A873FF 0.04%, #E2CCFF 99.93%)',
+    from: '#A873FF',
+    to: '#E2CCFF',
+    type: 'Linear',
+    angle: '90deg',
+    description: 'Headings and emphasis',
+  },
+  {
+    name: 'Business Ribbon',
+    css: 'linear-gradient(94deg, #A78BFA 0%, #E879F9 35%, #FB7185 65%, #FDE047 100%)',
+    from: '#A78BFA',
+    to: '#FDE047',
+    type: 'Linear',
+    angle: '94deg',
+    description: 'Business plan banner',
+  },
+  {
+    name: 'Trial Ribbon',
+    css: 'linear-gradient(94deg, #FF7A2F 0%, #FF3B5C 50%, #FF6BB5 100%)',
+    from: '#FF7A2F',
+    to: '#FF6BB5',
+    type: 'Linear',
+    angle: '94deg',
+    description: 'Pro trial banner',
+  },
+  {
+    name: 'Enterprise CTA',
+    css: 'linear-gradient(90deg, #FFFFFF 0%, #FFF3D6 50%, #FFD666 100%)',
+    from: '#FFFFFF',
+    to: '#FFD666',
+    type: 'Linear',
+    angle: '90deg',
+    description: 'Contact sales button',
+  },
+  {
+    name: 'Credits Badge',
+    css: 'radial-gradient(32.86% 208.82% at 50% 45.45%, #F920D1 0%, #ED1572 100%)',
+    from: '#F920D1',
+    to: '#ED1572',
+    type: 'Radial',
+    angle: '—',
+    description: 'Buy credits chip',
+  },
+  {
+    name: 'Ultra Card Shell',
+    css: 'linear-gradient(180deg, #251B3D 0%, #1A1329 50%, #090A0A 100%)',
+    from: '#251B3D',
+    to: '#090A0A',
+    type: 'Linear',
+    angle: '180deg',
+    description: 'Ultra plan surface',
+  },
+  {
+    name: 'Pro Card Shell',
+    css: 'linear-gradient(180deg, #1C1C1E 0%, #121214 55%, #090A0A 100%)',
+    from: '#1C1C1E',
+    to: '#090A0A',
+    type: 'Linear',
+    angle: '180deg',
+    description: 'Pro / Team card surface',
+  },
 ];
 
 /** @deprecated Use TOPVIEW_PURPLE_SCALE */
@@ -96,14 +216,67 @@ export const LINE_HEIGHTS = [
 ];
 
 export const NAV_ITEMS: NavItem[] = [
-  { id: 'logo', label: 'Logo', path: '/logo' },
-  { id: 'colors', label: 'Color', path: '/colors' },
-  { id: 'typography', label: 'Typography', path: '/typography' },
-  { id: 'motion', label: 'Motion', path: '/motion' },
+  {
+    id: 'logo',
+    label: 'Logo',
+    path: '/logo',
+    children: [
+      { id: 'logo-horizontal', label: 'Horizontal', path: '/logo/horizontal' },
+      { id: 'logo-horizontal-reverse', label: 'Horizontal Reverse', path: '/logo/horizontal-reverse' },
+      { id: 'logo-horizontal-purple', label: 'Horizontal Purple', path: '/logo/horizontal-purple' },
+      { id: 'logo-vertical', label: 'Vertical', path: '/logo/vertical' },
+      { id: 'logo-symbol', label: 'Symbol', path: '/logo/symbol' },
+      { id: 'logo-animation', label: 'Animation', path: '/logo/animation' },
+      { id: 'logo-favicon', label: 'Favicon', path: '/logo/favicon' },
+      { id: 'logo-japan', label: 'Japan', path: '/logo/japan' },
+      { id: 'logo-download', label: 'Download all', path: '/logo/download' },
+    ],
+  },
+  {
+    id: 'colors',
+    label: 'Color',
+    path: '/colors',
+    children: [
+      { id: 'colors-purple', label: 'Purple', path: '/colors/purple' },
+      { id: 'colors-supporting', label: 'Supporting', path: '/colors/supporting' },
+      { id: 'colors-gradients', label: 'Gradients', path: '/colors/gradients' },
+      { id: 'colors-accessibility', label: 'Accessibility', path: '/colors/accessibility' },
+      { id: 'colors-incorrect', label: 'Incorrect', path: '/colors/incorrect' },
+    ],
+  },
+  {
+    id: 'typography',
+    label: 'Typography',
+    path: '/typography',
+    children: [
+      { id: 'typography-families', label: 'Families', path: '/typography/families' },
+      { id: 'typography-text-styles', label: 'Text Styles', path: '/typography/text-styles' },
+    ],
+  },
+  {
+    id: 'motion',
+    label: 'Motion',
+    path: '/motion',
+    children: [
+      { id: 'motion-principles', label: 'Principles', path: '/motion/principles' },
+      { id: 'motion-incorrect', label: 'Incorrect', path: '/motion/incorrect' },
+      { id: 'motion-spec', label: 'Specs', path: '/motion/spec' },
+    ],
+  },
 ];
 
 export const JUHUO_NAV_ITEMS: NavItem[] = [
-  { id: 'juhuo-colors', label: 'Color', path: '/juhuo/colors' },
+  {
+    id: 'juhuo-colors',
+    label: 'Color',
+    path: '/juhuo/colors',
+    children: [
+      { id: 'juhuo-colors-primary', label: 'Primary', path: '/juhuo/colors/primary' },
+      { id: 'juhuo-colors-supporting', label: 'Supporting', path: '/juhuo/colors/supporting' },
+      { id: 'juhuo-colors-explorations', label: 'Explorations', path: '/juhuo/colors/explorations' },
+      { id: 'juhuo-colors-accessibility', label: 'Accessibility', path: '/juhuo/colors/accessibility' },
+    ],
+  },
 ];
 
 export const LANDING_MODULES: import('./types').LandingModule[] = [

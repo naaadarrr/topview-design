@@ -28,7 +28,7 @@ const JuhuoColors: React.FC<JuhuoColorsProps> = ({ language }) => {
   return (
     <div className="max-w-full text-white space-y-48 pb-40 overflow-x-visible">
       {/* Brand identity */}
-      <section>
+      <section id="juhuo-colors-primary" className="scroll-mt-8">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
           <div className="flex flex-col gap-6">
             <img
@@ -155,7 +155,7 @@ const JuhuoColors: React.FC<JuhuoColorsProps> = ({ language }) => {
       </section>
 
       {/* Supporting colors & gradients */}
-      <section className="fade-in" style={{ animationDelay: '0.1s' }}>
+      <section id="juhuo-colors-supporting" className="fade-in scroll-mt-8" style={{ animationDelay: '0.1s' }}>
         <div className="flex flex-col gap-4 mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">
             {t.supporting}
@@ -227,7 +227,7 @@ const JuhuoColors: React.FC<JuhuoColorsProps> = ({ language }) => {
       </section>
 
       {/* Accent Explorations */}
-      <section className="fade-in" style={{ animationDelay: '0.15s' }}>
+      <section id="juhuo-colors-explorations" className="fade-in scroll-mt-8" style={{ animationDelay: '0.15s' }}>
         <div className="flex flex-col gap-4 mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">
             {language === 'zh' ? '记忆色探索' : 'Memory Accents Exploration'}
@@ -348,7 +348,7 @@ const JuhuoColors: React.FC<JuhuoColorsProps> = ({ language }) => {
       </section>
 
       {/* Accessibility */}
-      <section className="fade-in" style={{ animationDelay: '0.2s' }}>
+      <section id="juhuo-colors-accessibility" className="fade-in scroll-mt-8" style={{ animationDelay: '0.2s' }}>
         <div className="flex flex-col gap-4 mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">
             {t.accessibility}

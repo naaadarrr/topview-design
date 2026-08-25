@@ -22,15 +22,25 @@ const App: React.FC = () => {
   const [isCatalogExiting, setIsCatalogExiting] = useState(false);
   const [isCatalogEntering, setIsCatalogEntering] = useState(false);
   const [activeSection, setActiveSection] = useState('logo');
+  const [activeSubId, setActiveSubId] = useState<string | null>(null);
   const [brandLine, setBrandLine] = useState<BrandLine>('topview');
   const language: Language = 'en';
   const mainRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (mainRef.current) {
-      mainRef.current.scrollTop = 0;
-    }
-  }, [activeSection, view]);
+    if (!mainRef.current || activeSubId) return;
+    mainRef.current.scrollTop = 0;
+  }, [activeSection, view, activeSubId]);
+
+  useEffect(() => {
+    if (view !== 'content' || !activeSubId || !mainRef.current) return;
+    const target = mainRef.current.querySelector<HTMLElement>(`#${CSS.escape(activeSubId)}`);
+    if (!target) return;
+    const frame = requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [activeSection, activeSubId, view]);
 
   useEffect(() => {
     if (!isCatalogEntering) return;
@@ -60,10 +70,11 @@ const App: React.FC = () => {
     }, PANEL_TRANSITION_MS + 350);
   }, []);
 
-  const handleNavigate = (id: string) => {
+  const handleNavigate = (id: string, subId?: string) => {
     setActiveSection(id);
+    setActiveSubId(subId ?? null);
     setBrandLine(JUHUO_SECTIONS.has(id) ? 'juhuo' : 'topview');
-    window.location.hash = id;
+    window.location.hash = subId ? `${id}/${subId}` : id;
 
     if (view === 'catalog') {
       setIsCatalogExiting(true);
@@ -156,6 +167,7 @@ const App: React.FC = () => {
                 <div className="h-full w-full rounded-2xl border border-white/10 overflow-hidden">
                   <Sidebar
                     activeId={activeSection}
+                    activeSubId={activeSubId}
                     onNavigate={handleNavigate}
                     language={language}
                     brandLine={brandLine}

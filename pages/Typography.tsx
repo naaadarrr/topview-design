@@ -124,7 +124,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
       </div>
 
       {/* 2. Fonts Section — Current */}
-      <div className="space-y-24 fade-in" style={{ animationDelay: '0.1s' }}>
+      <div id="typography-families" className="space-y-24 fade-in scroll-mt-8" style={{ animationDelay: '0.1s' }}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="p-12 rounded-[10px] bg-[#222222] border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
@@ -206,7 +206,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
       </div>
 
       {/* 3. Text Styles (Chakra UI Inspired) */}
-      <section className="fade-in pt-12" style={{ animationDelay: '0.15s' }}>
+      <section id="typography-text-styles" className="fade-in pt-12 scroll-mt-8" style={{ animationDelay: '0.15s' }}>
         <div className="flex flex-col gap-4 mb-16">
           <h2 className="text-[44px] md:text-[56px] font-heading tracking-tight">Text Styles</h2>
           <p className="text-sm text-white/40 font-sans">Hierarchical scale inspired by industry standards.</p>

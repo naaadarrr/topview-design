@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-import { TOPVIEW_PURPLE_SCALE } from '../constants';
+import {
+  TOPVIEW_GRADIENTS,
+  TOPVIEW_PURPLE_SCALE,
+  TOPVIEW_SUPPORTING_COLORS,
+} from '../constants';
 import { Language, translations } from '../translations';
+import { ColorSwatch } from '../types';
 
 interface ColorsProps {
   language: Language;
@@ -25,43 +30,52 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
     pms: '—'
   };
 
-  const supportingColors = [
-    { name: 'Black', cmyk: '60/40/40/100', rgb: '0/0/0', hex: '#000000', pms: 'Black C / U C' },
-    { name: 'White', cmyk: '0/0/0/0', rgb: '255/255/255', hex: '#FFFFFF', pms: 'Bright White C' },
-    { 
-      name: 'Fill Gradient', 
-      from: '#731DFB', 
-      to: '#A873FF', 
-      css: 'linear-gradient(180deg, #731DFB 0%, #A873FF 100%)', 
-      type: 'Linear Gradient', 
-      angle: '180deg',
-      description: 'Primary fill gradient'
-    },
-    { 
-      name: 'Text Gradient', 
-      from: '#A873FF', 
-      to: '#E2CCFF', 
-      css: 'linear-gradient(90deg, #A873FF 0.04%, #E2CCFF 99.93%)', 
-      type: 'Linear Gradient', 
-      angle: '90deg',
-      description: 'Used for headings and emphasis'
-    }
-  ];
+  const renderScale = (scale: ColorSwatch[]) => (
+    <div className="flex w-full h-24 rounded-[10px] overflow-hidden border border-white/5">
+      {scale.map((color) => (
+        <div
+          key={color.name}
+          className="flex-1 group relative cursor-pointer hover:z-10"
+          style={{ backgroundColor: color.hex }}
+          onClick={() => copyToClipboard(color.hex)}
+        >
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <div className="px-3 py-1.5 bg-white text-black text-[9px] font-bold rounded-full shadow-2xl uppercase tracking-widest whitespace-nowrap">
+              {copied === color.hex ? 'Copied' : 'Copy'}
+            </div>
+          </div>
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-3 py-2 bg-white text-black text-[10px] font-bold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 whitespace-nowrap pointer-events-none flex flex-col items-center gap-0.5 border border-black/5">
+            <span className="uppercase tracking-wider font-sans">{color.name}</span>
+            <span className="font-mono text-neutral-400">{color.hex}</span>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-white"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <div className="max-w-full text-white space-y-48 pb-40 overflow-x-hidden">
-      {/* 1. 主题色介绍 */}
-      <section>
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
-          <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
-            {t.title}
-          </h1>
-          <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
-            {t.desc}
+      <div className="flex flex-col md:flex-row justify-between items-start gap-8 w-full">
+        <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
+          {t.title}
+        </h1>
+        <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
+          {t.desc}
+        </p>
+      </div>
+
+      <section id="colors-purple" className="scroll-mt-8">
+        <div className="flex flex-col gap-4 mb-16">
+          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">
+            {t.purple}
+          </h2>
+          <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
+            {t.purpleDesc}
           </p>
         </div>
 
-        <div 
+        <div
           className="group relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[10px] p-4 flex flex-col justify-end overflow-hidden hover:brightness-110 cursor-none"
           style={{ backgroundColor: primaryColor.hex, transition: 'filter 0.7s ease' }}
           onMouseMove={(e) => {
@@ -70,12 +84,12 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
           }}
           onClick={() => copyToClipboard(primaryColor.hex)}
         >
-          <div 
+          <div
             className="absolute bg-white text-black px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wider shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 whitespace-nowrap"
-            style={{ 
-              left: mousePos.x, 
+            style={{
+              left: mousePos.x,
               top: mousePos.y,
-              transform: 'translate(-50%, -50%)'
+              transform: 'translate(-50%, -50%)',
             }}
           >
             {copied === primaryColor.hex ? 'Copied' : 'Copy hex'}
@@ -99,91 +113,91 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
           </div>
         </div>
 
-        {/* Color Scale Row */}
-        <div className="mt-12">
-          <div className="flex w-full h-24 rounded-[10px] overflow-hidden border border-white/5">
-            {TOPVIEW_PURPLE_SCALE.map((color) => (
-              <div 
-                key={color.name}
-                className="flex-1 group relative cursor-pointer hover:z-10"
-                style={{ backgroundColor: color.hex }}
-                onClick={() => copyToClipboard(color.hex)}
-              >
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <div className="px-3 py-1.5 bg-white text-black text-[9px] font-bold rounded-full shadow-2xl uppercase tracking-widest whitespace-nowrap">
-                    {copied === color.hex ? 'Copied' : 'Copy'}
-                  </div>
+        <div className="mt-12">{renderScale(TOPVIEW_PURPLE_SCALE)}</div>
+      </section>
+
+      <section id="colors-supporting" className="fade-in scroll-mt-8" style={{ animationDelay: '0.1s' }}>
+        <div className="flex flex-col gap-4 mb-16">
+          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.supporting}</h2>
+          <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
+            {t.supportingDesc}
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {TOPVIEW_SUPPORTING_COLORS.map((color) => (
+            <button
+              key={color.name}
+              type="button"
+              onClick={() => copyToClipboard(color.hex)}
+              className="group space-y-8 text-left"
+            >
+              <div
+                className="aspect-[4/2] rounded-[10px] border border-white/5 transition-all duration-500 group-hover:brightness-110"
+                style={{ background: color.hex }}
+              />
+              <div className="text-[10px] font-sans uppercase tracking-widest leading-loose text-white/40">
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">Name:</span> <span className="text-white font-bold">{color.name}</span>
                 </div>
-                {/* Tooltip on top */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-3 py-2 bg-white text-black text-[10px] font-bold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 whitespace-nowrap pointer-events-none flex flex-col items-center gap-0.5 border border-black/5">
-                  <span className="uppercase tracking-wider font-sans">{color.name}</span>
-                  <span className="font-mono text-neutral-400">{color.hex}</span>
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-white"></div>
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">Rgb:</span> <span className="text-white font-bold">{color.rgb}</span>
+                </div>
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">Hex:</span> <span className="text-white font-bold">{color.hex}</span>
+                </div>
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">Use:</span>{' '}
+                  <span className="text-white font-bold normal-case tracking-normal">{color.usage}</span>
                 </div>
               </div>
-            ))}
-          </div>
+            </button>
+          ))}
         </div>
       </section>
 
-      {/* 2. 辅助色 */}
-      <section className="fade-in" style={{ animationDelay: '0.1s' }}>
+      <section id="colors-gradients" className="fade-in scroll-mt-8" style={{ animationDelay: '0.15s' }}>
         <div className="flex flex-col gap-4 mb-16">
-            <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.supporting}</h2>
-            <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
-                {t.supportingDesc}
-            </p>
+          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.gradients}</h2>
+          <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
+            {t.gradientsDesc}
+          </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            {supportingColors.map((color) => (
-                <div key={color.name} className="group space-y-8">
-                    <div 
-                        className={`aspect-[4/2] rounded-[10px] border border-white/5 transition-all duration-500 group-hover:brightness-110 ${color.name === 'White' ? 'bg-white' : ''}`}
-                        style={{ background: color.css || color.hex }}
-                    ></div>
-                    <div className="text-[10px] font-sans uppercase tracking-widest leading-loose text-white/40 transition-all">
-                        <div className="flex gap-8 py-1">
-                            <span className="w-12 text-white/40">Name:</span> <span className="text-white font-bold">{color.name}</span>
-                        </div>
-                        {color.name.includes('Gradient') ? (
-                          <>
-                            <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40">From:</span> <span className="text-white font-bold">{color.from}</span>
-                            </div>
-                            <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40">To:</span> <span className="text-white font-bold">{color.to}</span>
-                            </div>
-                            <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40 text-white font-bold">Type:</span> <span className="text-white font-bold">{color.type}</span>
-                            </div>
-                            <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40">Angle:</span> <span className="text-white font-bold">{color.angle}</span>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40">CMYK:</span> <span className="text-white font-bold">{color.cmyk}</span>
-                            </div>
-                            <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40">RGB:</span> <span className="text-white font-bold">{color.rgb}</span>
-                            </div>
-                            <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40">HEX:</span> <span className="text-white font-bold">{color.hex}</span>
-                            </div>
-                            <div className="flex gap-8 py-1">
-                                <span className="w-12 text-white/40">PMS:</span> <span className="text-white font-bold">{color.pms}</span>
-                            </div>
-                          </>
-                        )}
-                    </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {TOPVIEW_GRADIENTS.map((gradient) => (
+            <button
+              key={gradient.name}
+              type="button"
+              onClick={() => copyToClipboard(gradient.css)}
+              className="group space-y-8 text-left"
+            >
+              <div
+                className="aspect-[5/2] rounded-[10px] border border-white/5 transition-all duration-500 group-hover:brightness-110"
+                style={{ background: gradient.css }}
+              />
+              <div className="text-[10px] font-sans uppercase tracking-widest leading-loose text-white/40">
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">Name:</span> <span className="text-white font-bold">{gradient.name}</span>
                 </div>
-            ))}
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">From:</span> <span className="text-white font-bold">{gradient.from}</span>
+                </div>
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">To:</span> <span className="text-white font-bold">{gradient.to}</span>
+                </div>
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">Type:</span> <span className="text-white font-bold">{gradient.type}</span>
+                </div>
+                <div className="flex gap-8 py-1">
+                  <span className="w-12 text-white/40">Angle:</span> <span className="text-white font-bold">{gradient.angle}</span>
+                </div>
+              </div>
+            </button>
+          ))}
         </div>
       </section>
 
       {/* 3. Accessibility */}
-      <section className="fade-in" style={{ animationDelay: '0.2s' }}>
+      <section id="colors-accessibility" className="fade-in scroll-mt-8" style={{ animationDelay: '0.2s' }}>
         <div className="flex flex-col gap-4 mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.accessibility}</h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
@@ -200,8 +214,8 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             </div>
             {/* Black Background */}
             <div className="bg-[#000000] aspect-square rounded-[10px] border border-white/5 flex flex-col items-center justify-center gap-6 relative group overflow-hidden">
-                <span className="text-[64px] font-heading font-medium text-[#8F47FF] relative z-10 transition-transform duration-700">Text</span>
-                <span className="text-[10px] font-sans tracking-widest uppercase text-white/60 relative z-10 font-bold">Pass, AA (4.94:1)</span>
+                <span className="text-[64px] font-heading font-medium text-[#9452FF] relative z-10 transition-transform duration-700">Text</span>
+                <span className="text-[10px] font-sans tracking-widest uppercase text-white/60 relative z-10 font-bold">Pass, AA (4.91:1)</span>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(94,105,255,0.1)_0%,_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </div>
             {/* White Background */}
@@ -219,7 +233,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             {[
               { id: '8', ratio: '3.13:1', color: 'var(--topview-blue)', status: 'Fail (Small Text)', name: 'Purple 600' },
               { id: '7', ratio: '4.94:1', color: '#731DFB', status: 'Pass (AA)', name: 'Purple 500' },
-              { id: '9', ratio: '6.38:1', color: '#8F47FF', status: 'Pass (AA)', name: 'Purple 400' },
+              { id: '9', ratio: '4.91:1', color: '#9452FF', status: 'Pass (AA)', name: 'Purple 400' },
               { id: '4', ratio: '8.42:1', color: '#A873FF', status: 'Pass (AAA)', name: 'Purple 300' }
             ].map((item) => {
               const isFail = item.status.includes('Fail');
@@ -268,7 +282,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         </div>
 
         {/* Incorrect Examples Section */}
-        <div className="mt-48">
+        <div id="colors-incorrect" className="mt-48 scroll-mt-8">
           <div className="flex flex-col gap-4 mb-16">
             <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.incorrect}</h2>
             <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
@@ -379,39 +393,6 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
               <p className="text-sm text-white/40 font-sans leading-relaxed">{language === 'zh' ? '渐变应保持明亮。如果使用渐变，请确保在起始色和结束色之间不会变成灰色或紫色。' : 'Gradients should be bright. If you are using gradients, make sure they do not turn muddy or grey in between.'}</p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 4. Related Specs Section */}
-      <section className="fade-in" style={{ animationDelay: '0.3s' }}>
-        <div className="flex flex-col gap-4 mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.related}</h2>
-          <p className="max-w-md text-[14px] leading-[20px] font-sans text-white font-normal">
-            {language === 'zh' ? '将我们的颜色系统集成到产品界面的其他资源和指南。' : 'Additional resources and guidelines for integrating our color system into product interfaces.'}
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Color Tokens Card */}
-            <div className="group relative bg-[#222222] border border-white/5 rounded-[10px] p-8 transition-all duration-500 overflow-hidden hover:bg-neutral-800">
-                <div className="absolute top-6 right-6 px-3 py-1 bg-white/5 backdrop-blur-md rounded-full z-10">
-                    <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">{t.comingSoon}</span>
-                </div>
-                <div className="aspect-video bg-[#111111] border border-white/5 rounded-[10px] mb-8 flex items-center justify-center p-12">
-                    <div className="flex items-center gap-6 transition-transform group-hover:scale-105">
-                        <div className="w-20 h-20 bg-[#731DFB] rounded-sm shadow-2xl"></div>
-                        <div className="space-y-1">
-                            <p className="text-[10px] font-mono text-neutral-500">text/brand</p>
-                            <p className="text-[10px] font-mono text-neutral-500">base/topview-blue/10</p>
-                            <div className="flex items-center gap-2 mt-2">
-                                <div className="w-8 h-4 bg-white/10 rounded-sm"></div>
-                                <span className="text-[10px] font-mono text-neutral-400">1.96:1</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <h4 className="text-xl font-bold mb-2 font-sans group-hover:bg-gradient-to-r group-hover:from-[#A873FF] group-hover:to-[#E2CCFF] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 text-white">{t.colorTokens}</h4>
-                <p className="text-sm text-neutral-500 font-sans">{t.colorTokensDesc}</p>
-            </div>
         </div>
       </section>
     </div>
