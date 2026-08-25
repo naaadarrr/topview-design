@@ -38,6 +38,11 @@ export const TOPVIEW_SUPPORTING_COLORS: SupportingColor[] = [
   { name: 'Promo Pink', hex: '#F0B7FF', rgb: '240 / 183 / 255', usage: 'Strikethrough / promo' },
   { name: 'Credits Magenta', hex: '#ED1572', rgb: '237 / 21 / 114', usage: 'Credits badge' },
   { name: 'Enterprise Gold', hex: '#FFD666', rgb: '255 / 214 / 102', usage: 'Enterprise CTA stop' },
+  { name: 'Codex Lavender', hex: '#DED0FF', rgb: '222 / 208 / 255', usage: 'Codex plugin banner' },
+  { name: 'Codex Yellow', hex: '#FFF36D', rgb: '255 / 243 / 109', usage: 'Codex offer badge' },
+  { name: 'Codex Coral', hex: '#FF795F', rgb: '255 / 121 / 95', usage: 'Codex banner accent' },
+  { name: 'Codex Lime', hex: '#C9F75E', rgb: '201 / 247 / 94', usage: 'Codex banner accent' },
+  { name: 'Codex Ink', hex: '#17131F', rgb: '23 / 19 / 31', usage: 'Codex text / CTA' },
 ];
 
 export type GradientSwatch = {
