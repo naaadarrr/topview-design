@@ -123,35 +123,41 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             {t.supportingDesc}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {TOPVIEW_SUPPORTING_COLORS.map((color) => (
-            <button
-              key={color.name}
-              type="button"
-              onClick={() => copyToClipboard(color.hex)}
-              className="group space-y-8 text-left"
-            >
-              <div
-                className="aspect-[4/2] rounded-[10px] border border-white/5 transition-all duration-500 group-hover:brightness-110"
-                style={{ background: color.hex }}
-              />
-              <div className="text-[10px] font-sans uppercase tracking-widest leading-loose text-white/40">
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">Name:</span> <span className="text-white font-bold">{color.name}</span>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          {TOPVIEW_SUPPORTING_COLORS.map((color) => {
+            const isCopied = copied === color.hex;
+            return (
+              <button
+                key={color.hex}
+                type="button"
+                onClick={() => copyToClipboard(color.hex)}
+                aria-label={isCopied ? `Copied ${color.hex}` : `Copy ${color.hex}`}
+                className="rounded-[16px] bg-transparent p-3 text-left border border-white/10 transition-colors hover:border-white/25"
+              >
+                <div
+                  className="aspect-[16/10] rounded-lg"
+                  style={{ background: color.hex }}
+                />
+                <div className="mt-3 flex items-center justify-between gap-2">
+                  <span className="font-sans text-[13px] font-medium tabular-nums text-white">
+                    {color.hex}
+                  </span>
+                  <span className="shrink-0 text-white" aria-hidden="true">
+                    {isCopied ? (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                    ) : (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                      </svg>
+                    )}
+                  </span>
                 </div>
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">Rgb:</span> <span className="text-white font-bold">{color.rgb}</span>
-                </div>
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">Hex:</span> <span className="text-white font-bold">{color.hex}</span>
-                </div>
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">Use:</span>{' '}
-                  <span className="text-white font-bold normal-case tracking-normal">{color.usage}</span>
-                </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </section>
 
@@ -162,37 +168,53 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             {t.gradientsDesc}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {TOPVIEW_GRADIENTS.map((gradient) => (
-            <button
-              key={gradient.name}
-              type="button"
-              onClick={() => copyToClipboard(gradient.css)}
-              className="group space-y-8 text-left"
-            >
-              <div
-                className="aspect-[5/2] rounded-[10px] border border-white/5 transition-all duration-500 group-hover:brightness-110"
-                style={{ background: gradient.css }}
-              />
-              <div className="text-[10px] font-sans uppercase tracking-widest leading-loose text-white/40">
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">Name:</span> <span className="text-white font-bold">{gradient.name}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {TOPVIEW_GRADIENTS.map((gradient) => {
+            const isCopied = copied === gradient.css;
+            return (
+              <button
+                key={gradient.name}
+                type="button"
+                onClick={() => copyToClipboard(gradient.css)}
+                aria-label={isCopied ? `Copied ${gradient.name} gradient CSS` : `Copy ${gradient.name} gradient CSS`}
+                className="rounded-[16px] bg-transparent p-3.5 text-left border border-white/10 transition-colors hover:border-white/25 flex flex-col justify-between group"
+              >
+                <div className="w-full">
+                  <div
+                    className="aspect-[16/8] rounded-lg transition-transform duration-300 group-hover:scale-[1.01]"
+                    style={{ background: gradient.css }}
+                  />
+                  <div className="mt-3.5 flex items-center justify-between gap-2">
+                    <span className="font-sans text-[14px] font-semibold text-white">
+                      {gradient.name}
+                    </span>
+                    <span className="shrink-0 text-white/50 group-hover:text-white transition-colors" aria-hidden="true">
+                      {isCopied ? (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      ) : (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="9" y="9" width="13" height="13" rx="2" />
+                          <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                        </svg>
+                      )}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">From:</span> <span className="text-white font-bold">{gradient.from}</span>
+                <div className="mt-3 pt-3 border-t border-white/10 text-[11px] font-sans text-white/50 space-y-1 w-full">
+                  <div className="flex justify-between items-center">
+                    <span>From / To</span>
+                    <span className="font-mono text-white/80">{gradient.from} → {gradient.to}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span>Type / Angle</span>
+                    <span className="font-mono text-white/80">{gradient.type} · {gradient.angle}</span>
+                  </div>
                 </div>
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">To:</span> <span className="text-white font-bold">{gradient.to}</span>
-                </div>
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">Type:</span> <span className="text-white font-bold">{gradient.type}</span>
-                </div>
-                <div className="flex gap-8 py-1">
-                  <span className="w-12 text-white/40">Angle:</span> <span className="text-white font-bold">{gradient.angle}</span>
-                </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </section>
 

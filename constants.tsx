@@ -31,7 +31,6 @@ export type SupportingColor = {
 };
 
 export const TOPVIEW_SUPPORTING_COLORS: SupportingColor[] = [
-  { name: 'White', hex: '#FFFFFF', rgb: '255 / 255 / 255', usage: 'Primary text on dark' },
   { name: 'Team Sky', hex: '#3D7AE8', rgb: '61 / 122 / 232', usage: 'Team plan CTA' },
   { name: 'Accent Blue', hex: '#2F6BFF', rgb: '47 / 107 / 255', usage: 'Accent badge / blue CTA' },
   { name: 'Credits Lilac', hex: '#D4B5FF', rgb: '212 / 181 / 255', usage: 'Credits icon / status text' },
@@ -42,7 +41,6 @@ export const TOPVIEW_SUPPORTING_COLORS: SupportingColor[] = [
   { name: 'Codex Yellow', hex: '#FFF36D', rgb: '255 / 243 / 109', usage: 'Codex offer badge' },
   { name: 'Codex Coral', hex: '#FF795F', rgb: '255 / 121 / 95', usage: 'Codex banner accent' },
   { name: 'Codex Lime', hex: '#C9F75E', rgb: '201 / 247 / 94', usage: 'Codex banner accent' },
-  { name: 'Codex Ink', hex: '#17131F', rgb: '23 / 19 / 31', usage: 'Codex text / CTA' },
 ];
 
 export type GradientSwatch = {
