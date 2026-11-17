@@ -1,0 +1,821 @@
+/* Unlocked current-product ToolPanel / Board control specimens.
+   Tokens re-verified from aigc-web-turbo origin/develop.
+   Scoped under .controlsSpecimens. Demo stages use the site ground #101010. */
+
+.controlsSpecimens .spec {
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffffa8;
+  margin: 0 0 14px;
+  max-width: 52rem;
+  font-weight: 400;
+}
+
+.controlsSpecimens .badge {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 999px;
+  margin-left: 8px;
+  vertical-align: middle;
+  background: #ffffff12;
+  color: #ffffffb0;
+  border: 1px solid #ffffff22;
+}
+
+.controlsSpecimens .state-label {
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffff80;
+  margin: 0 0 8px;
+}
+
+.controlsSpecimens figure {
+  margin: 0;
+}
+
+.controlsSpecimens .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.controlsSpecimens .stage {
+  position: relative;
+  isolation: isolate;
+  border-radius: 16px;
+  padding: 64px 48px;
+  overflow: hidden;
+  background: #101010;
+  border: 1px solid #ffffff10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlsSpecimens .stage.stage-open {
+  overflow: visible;
+}
+
+/* --- Input: PANEL_INPUT_SURFACE + MID_BOTTOM_GLOW + TextareaParameter inner --- */
+.controlsSpecimens .prompt-surface {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Default ToolPanel column MIN_TOOL_PANEL_WIDTH / --board-tool-width fallback
+     448px, minus form-body p-4 (16px) on each side. Surface itself is w-full
+     of that padded column; it has no width token of its own. */
+  width: 416px;
+  max-width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.controlsSpecimens .prompt-surface::before {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: calc(-20% + 4px);
+  bottom: -10%;
+  z-index: 1;
+  height: 85%;
+  background: radial-gradient(
+    ellipse 85% 90% at 50% 100%,
+    rgba(255, 255, 255, 0.22),
+    transparent 72%
+  );
+  filter: blur(32px);
+  content: '';
+}
+
+.controlsSpecimens .prompt-surface.is-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.controlsSpecimens .prompt-surface textarea {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  min-height: 240px;
+  margin: 0;
+  border: 0;
+  border-radius: 16px;
+  padding: 8px 12px;
+  resize: none;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  caret-color: #b57bff;
+}
+
+.controlsSpecimens .prompt-surface textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.controlsSpecimens .prompt-surface textarea::selection {
+  background: #731dfb;
+  color: #fff;
+}
+
+@media (max-height: 900px) {
+  .controlsSpecimens .prompt-surface textarea {
+    min-height: 192px;
+  }
+}
+
+/* --- Switch: BoardSwitch --- */
+.controlsSpecimens .board-switch {
+  --board-switch-travel: 12px;
+  --board-switch-ov: 1px;
+  --board-switch-dur: 350ms;
+  --board-switch-ease: cubic-bezier(0.34, 1.35, 0.64, 1);
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: 20px;
+  width: 32px;
+  padding: 2px;
+  border: 0;
+  border-radius: 50px;
+  cursor: pointer;
+  background: #6e6e6e;
+  transition: background-color 200ms ease-in-out;
+}
+
+.controlsSpecimens .board-switch[data-size='sm'] {
+  --board-switch-travel: 8px;
+  height: 16px;
+  width: 24px;
+}
+
+.controlsSpecimens .board-switch[data-state='checked'] {
+  background: #9452ff;
+}
+
+.controlsSpecimens .board-switch:focus-visible,
+.controlsSpecimens .board-switch.show-focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #111111, 0 0 0 4px rgba(148, 82, 255, 0.5);
+}
+
+.controlsSpecimens .board-switch:disabled,
+.controlsSpecimens .board-switch.is-disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.controlsSpecimens .board-switch-thumb {
+  pointer-events: none;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  translate: 0 0;
+}
+
+.controlsSpecimens .board-switch[data-size='sm'] .board-switch-thumb {
+  width: 12px;
+  height: 12px;
+}
+
+.controlsSpecimens .board-switch[data-state='checked'] .board-switch-thumb {
+  translate: var(--board-switch-travel) 0;
+}
+
+/* --- Select trigger and glass menu --- */
+.controlsSpecimens .select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 12rem;
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms, transform 150ms;
+}
+
+.controlsSpecimens .select-trigger:hover,
+.controlsSpecimens .select-trigger.show-hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.controlsSpecimens .select-trigger[data-state='open'],
+.controlsSpecimens .select-trigger.show-open {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.controlsSpecimens .select-trigger:active {
+  transform: scale(0.96);
+}
+
+.controlsSpecimens .select-trigger .chevron {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform 150ms;
+}
+
+.controlsSpecimens .select-trigger[data-state='open'] .chevron,
+.controlsSpecimens .select-trigger.show-open .chevron {
+  transform: rotate(180deg);
+}
+
+.controlsSpecimens .select-label {
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8px;
+}
+
+.controlsSpecimens .select-menu {
+  position: relative;
+  overflow: hidden;
+  width: 12rem;
+  border: 0;
+  border-radius: 16px;
+  padding: 0;
+  color: #fff;
+  background-color: transparent;
+  background-image: linear-gradient(
+    to bottom,
+    #101010 0%,
+    #101010 65%,
+    rgba(16, 16, 16, 0.68) 100%
+  );
+  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px);
+  box-shadow:
+    inset 0px -1px 0px 0px rgba(255, 255, 255, 0.16),
+    0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+.controlsSpecimens .select-menu::before {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: -80%;
+  bottom: -30%;
+  z-index: 1;
+  height: 90%;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 100%,
+    rgba(255, 255, 255, 0.45),
+    transparent 70%
+  );
+  filter: blur(48px);
+  content: '';
+}
+
+.controlsSpecimens .select-menu-edge {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000) border-box;
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000) border-box;
+  mask-composite: exclude;
+  mask-clip: content-box, border-box;
+}
+
+.controlsSpecimens .select-menu-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.controlsSpecimens .select-item {
+  border: 0;
+  border-radius: 8px;
+  padding: 8px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.controlsSpecimens .select-item:hover,
+.controlsSpecimens .select-item:focus,
+.controlsSpecimens .select-item.is-active,
+.controlsSpecimens .select-item.show-hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline: none;
+}
+
+/* --- Slider: BoardSlider md in board-ui-scope --- */
+.controlsSpecimens .board-slider {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+.controlsSpecimens .board-slider-root {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 16px;
+  align-items: center;
+  touch-action: none;
+  user-select: none;
+}
+
+.controlsSpecimens .board-slider.is-sm .board-slider-root {
+  height: 12px;
+}
+
+.controlsSpecimens .board-slider-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  flex-grow: 1;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.controlsSpecimens .board-slider.is-sm .board-slider-track {
+  height: 2px;
+}
+
+.controlsSpecimens .board-slider-range {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #9452ff;
+}
+
+.controlsSpecimens .board-slider-thumb {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.controlsSpecimens .board-slider.is-sm .board-slider-thumb {
+  width: 12px;
+  height: 12px;
+}
+
+.controlsSpecimens .board-slider.is-disabled .board-slider-thumb {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.controlsSpecimens .board-slider-ticks {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  margin-top: 4px;
+  pointer-events: none;
+}
+
+.controlsSpecimens .board-slider-tick {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 11px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.controlsSpecimens .board-slider-tick.is-current {
+  font-weight: 500;
+  color: #fff;
+}
+
+/* --- Sub-tool tabs --- */
+.controlsSpecimens .subtool-wrap {
+  position: relative;
+  min-width: 0;
+  margin: 0 -24px;
+}
+
+.controlsSpecimens .subtool-track {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px 16px;
+  scrollbar-width: none;
+}
+
+.controlsSpecimens .subtool-track::-webkit-scrollbar {
+  display: none;
+}
+
+.controlsSpecimens .subtool-btn {
+  position: relative;
+  display: inline-flex;
+  height: 32px;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: #8a8a8a;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.controlsSpecimens .subtool-btn:hover {
+  color: #fff;
+}
+
+.controlsSpecimens .subtool-btn.is-active {
+  background: #3d3d3d;
+  color: #fff;
+}
+
+.controlsSpecimens .subtool-btn::before {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  content: '';
+  background: radial-gradient(
+    ellipse at 50% 120%,
+    rgba(255, 255, 255, 0.22),
+    transparent 68%
+  );
+  transform-origin: 50% 100%;
+  transform: scale(0.5);
+  opacity: 0;
+  transition: transform 0ms, opacity 0ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .controlsSpecimens .subtool-btn:hover::before {
+    transform: scale(1);
+    opacity: 1;
+    transition-duration: 700ms;
+  }
+}
+
+.controlsSpecimens .subtool-btn.is-active::before {
+  transform: scale(1);
+  opacity: 1;
+  transition-duration: 700ms;
+}
+
+.controlsSpecimens .subtool-btn .label,
+.controlsSpecimens .subtool-btn .icon {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.controlsSpecimens .subtool-btn .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.controlsSpecimens .subtool-underline {
+  pointer-events: none;
+  position: absolute;
+  right: 12px;
+  bottom: 0;
+  left: 12px;
+  z-index: 2;
+  height: 1px;
+  transform-origin: center;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+}
+
+.controlsSpecimens .subtool-btn.is-active .subtool-underline {
+  transform: scaleX(1);
+  transition: transform 1200ms linear;
+}
+
+.controlsSpecimens .subtool-btn:not(.is-active) .subtool-underline {
+  transform: scaleX(0);
+  transition: transform 0ms;
+}
+
+.controlsSpecimens .subtool-fade {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 4;
+  width: 40px;
+}
+
+.controlsSpecimens .subtool-fade.left {
+  left: 0;
+  background: linear-gradient(to right, #131313, transparent);
+}
+
+.controlsSpecimens .subtool-fade.right {
+  right: 0;
+  background: linear-gradient(to left, #131313, transparent);
+}
+
+
+/* Homepage Plugin floor “Install Plugin” — values from origin/develop GptAstraFloor.tsx. All 待定. Do not average with other white buttons or Glass White / Cancel. */
+.controlsSpecimens .install-plugin {
+  display: inline-flex;
+  height: 48px;
+  min-width: 0;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 13px;
+  padding: 0 16px;
+  background: #fff;
+  color: #0a0a0a;
+  font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 0 0 rgba(0, 0, 0, 0.1),
+    0 2px 0 0 #d4d4d8;
+  cursor: pointer;
+  transition: transform 200ms, background-color 200ms, box-shadow 200ms;
+}
+
+.controlsSpecimens .install-plugin:hover {
+  background: #f4f4f5;
+}
+
+.controlsSpecimens .install-plugin:active {
+  transform: translateY(1px);
+}
+
+.controlsSpecimens .install-plugin:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.controlsSpecimens .caption {
+  margin-top: 16px;
+  max-width: 40rem;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: left;
+  align-self: stretch;
+}
+
+.controlsSpecimens .pending {
+  display: inline;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* --- Board MainToolbar right group (MainToolbar/index.tsx + components, origin/develop b0c5a29) --- */
+.controlsSpecimens .board-toolbar-right {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  gap: 6px;
+}
+
+/* GridSizeSlider slot: w-32 h-8 */
+.controlsSpecimens .grid-size-slot {
+  position: relative;
+  display: flex;
+  width: 128px;
+  height: 32px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+/* BoardSlider showTrackMarks mode: track h-0.5 white/25, no range, thumb 14px, marks below */
+.controlsSpecimens .board-slider.is-marks .board-slider-track {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.controlsSpecimens .board-slider.is-marks .board-slider-thumb {
+  width: 14px;
+  height: 14px;
+}
+
+.controlsSpecimens .board-slider-mark {
+  position: absolute;
+  top: calc(50% + 10px);
+  width: 1px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* ToolbarIconButton: frame 32px, hover surface 28px #3a3a3a r8, diffuse scale 0.9 -> 1 */
+.controlsSpecimens .toolbar-icon-btn {
+  appearance: none;
+  position: relative;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #8a8a8a;
+  cursor: pointer;
+}
+
+.controlsSpecimens .toolbar-icon-btn:hover,
+.controlsSpecimens .toolbar-icon-btn.is-active {
+  color: #fff;
+}
+
+.controlsSpecimens .toolbar-icon-btn svg {
+  position: relative;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+}
+
+.controlsSpecimens .toolbar-icon-hover {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #3a3a3a;
+  pointer-events: none;
+  transform-origin: center;
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.controlsSpecimens .toolbar-icon-btn:hover .toolbar-icon-hover,
+.controlsSpecimens .toolbar-icon-btn.is-active .toolbar-icon-hover {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.controlsSpecimens .toolbar-icon-btn:focus {
+  outline: none;
+}
+
+.controlsSpecimens .toolbar-divider {
+  width: 1px;
+  height: 16px;
+  background: #333333;
+}
+
+/* --- Homepage FilmStudioShowcase FeaturedCaseTabChip (origin/develop b0c5a29) --- */
+.controlsSpecimens .home-tab-list {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.controlsSpecimens .home-tab-chip {
+  appearance: none;
+  position: relative;
+  display: inline-flex;
+  height: 36px;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 1px;
+  border: 0;
+  border-radius: 20px;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+}
+
+.controlsSpecimens .home-tab-chip-face {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 19px;
+  padding: 0 14px;
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.controlsSpecimens .home-tab-chip.is-active .home-tab-chip-face {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.08) 100%);
+}
+
+.controlsSpecimens .home-tab-chip-hover-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 19px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.08) 100%);
+  opacity: 0;
+  transition: opacity 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.controlsSpecimens .home-tab-chip-label {
+  position: relative;
+  z-index: 1;
+}
+
+.controlsSpecimens .home-tab-chip-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0.04) 60%, rgba(255, 255, 255, 0.4) 100%);
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000, #000) content-box exclude, linear-gradient(#000, #000);
+  opacity: 0;
+  transition: opacity 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.controlsSpecimens .home-tab-chip.is-active .home-tab-chip-edge {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .controlsSpecimens .home-tab-chip:not(.is-active):hover .home-tab-chip-face {
+    background: transparent;
+  }
+
+  .controlsSpecimens .home-tab-chip:not(.is-active):hover .home-tab-chip-hover-fill {
+    opacity: 1;
+  }
+
+  .controlsSpecimens .home-tab-chip:not(.is-active):hover .home-tab-chip-edge {
+    opacity: 0.8;
+  }
+}

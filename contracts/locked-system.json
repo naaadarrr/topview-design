@@ -1,0 +1,1594 @@
+{
+  "id": "topview-locked-system",
+  "schemaVersion": 1,
+  "reviewStatus": "draft-for-shawn-review",
+  "reviewNote": {
+    "en": "This contract itself is not locked yet. Shawn will review first. Do not treat this file as a finished product lock until that review lands.",
+    "zh": "这份契约本身尚未锁定。需先经 Shawn 审阅。在审阅完成前，不要把它当成已定稿的产品规范。"
+  },
+  "sourceOfTruth": "contracts/locked-system.json",
+  "generatedOutputs": [
+    "contracts/DESIGN.md",
+    ".agents/skills/topview-design-system/SKILL.md"
+  ],
+  "rulesPage": {
+    "hash": "#components/components-rules",
+    "navId": "components",
+    "subId": "components-rules",
+    "lockPageOrder": [
+      "module-hover-icons",
+      "micro-glass-card-a",
+      "banner-arrow",
+      "alert-b",
+      "alert-d",
+      "bf-segmented-b"
+    ]
+  },
+  "locks": [
+    {
+      "id": "banner-arrow",
+      "status": "locked",
+      "onDesignSystemSite": true,
+      "siteHash": "#components/components-glass",
+      "siteLabel": "Locked",
+      "title": {
+        "en": "Banner arrow",
+        "zh": "Banner 箭头"
+      },
+      "what": {
+        "en": "The 36px circular glass arrow used on the homepage carousel / banner. Class .arrow-final. This is the only circular glass exception, and it belongs only here — not the product button default.",
+        "zh": "首页走马灯 / Banner 使用的 36px 圆形玻璃箭头。类名 .arrow-final。这是唯一的圆形玻璃例外，只用于此处，不是产品按钮的默认形态。"
+      },
+      "whenToUse": {
+        "en": "Use only for the banner / carousel next control. Do not reuse this circle as a generic icon button, module hover icon, or product button.",
+        "zh": "只用于 Banner / 走马灯的下一步控件。不要把这个圆形复用到通用图标按钮、模块悬停图标或产品按钮。"
+      },
+      "tokens": [
+        {
+          "name": "size",
+          "value": "36px × 36px",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final; site arrowSpec"
+        },
+        {
+          "name": "shape",
+          "value": "circle (border-radius: 9999px)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final"
+        },
+        {
+          "name": "icon",
+          "value": "lucide 16px, stroke currentColor, stroke-width 2",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final svg"
+        },
+        {
+          "name": "fill",
+          "value": "rgba(31, 31, 38, 0.6)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final background-color; site arrowSpec"
+        },
+        {
+          "name": "sheen (static / b)",
+          "value": "linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final background-image; site arrowSpec"
+        },
+        {
+          "name": "backdrop-filter",
+          "value": "blur(6px) saturate(1.2)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final"
+        },
+        {
+          "name": "stroke (default)",
+          "value": "inset 0 0 0 1px rgba(255, 255, 255, 0.07)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final box-shadow"
+        },
+        {
+          "name": "bevel (default)",
+          "value": "inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.4), inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.4), inset 0 -1px 4px 0 rgba(0, 0, 0, 0.24)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final box-shadow"
+        },
+        {
+          "name": "drop (default)",
+          "value": "0 4px 12px -3px rgba(0, 0, 0, 0.5)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final box-shadow"
+        },
+        {
+          "name": "hover / press sheen",
+          "value": "::before radial wash opacity 1; hover stroke 0.10, bevel 0.5 / 0.5, outer glow 0 0 18px rgba(255, 255, 255, 0.14); press scale(0.97), stroke 0.12, bevel 0.55 / 0.55, glow 0 0 14px rgba(255, 255, 255, 0.16)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .arrow-final:hover / :active / show-hover / show-press"
+        }
+      ],
+      "must": [
+        {
+          "en": "Keep it a 36px circle with the locked glass fill, sheen, blur, and edge tokens above.",
+          "zh": "保持 36px 圆形，并使用上述已锁定的玻璃填色、sheen、模糊和边缘 token。"
+        },
+        {
+          "en": "Treat this circular exception as banner-only.",
+          "zh": "把这个圆形例外严格限制在 Banner 使用。"
+        }
+      ],
+      "never": [
+        {
+          "en": "Never use this circle as the default for product buttons, module hover icons, or icon buttons. Module hover icons are 32×32 rounded rectangles (8px radius), not circles.",
+          "zh": "不要把这个圆形当作产品按钮、模块悬停图标或图标按钮的默认形态。模块悬停图标是 32×32、圆角 8px 的圆角矩形，不是圆。"
+        },
+        {
+          "en": "Do not invent a new radius, fill, or sheen, and do not average these values with other glass parts.",
+          "zh": "不要发明新的圆角、填色或 sheen，也不要和其他玻璃部件的数值做平均。"
+        }
+      ],
+      "sources": [
+        "Design-system site: Glass → Banner arrow, badge Locked; pages/Components/Glass.tsx SectionHeading badge={t.locked}",
+        "pages/Components/glass-specimens.css .arrow-final",
+        "glass-lab/glass-library.html section 1 · Banner 箭头 36px, badge 定稿 (read-only cross-check; not edited)"
+      ],
+      "page": {
+        "hash": "#components/components-rules/banner-arrow",
+        "examples": [
+          {
+            "id": "interactive",
+            "specimen": "banner-arrow-interactive",
+            "title": {
+              "en": "Interactive banner / carousel next control",
+              "zh": "可交互的 Banner / 轮播下一页控件"
+            },
+            "caption": {
+              "en": "The 36px circular glass arrow. This circular exception belongs only here.",
+              "zh": "36px 圆形玻璃箭头。这个圆形例外只属于此处。"
+            }
+          },
+          {
+            "id": "static-states",
+            "specimen": "banner-arrow-states",
+            "title": {
+              "en": "Static default, hover, and press",
+              "zh": "静态默认、悬停、按下"
+            },
+            "caption": {
+              "en": "Forced visual references for the locked hover and press sheen, stroke, and scale.",
+              "zh": "已锁定的悬停 / 按下 sheen、描边和缩放的强制可见对照。"
+            }
+          }
+        ],
+        "sizes": [
+          {
+            "name": "size",
+            "value": "36px × 36px",
+            "status": "verified",
+            "source": "tokens.size"
+          },
+          {
+            "name": "shape",
+            "value": "circle (border-radius: 9999px)",
+            "status": "verified",
+            "source": "tokens.shape"
+          },
+          {
+            "name": "icon",
+            "value": "lucide 16px, stroke currentColor, stroke-width 2",
+            "status": "verified",
+            "source": "tokens.icon"
+          }
+        ],
+        "states": [
+          {
+            "name": "default",
+            "value": {
+              "en": "Fill rgba(31, 31, 38, 0.6); static sheen .06→50%; blur(6px) saturate(1.2); stroke 0.07; recorded bevel and drop.",
+              "zh": "填色 rgba(31, 31, 38, 0.6)；静态 sheen .06→50%；blur(6px) saturate(1.2)；描边 0.07；以及已记录的 bevel 与投影。"
+            },
+            "status": "verified",
+            "source": "tokens.fill / sheen / backdrop-filter / stroke / bevel / drop"
+          },
+          {
+            "name": "hover",
+            "value": {
+              "en": "::before radial wash opacity 1; stroke 0.10; bevel 0.5 / 0.5; outer glow 0 0 18px rgba(255, 255, 255, 0.14).",
+              "zh": "::before 径向 wash 透明度为 1；描边 0.10；bevel 0.5 / 0.5；外发光 0 0 18px rgba(255, 255, 255, 0.14)。"
+            },
+            "status": "verified",
+            "source": "tokens.hover / press sheen"
+          },
+          {
+            "name": "press",
+            "value": {
+              "en": "scale(0.97), stroke 0.12, bevel 0.55 / 0.55, glow 0 0 14px rgba(255, 255, 255, 0.16).",
+              "zh": "scale(0.97)，描边 0.12，bevel 0.55 / 0.55，发光 0 0 14px rgba(255, 255, 255, 0.16)。"
+            },
+            "status": "verified",
+            "source": "tokens.hover / press sheen"
+          },
+          {
+            "name": "focus / disabled",
+            "status": "pending",
+            "value": {
+              "en": "No focus-ring or disabled token is recorded in the contract.",
+              "zh": "契约中未记录焦点环或禁用 token。"
+            }
+          }
+        ],
+        "usage": {
+          "use": [
+            {
+              "en": "Use only for the banner / carousel next control.",
+              "zh": "只用于 Banner / 轮播的下一页控件。"
+            }
+          ],
+          "notFor": [
+            {
+              "en": "Do not reuse this circle as a generic icon button, module hover icon, or product button. Module hover icons are 32×32 rounded rectangles (8px radius), not circles.",
+              "zh": "不要把这个圆形复用成通用图标按钮、模块悬停图标或产品按钮。模块悬停图标是 32×32、圆角 8px 的圆角矩形，不是圆。"
+            }
+          ]
+        },
+        "edgeCases": {
+          "status": "pending",
+          "items": []
+        },
+        "accessibility": {
+          "status": "partial",
+          "items": [
+            {
+              "status": "verified",
+              "en": "The design-system specimen uses a <button> with aria-label=\"Next\".",
+              "zh": "设计系统标本使用带 aria-label=\"Next\" 的 <button>。",
+              "source": "pages/Components/Glass.tsx banner arrow specimen"
+            },
+            {
+              "status": "pending",
+              "en": "A product accessibility note beyond that specimen button is not recorded in the contract.",
+              "zh": "除该标本按钮外，产品无障碍说明未写入本契约。"
+            }
+          ]
+        },
+        "api": {
+          "status": "pending",
+          "items": []
+        },
+        "related": [
+          {
+            "id": "module-hover-icons",
+            "note": {
+              "en": "Module hover icons share this fill, sheen, and blur, but must stay 32×32 rounded rectangles, not this 36px circle.",
+              "zh": "模块悬停图标共用这里的填色、sheen 和模糊，但必须保持 32×32 圆角矩形，而不是这个 36px 圆。"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "micro-glass-card-a",
+      "status": "locked",
+      "onDesignSystemSite": true,
+      "siteHash": "#components/components-glass",
+      "siteLabel": "Locked (caption: A locked; daily and B are not)",
+      "title": {
+        "en": "Micro-glass card A (strong, shallow-blur solid fill)",
+        "zh": "微玻璃卡片 A（浅模糊实底）"
+      },
+      "what": {
+        "en": "The strong micro-glass card tier. Locked. Shared layout: 360 wide, height follows content, radius 16px, padding 14px 16px 16px.",
+        "zh": "微玻璃卡片的强样式档。已锁定。共用布局：宽 360、高度随内容、圆角 16px、padding 14px 16px 16px。"
+      },
+      "whenToUse": {
+        "en": "Use tier A only where the strong, shallower-blur solid fill is required. Do not substitute A for the everyday daily card, and do not treat archived proposal B as locked.",
+        "zh": "只在需要强样式、浅模糊实底的场合使用 A。不要用 A 代替常用 daily 卡片，也不要把留档方案 B 当成定稿。"
+      },
+      "tokens": [
+        {
+          "name": "width",
+          "value": "360px",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro; site cardsSpec"
+        },
+        {
+          "name": "height",
+          "value": "follows content",
+          "status": "verified",
+          "source": "site cardsSpec"
+        },
+        {
+          "name": "radius",
+          "value": "16px",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro"
+        },
+        {
+          "name": "padding",
+          "value": "14px 16px 16px",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro; site cardsSpec"
+        },
+        {
+          "name": "fill",
+          "value": "linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 50%), rgba(23, 23, 23, 0.92)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro.a; site cardsSpec"
+        },
+        {
+          "name": "rim",
+          "value": "--rim-top: 0.10; --rim-bot: 0.04 (1px gradient rim via ::before)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro.a / .card-micro::before; site cardsSpec"
+        },
+        {
+          "name": "inset highlight",
+          "value": "inset 0 1px 0 rgba(255, 255, 255, 0.08)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro.a; site cardsSpec"
+        },
+        {
+          "name": "drop",
+          "value": "0 8px 24px rgba(0, 0, 0, 0.28)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro.a"
+        },
+        {
+          "name": "backdrop-filter",
+          "value": "blur(3px) saturate(1.1)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro.a; site cardsSpec"
+        },
+        {
+          "name": "type: cap / title / body",
+          "value": "cap 11px/14px #ffffff80; title 13px/18px weight 650; body 12px/17px #ffffffc0",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .card-micro .cap, h3, p"
+        }
+      ],
+      "must": [
+        {
+          "en": "Use the locked A fill, rim, inset, blur, and 16px radius as written.",
+          "zh": "按原文使用已锁定的 A 填色、rim、内高光、模糊和 16px 圆角。"
+        }
+      ],
+      "never": [
+        {
+          "en": "Do not treat Common daily or archived B as this lock. Daily is labeled a candidate on the site and in the glass library — see pending.",
+          "zh": "不要把常用 daily 或留档 B 当成这条定稿。daily 在站点与玻璃库中均标为候选，见待定项。"
+        },
+        {
+          "en": "Do not invent or average A’s fill with daily or B.",
+          "zh": "不要发明新的填色，也不要把 A 与 daily 或 B 的数值做平均。"
+        }
+      ],
+      "sources": [
+        "Design-system site: Glass → Micro-glass cards, section badge Locked; caption “A · strong, shallow-blur solid fill (locked)”",
+        "pages/Components/glass-specimens.css .card-micro.a",
+        "glass-lab/glass-library.html figcaption A · 浅模糊实底（定稿） (read-only cross-check; not edited)"
+      ],
+      "page": {
+        "hash": "#components/components-rules/micro-glass-card-a",
+        "examples": [
+          {
+            "id": "tier-a",
+            "specimen": "micro-glass-a",
+            "title": {
+              "en": "Tier A card",
+              "zh": "A 档卡片"
+            },
+            "caption": {
+              "en": "The locked strong, shallow-blur solid-fill card. Shared layout: 360 wide, height follows content, radius 16px, padding 14px 16px 16px.",
+              "zh": "已锁定的强样式、浅模糊实底卡片。共用布局：宽 360、高度随内容、圆角 16px、padding 14px 16px 16px。"
+            }
+          }
+        ],
+        "sizes": [
+          {
+            "name": "width",
+            "value": "360px",
+            "status": "verified",
+            "source": "tokens.width"
+          },
+          {
+            "name": "height",
+            "value": "follows content",
+            "status": "verified",
+            "source": "tokens.height"
+          },
+          {
+            "name": "radius",
+            "value": "16px",
+            "status": "verified",
+            "source": "tokens.radius"
+          },
+          {
+            "name": "padding",
+            "value": "14px 16px 16px",
+            "status": "verified",
+            "source": "tokens.padding"
+          },
+          {
+            "name": "type: cap / title / body",
+            "value": "cap 11px/14px #ffffff80; title 13px/18px weight 650; body 12px/17px #ffffffc0",
+            "status": "verified",
+            "source": "tokens.type: cap / title / body"
+          }
+        ],
+        "states": {
+          "status": "pending",
+          "items": [],
+          "note": {
+            "en": "No hover, focus, or disabled tokens for card A are recorded in the contract. Only the resting locked surface is verified.",
+            "zh": "契约中未记录卡片 A 的悬停、聚焦或禁用 token。只核实了静止的锁定表面。"
+          }
+        },
+        "usage": {
+          "use": [
+            {
+              "en": "Use tier A only where the strong, shallower-blur solid fill is required.",
+              "zh": "只在需要强样式、浅模糊实底的场合使用 A。"
+            }
+          ],
+          "notFor": [
+            {
+              "en": "Do not substitute A for the everyday daily card, and do not treat archived proposal B as locked.",
+              "zh": "不要用 A 代替常用 daily 卡片，也不要把留档方案 B 当成定稿。"
+            }
+          ]
+        },
+        "edgeCases": {
+          "status": "pending",
+          "items": []
+        },
+        "accessibility": {
+          "status": "pending",
+          "items": []
+        },
+        "api": {
+          "status": "pending",
+          "items": []
+        },
+        "related": [
+          {
+            "id": "micro-glass-daily",
+            "status": "pending",
+            "note": {
+              "en": "Everyday daily is a library candidate, not this lock, and is not in the formal contract.",
+              "zh": "常用 daily 在库中为候选，不是本条定稿，也不进入正式契约。"
+            }
+          },
+          {
+            "id": "micro-glass-card-b",
+            "status": "excluded",
+            "note": {
+              "en": "Archived proposal B is not locked.",
+              "zh": "留档方案 B 不是定稿。"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bf-segmented-b",
+      "status": "locked",
+      "onDesignSystemSite": true,
+      "siteHash": "#components/components-glass",
+      "siteLabel": "Locked",
+      "title": {
+        "en": "Black Friday resolution Segmented B",
+        "zh": "黑五分辨率 Segmented B"
+      },
+      "what": {
+        "en": "Compact two-step resolution Segmented, lock B. Track is glass aligned to the banner arrow. Thumb uses glass-edge-light #1A1814 with a gold rim — not a solid #FFD93D treatment.",
+        "zh": "紧凑两档分辨率 Segmented，定稿 B。轨道玻璃对齐 Banner 箭头。拇指为 glass-edge-light #1A1814 加金 rim，不是纯色 #FFD93D。"
+      },
+      "whenToUse": {
+        "en": "Use for the Black Friday / resolution two-step control this lock describes. Do not replace it with the unlocked generic segmented, and do not recast the thumb as solid gold.",
+        "zh": "用于本条所定的黑五 / 分辨率两档控件。不要用未锁定的通用 Segmented 替换它，也不要把拇指改成纯金实底。"
+      },
+      "tokens": [
+        {
+          "name": "track height / shape",
+          "value": "height 26px, pill (border-radius: 999px)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg; site bfSpec"
+        },
+        {
+          "name": "track fill",
+          "value": "rgba(31, 31, 38, 0.55) linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg"
+        },
+        {
+          "name": "track backdrop-filter",
+          "value": "blur(8px) saturate(1.25)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg"
+        },
+        {
+          "name": "track stroke",
+          "value": "inset 0 0 0 1px rgba(255, 255, 255, 0.07)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg; site bfSpec"
+        },
+        {
+          "name": "thumb size / shape",
+          "value": "52px × 22px, pill (border-radius: 999px), inset top/left 2px",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg .thumb; site bfSpec"
+        },
+        {
+          "name": "thumb fill",
+          "value": "#1a1814",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg .thumb; site bfSpec"
+        },
+        {
+          "name": "thumb gold rim",
+          "value": "inset 0 0 0 1px rgba(255, 214, 102, 0.16), 0 0 0 1px rgba(255, 214, 102, 0.10)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg .thumb"
+        },
+        {
+          "name": "thumb top inset white",
+          "value": "inset 0 1px 0 rgba(255, 255, 255, 0.08)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg .thumb; site bfSpec"
+        },
+        {
+          "name": "label type",
+          "value": "12px / 16px / weight 600; unselected rgba(255, 255, 255, 0.55); selected #ffe8a8",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg .tabs button"
+        },
+        {
+          "name": "unit label",
+          "value": "“30 seconds”, 12px / weight 500, rgba(255, 255, 255, 0.55)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .bf-seg-unit; site bfUnit"
+        }
+      ],
+      "must": [
+        {
+          "en": "Keep the glass track and the #1A1814 gold-rim thumb as written.",
+          "zh": "按原文保留玻璃轨道和 #1A1814 金 rim 拇指。"
+        }
+      ],
+      "never": [
+        {
+          "en": "Never treat the thumb as solid #FFD93D.",
+          "zh": "不要把拇指做成纯色 #FFD93D。"
+        },
+        {
+          "en": "Do not invent a “toned-down” highlight. The site notes that library 4b may be slightly brighter than a later product tab; that difference is pending, not a new token.",
+          "zh": "不要发明一个“减弱后”的高光。站点注明库中 4b 可能比后来产品 tab 稍亮；该差异仍待定，不是新的 token。"
+        }
+      ],
+      "caveats": [
+        {
+          "status": "pending",
+          "en": "Site bfNote: library 4b highlight may still be slightly brighter than the later, toned-down product tab. No separate product value was verified here, so the specimen tokens above stay as written and the brightness gap is not invented away.",
+          "zh": "站点 bfNote：库中 4b 高光可能仍比后来产品里减弱后的 tab 稍亮。此处未核实到另一套产品数值，因此标本 token 保持原文，不编造减弱值。"
+        }
+      ],
+      "sources": [
+        "Design-system site: Glass → Black Friday resolution Segmented B, badge Locked",
+        "pages/Components/glass-specimens.css .bf-seg",
+        "glass-lab/glass-library.html 4b · 黑五分辨率 Segmented, badge 定稿 · B (read-only cross-check; not edited)"
+      ],
+      "page": {
+        "hash": "#components/components-rules/bf-segmented-b",
+        "examples": [
+          {
+            "id": "resolution",
+            "specimen": "bf-segmented-b",
+            "title": {
+              "en": "720p / 1080p resolution control",
+              "zh": "720p / 1080p 分辨率控件"
+            },
+            "caption": {
+              "en": "Compact two-option Segmented B with the glass track and #1A1814 gold-rim thumb. Unit label “30 seconds”.",
+              "zh": "紧凑两档 Segmented B，玻璃轨道加 #1A1814 金 rim 拇指。单位文案为 “30 seconds”。"
+            }
+          }
+        ],
+        "sizes": [
+          {
+            "name": "track height / shape",
+            "value": "height 26px, pill (border-radius: 999px)",
+            "status": "verified",
+            "source": "tokens.track height / shape"
+          },
+          {
+            "name": "thumb size / shape",
+            "value": "52px × 22px, pill (border-radius: 999px), inset top/left 2px",
+            "status": "verified",
+            "source": "tokens.thumb size / shape"
+          },
+          {
+            "name": "label type",
+            "value": "12px / 16px / weight 600",
+            "status": "verified",
+            "source": "tokens.label type"
+          },
+          {
+            "name": "unit label",
+            "value": "“30 seconds”, 12px / weight 500, rgba(255, 255, 255, 0.55)",
+            "status": "verified",
+            "source": "tokens.unit label"
+          }
+        ],
+        "states": [
+          {
+            "name": "unselected label",
+            "value": {
+              "en": "rgba(255, 255, 255, 0.55)",
+              "zh": "rgba(255, 255, 255, 0.55)"
+            },
+            "status": "verified",
+            "source": "tokens.label type"
+          },
+          {
+            "name": "selected label",
+            "value": {
+              "en": "#ffe8a8, with the #1a1814 gold-rim thumb (not solid #FFD93D)",
+              "zh": "#ffe8a8，配 #1a1814 金 rim 拇指（不是纯色 #FFD93D）"
+            },
+            "status": "verified",
+            "source": "tokens.label type; tokens.thumb fill / gold rim"
+          },
+          {
+            "name": "hover / focus / disabled",
+            "status": "pending",
+            "value": {
+              "en": "No hover, focus, or disabled tokens for this control are recorded in the contract.",
+              "zh": "契约中未记录该控件的悬停、聚焦或禁用 token。"
+            }
+          }
+        ],
+        "usage": {
+          "use": [
+            {
+              "en": "Use for the Black Friday / resolution two-option control this lock describes.",
+              "zh": "用于本条所定的黑五 / 分辨率两档控件。"
+            }
+          ],
+          "notFor": [
+            {
+              "en": "Do not replace it with an unlocked generic Segmented, and do not treat the thumb as solid #FFD93D.",
+              "zh": "不要用未锁定的通用 Segmented 替换它，也不要把拇指做成纯色 #FFD93D。"
+            }
+          ]
+        },
+        "edgeCases": {
+          "status": "pending",
+          "items": [
+            {
+              "status": "pending",
+              "en": "Site bfNote: library 4b highlight may still be slightly brighter than the later, toned-down product tab. No separate product value was verified here, so the specimen tokens stay as written and the brightness gap is not invented away.",
+              "zh": "站点 bfNote：库中 4b 高光可能仍比后来产品里减弱后的 tab 稍亮。此处未核实到另一套产品数值，因此标本 token 保持原文，不编造减弱值。",
+              "source": "caveats[0]"
+            }
+          ]
+        },
+        "accessibility": {
+          "status": "partial",
+          "items": [
+            {
+              "status": "verified",
+              "en": "The design-system specimen uses role=\"tablist\" / role=\"tab\" and aria-selected on the two options.",
+              "zh": "设计系统标本在两个选项上使用 role=\"tablist\" / role=\"tab\" 和 aria-selected。",
+              "source": "pages/Components/Glass.tsx Black Friday Segmented B specimen"
+            },
+            {
+              "status": "pending",
+              "en": "A fuller product accessibility note is not recorded in the contract.",
+              "zh": "更完整的产品无障碍说明未写入本契约。"
+            }
+          ]
+        },
+        "api": {
+          "status": "pending",
+          "items": []
+        },
+        "related": [
+          {
+            "id": "banner-arrow",
+            "note": {
+              "en": "The track glass is aligned to the banner arrow treatment. The thumb is a different, gold-rim #1A1814 pill, not the banner circle.",
+              "zh": "轨道玻璃对齐 Banner 箭头的处理。拇指是不同的金 rim #1A1814 胶囊，不是 Banner 圆。"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "module-hover-icons",
+      "status": "locked",
+      "onDesignSystemSite": true,
+      "siteHash": "#components/components-glass",
+      "siteLabel": "Locked",
+      "title": {
+        "en": "Community and Film Studio module hover icons",
+        "zh": "Community 与 Film Studio 模块悬停图标"
+      },
+      "what": {
+        "en": "The locked hover icons themselves: arrow (ArrowUpRight), sound-on (Volume2), and mute (VolumeX). Each is a 32×32 (size-8) glass rounded rectangle, radius 8px, not a circle. Fill, sheen, and blur match the banner arrow. The design-system specimen is a bare row of these three icons. It does not include a module card shell, Community / Film Studio titles, or Hover to reveal / Forced visible wrapping.",
+        "zh": "已锁定的悬停图标本身：箭头（ArrowUpRight）、声音开（Volume2）和已静音（VolumeX）。每个都是 32×32（size-8）玻璃圆角矩形，圆角 8px，不是圆。填色、sheen、模糊与 Banner 箭头相同。设计系统标本是这三枚图标的一行陈列，不包含模块卡片外壳、Community / Film Studio 标题，或「悬停显示 / 强制可见」包装。"
+      },
+      "whenToUse": {
+        "en": "These are the locked hover icons for Community and Film Studio modules. Do not make them circles to match the banner arrow.",
+        "zh": "这是 Community 与 Film Studio 模块已锁定的悬停图标。不要为了跟 Banner 箭头一致而改成圆形。"
+      },
+      "tokens": [
+        {
+          "name": "size",
+          "value": "32px × 32px",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .module-icon"
+        },
+        {
+          "name": "radius",
+          "value": "8px (rounded-lg, not rounded-full)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .module-icon"
+        },
+        {
+          "name": "fill / sheen / blur / default edge",
+          "value": "same as .arrow-final default: fill rgba(31, 31, 38, 0.6), sheen .06→50%, blur(6px) saturate(1.2), stroke 0.07, same bevel and drop",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .module-icon"
+        },
+        {
+          "name": "hover / press",
+          "value": "same as .arrow-final hover/press (including ::before wash, stroke 0.10 / 0.12, scale 0.97 on press)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .module-icon:hover / :active"
+        },
+        {
+          "name": "icon glyph",
+          "value": "15px × 15px, stroke-width 2.2",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .module-icon svg"
+        },
+        {
+          "name": "locked set",
+          "value": "arrow (ArrowUpRight), sound-on (Volume2), and mute (VolumeX). The design-system specimen shows these three icons only, in a bare row, not on a module card.",
+          "status": "verified",
+          "source": "pages/Components/Glass.tsx and pages/Components/LockSpecimens.tsx module-hover-icons specimen"
+        }
+      ],
+      "must": [
+        {
+          "en": "Keep 32×32 and 8px radius rounded rectangles.",
+          "zh": "保持 32×32、圆角 8px 的圆角矩形。"
+        },
+        {
+          "en": "Keep fill, sheen, and blur matched to the banner arrow, but do not copy the arrow’s circular shape.",
+          "zh": "填色、sheen、模糊与 Banner 箭头一致，但不要照搬箭头的圆形。"
+        },
+        {
+          "en": "The locked specimen shows only these three icons. Do not put the module card shell, titles, or Hover to reveal / Forced visible wrapping back on the design-system exhibit.",
+          "zh": "锁定标本只展示这三枚图标。不要把模块卡片外壳、标题或「悬停显示 / 强制可见」包装写回设计系统陈列。"
+        }
+      ],
+      "never": [
+        {
+          "en": "Never use rounded-full or a 36px circle for these icons.",
+          "zh": "不要对这些图标使用 rounded-full 或 36px 圆形。"
+        },
+        {
+          "en": "Do not import live class names from turbo; the design-system specimen copied the class literals.",
+          "zh": "不要从 turbo 直接 import 线上 class；设计系统标本是按字面复制的 class literals。"
+        }
+      ],
+      "sources": [
+        "Design-system site: Glass → Module hover icons, badge Locked. Specimen is a bare row of the three icons.",
+        "pages/Components/glass-specimens.css .module-icon",
+        "pages/Components/Glass.tsx and pages/Components/LockSpecimens.tsx module-hover-icons specimen"
+      ],
+      "page": {
+        "hash": "#components/components-rules/module-hover-icons",
+        "examples": [
+          {
+            "id": "icons",
+            "specimen": "module-hover-icons-row",
+            "title": {
+              "en": "Arrow, sound-on, and mute",
+              "zh": "箭头、声音开、已静音"
+            },
+            "caption": {
+              "en": "The locked 32×32 rounded-lg hover icons only. No module card, Community / Film Studio titles, or Hover to reveal / Forced visible wrapping.",
+              "zh": "只展示已锁定的 32×32 rounded-lg 悬停图标。没有模块卡片、Community / Film Studio 标题，或「悬停显示 / 强制可见」包装。"
+            }
+          }
+        ],
+        "sizes": [
+          {
+            "name": "icon button",
+            "value": "32px × 32px",
+            "status": "verified",
+            "source": "tokens.size"
+          },
+          {
+            "name": "radius",
+            "value": "8px (rounded-lg, not rounded-full)",
+            "status": "verified",
+            "source": "tokens.radius"
+          },
+          {
+            "name": "icon glyph",
+            "value": "15px × 15px, stroke-width 2.2",
+            "status": "verified",
+            "source": "tokens.icon glyph"
+          }
+        ],
+        "states": [
+          {
+            "name": "default (specimen)",
+            "value": {
+              "en": "The three locked icons are shown in a bare row. Fill, sheen, blur, and default edge match .arrow-final default.",
+              "zh": "三枚已锁定图标以一行陈列。填色、sheen、模糊和默认边缘与 .arrow-final 默认态相同。"
+            },
+            "status": "verified",
+            "source": "pages/Components/Glass.tsx module-hover-icons specimen; tokens.fill / sheen / blur / default edge"
+          },
+          {
+            "name": "hover (icon)",
+            "value": {
+              "en": "Same as .arrow-final hover, including ::before wash and stroke 0.10.",
+              "zh": "与 .arrow-final 悬停相同，包括 ::before wash 和描边 0.10。"
+            },
+            "status": "verified",
+            "source": "tokens.hover / press"
+          },
+          {
+            "name": "press",
+            "value": {
+              "en": "Same as .arrow-final press: scale 0.97, stroke 0.12.",
+              "zh": "与 .arrow-final 按下相同：scale 0.97，描边 0.12。"
+            },
+            "status": "verified",
+            "source": "tokens.hover / press"
+          },
+          {
+            "name": "focus",
+            "status": "pending",
+            "value": {
+              "en": "A product focus-ring token for the icon itself is not recorded in the contract.",
+              "zh": "图标本身的产品焦点环 token 未写入本契约。"
+            }
+          }
+        ],
+        "usage": {
+          "use": [
+            {
+              "en": "Use these locked 32×32 rounded-lg icons as the Community and Film Studio module hover icons.",
+              "zh": "将这套已锁定的 32×32 rounded-lg 图标用作 Community 与 Film Studio 模块的悬停图标。"
+            }
+          ],
+          "notFor": [
+            {
+              "en": "Do not make them circles to match the banner arrow, and do not use rounded-full or a 36px circle.",
+              "zh": "不要为了跟 Banner 箭头一致而改成圆形，也不要使用 rounded-full 或 36px 圆形。"
+            }
+          ]
+        },
+        "edgeCases": {
+          "status": "pending",
+          "items": []
+        },
+        "accessibility": {
+          "status": "pending",
+          "items": [
+            {
+              "status": "pending",
+              "en": "A product accessibility name, keyboard map, and focus-ring token for these icons are not recorded in the contract.",
+              "zh": "这些图标的产品无障碍名称、键盘映射和焦点环 token 未写入本契约。"
+            }
+          ]
+        },
+        "api": {
+          "status": "pending",
+          "items": []
+        },
+        "related": [
+          {
+            "id": "banner-arrow",
+            "note": {
+              "en": "Fill, sheen, and blur match the banner arrow. Do not copy the arrow’s 36px circular shape.",
+              "zh": "填色、sheen、模糊与 Banner 箭头一致，但不要照搬箭头的 36px 圆形。"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "alert-b",
+      "status": "locked",
+      "onDesignSystemSite": false,
+      "siteSpecimenStatus": "column-removed-do-not-restore",
+      "siteLabel": "Product lock kept in this contract only. The Glass comparison column B was removed at Shawn’s request and must not be written back onto the page.",
+      "title": {
+        "en": "Glass Alert B (in-product glass alert, final)",
+        "zh": "玻璃 Alert B（站内风格玻璃提示，定稿）"
+      },
+      "what": {
+        "en": "The current locked in-product glass alert. Site-style glass: radius 12px, padding 8px, fill rgba(31, 31, 38, 0.6) plus the (c) sheen and edge, blur 6 / saturate 1.2, 36×36 radius-4 icon tile. This is not Alert A (glassyui replica), not Alert C (solid white Toast), and not Alert D.",
+        "zh": "当前已锁定的站内风格玻璃提示。圆角 12px、padding 8px、填色 rgba(31, 31, 38, 0.6) 加 (c) sheen 与亮边、blur 6 / sat 1.2、36×36 圆角 4 的图标砖。不是 Alert A（glassyui 复刻），不是 Alert C（白底 Toast），也不是 Alert D。"
+      },
+      "whenToUse": {
+        "en": "Use this treatment when a glass alert is required in product and this in-product .ta set is the one called for. Do not use unlocked columns A or C as the product default. Alert D is a separate formal lock (white-glass Toast structure), not a substitute for this treatment.",
+        "zh": "产品里需要玻璃提示、且应使用这一套站内 .ta 时使用。不要把未锁定的 A 或 C 列当成产品默认。Alert D 是另一条正式定稿（白玻璃 Toast 结构），不能替代本条。"
+      },
+      "tokens": [
+        {
+          "name": "shape / padding",
+          "value": "border-radius: 12px; padding: 8px (inner icon tile radius 4px)",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta; glass-lab/glass-library.html .ta and spec “r12 · padding 8 · 图标砖 36/r4”"
+        },
+        {
+          "name": "layout",
+          "value": "flex, align-items flex-start, gap 12px, color #fff",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta"
+        },
+        {
+          "name": "fill",
+          "value": "rgba(31, 31, 38, 0.6) linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%)",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta"
+        },
+        {
+          "name": "backdrop-filter",
+          "value": "blur(6px) saturate(1.2)",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta; glass-alert.html heading “blur6 sat1.2”"
+        },
+        {
+          "name": "edge (c)",
+          "value": "inset 0 0 0 1px rgba(255, 255, 255, 0.10), inset 1px 1px 0 -0.5px rgba(255, 255, 255, 0.32), inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.4), inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.4), inset 0 -1px 4px 0 rgba(0, 0, 0, 0.24), 0 4px 12px -3px rgba(0, 0, 0, 0.5)",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta box-shadow"
+        },
+        {
+          "name": "icon tile",
+          "value": "36px × 36px, padding 8px, border-radius 4px, color var(--ink), background rgb(var(--tint) / 0.16), inset 0 0 0 1px rgb(var(--tint) / 0.22)",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta .ic"
+        },
+        {
+          "name": "title type",
+          "value": "14px / 18px / weight 600",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta .t"
+        },
+        {
+          "name": "body type",
+          "value": "13px / 18px, rgba(255, 255, 255, 0.72) (library uses opacity 0.72 on #fff)",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta .d; glass-library.html .ta .d opacity .72"
+        },
+        {
+          "name": "tones (ink / tint)",
+          "value": "info --ink #b2d6ff --tint 0 103 217; success --ink #7cebc0 --tint 51 214 159; warning --ink #ffd27a --tint 255 189 56; danger --ink #ffa6b7 --tint 255 92 122",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta and [data-tone]"
+        },
+        {
+          "name": "close",
+          "value": "28×28, radius 4px, opacity 0.64, hover background rgba(255, 255, 255, 0.10); rendered on danger only in the glass-alert.html builder",
+          "status": "verified",
+          "source": "glass-lab/glass-alert.html .ta .x and script (X appended when t==='danger')"
+        },
+        {
+          "name": "height",
+          "value": "Library spec text says 52. CSS does not set an explicit height; 8px padding + 36px icon tile = 52.",
+          "status": "verified-from-parts",
+          "source": "glass-lab/glass-library.html spec “高 52”; computed from .ta padding and .ic size"
+        }
+      ],
+      "must": [
+        {
+          "en": "Use these verified .ta tokens for the in-product glass alert.",
+          "zh": "站内玻璃提示使用这些已核实的 .ta token。"
+        },
+        {
+          "en": "Keep the product lock in this contract even though the design-system comparison column was removed.",
+          "zh": "即使设计系统对照列已移除，仍在本契约中保留这条产品定稿。"
+        }
+      ],
+      "never": [
+        {
+          "en": "Do not write column B or this specimen back onto the design-system Glass page.",
+          "zh": "不要把 B 列或该标本写回设计系统 Glass 页。"
+        },
+        {
+          "en": "Do not replace this lock with unlocked Alert A or C, do not invent a blend of them, and do not treat Alert D’s separate formal lock as a substitute for this .ta treatment.",
+          "zh": "不要用未锁定的 Alert A 或 C 替换这条定稿，不要发明它们的混合体，也不要把另一条正式定稿 Alert D 当成这一套 .ta 的替代。"
+        }
+      ],
+      "sources": [
+        "glass-lab/glass-alert.html: header “B：站内风格玻璃（定稿，锁定不变）”; heading “B · 站内风格 … r12 · 定稿”; CSS .ta (read-only; not edited). Tokens were never committed to topview-design git history (uncommitted work, then the column was removed), so git show 7805c138 cannot provide them.",
+        "glass-lab/glass-library.html section 3 · Glass Alert, badge 定稿, same .ta tokens (read-only; not edited)"
+      ],
+      "page": {
+        "hash": "#components/components-rules/alert-b",
+        "examples": [
+          {
+            "id": "tones",
+            "specimen": "alert-b-tones",
+            "title": {
+              "en": "Info, success, warning, and danger",
+              "zh": "提示、成功、警告、危险"
+            },
+            "caption": {
+              "en": "The locked in-product glass alert (.ta). Copy is the Chinese set already used on the Glass comparison. The close control is rendered on danger only, as in the glass-alert.html builder. This example lives on this rules page only — do not write column B back onto the Glass page.",
+              "zh": "已锁定的站内风格玻璃提示（.ta）。文案沿用 Glass 对照页已使用的中文套件。关闭控件仅在危险态出现，与 glass-alert.html 构建器一致。该示例只出现在本规则页——不要把 B 列写回 Glass 页。"
+            }
+          }
+        ],
+        "sizes": [
+          {
+            "name": "shape / padding",
+            "value": "border-radius: 12px; padding: 8px (inner icon tile radius 4px)",
+            "status": "verified",
+            "source": "tokens.shape / padding"
+          },
+          {
+            "name": "layout",
+            "value": "flex, align-items flex-start, gap 12px, color #fff",
+            "status": "verified",
+            "source": "tokens.layout"
+          },
+          {
+            "name": "icon tile",
+            "value": "36px × 36px, padding 8px, border-radius 4px",
+            "status": "verified",
+            "source": "tokens.icon tile"
+          },
+          {
+            "name": "title type",
+            "value": "14px / 18px / weight 600",
+            "status": "verified",
+            "source": "tokens.title type"
+          },
+          {
+            "name": "body type",
+            "value": "13px / 18px, rgba(255, 255, 255, 0.72)",
+            "status": "verified",
+            "source": "tokens.body type"
+          },
+          {
+            "name": "close",
+            "value": "28×28, radius 4px, opacity 0.64",
+            "status": "verified",
+            "source": "tokens.close"
+          },
+          {
+            "name": "height",
+            "value": "Library spec text says 52. CSS does not set an explicit height; 8px padding + 36px icon tile = 52.",
+            "status": "verified-from-parts",
+            "source": "tokens.height"
+          }
+        ],
+        "states": [
+          {
+            "name": "tones",
+            "value": {
+              "en": "info --ink #b2d6ff --tint 0 103 217; success --ink #7cebc0 --tint 51 214 159; warning --ink #ffd27a --tint 255 189 56; danger --ink #ffa6b7 --tint 255 92 122.",
+              "zh": "info --ink #b2d6ff --tint 0 103 217；success --ink #7cebc0 --tint 51 214 159；warning --ink #ffd27a --tint 255 189 56；danger --ink #ffa6b7 --tint 255 92 122。"
+            },
+            "status": "verified",
+            "source": "tokens.tones (ink / tint)"
+          },
+          {
+            "name": "close (danger only)",
+            "value": {
+              "en": "28×28, radius 4px, opacity 0.64, hover background rgba(255, 255, 255, 0.10). Rendered on danger only in the glass-alert.html builder.",
+              "zh": "28×28，圆角 4px，透明度 0.64，悬停背景 rgba(255, 255, 255, 0.10)。在 glass-alert.html 构建器中仅出现在危险态。"
+            },
+            "status": "verified",
+            "source": "tokens.close"
+          },
+          {
+            "name": "focus / disabled",
+            "status": "pending",
+            "value": {
+              "en": "No focus or disabled token is recorded in the contract.",
+              "zh": "契约中未记录焦点或禁用 token。"
+            }
+          }
+        ],
+        "usage": {
+          "use": [
+            {
+              "en": "Use this verified .ta set when the product needs the in-product glass alert.",
+              "zh": "产品里需要玻璃提示时使用这一套已核实的 .ta token。"
+            }
+          ],
+          "notFor": [
+            {
+              "en": "Do not treat unlocked Alert A or C as the product default, do not invent a blend of them, do not treat Alert D’s separate formal lock as a substitute for this .ta treatment, and do not write column B or this specimen back onto the Glass page.",
+              "zh": "不要把未锁定的 Alert A 或 C 当成产品默认，不要发明它们的混合体，不要把另一条正式定稿 Alert D 当成这一套 .ta 的替代，也不要把 B 列或该标本写回 Glass 页。"
+            }
+          ]
+        },
+        "edgeCases": {
+          "status": "pending",
+          "items": []
+        },
+        "accessibility": {
+          "status": "pending",
+          "items": []
+        },
+        "api": {
+          "status": "pending",
+          "items": []
+        },
+        "related": [
+          {
+            "id": "alert-a",
+            "status": "excluded",
+            "note": {
+              "en": "Alert A is an unlocked glassyui replica, not this lock.",
+              "zh": "Alert A 是未锁定的 glassyui 复刻，不是本条定稿。"
+            }
+          },
+          {
+            "id": "alert-c",
+            "status": "excluded",
+            "note": {
+              "en": "Alert C is the unlocked in-product white Toast, not glass.",
+              "zh": "Alert C 是未锁定的站内白底 Toast，不是玻璃。"
+            }
+          },
+          {
+            "id": "alert-d",
+            "status": "locked",
+            "note": {
+              "en": "Alert D is a separate formal lock for the white-glass Toast-structure alert, and remains on the Glass comparison at #glass-alert-d. It is not this .ta treatment.",
+              "zh": "Alert D 是另一条正式定稿，用于白玻璃 Toast 结构提示，并保留在 Glass 对照的 #glass-alert-d。不是这一套 .ta。"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "alert-d",
+      "status": "locked",
+      "onDesignSystemSite": true,
+      "siteHash": "#components/components-glass",
+      "siteLabel": "Locked",
+      "title": {
+        "en": "Glass Alert D (untinted white glass, C’s Toast structure)",
+        "zh": "玻璃 Alert D（无色调白玻璃，C 的 Toast 结构）"
+      },
+      "what": {
+        "en": "The locked white-glass alert that uses C’s Toast structure on untinted white glass at radius 16px. Fill is rgb(255 255 255 / 0.90). Edge light is a 1px ::before gradient stroke (top .36 / 40% .06 / bottom .12) with mask-composite exclude, plus a top inset 0 1px 0 rgba(255, 255, 255, 0.36) and lift 0 1px 6px rgba(0, 0, 0, 0.25). backdrop-filter is thin frost only: blur(16px) brightness(1) contrast(0.9) saturate(1.8). Padding 10px 16px, 20×20 solid status icons, 16px semibold black title, 14px medium body with padding-left 28px, no close control, status color only on the icons. This is not Alert A (glassyui replica), not Alert C (solid white Toast), and not Alert B (in-product .ta glass).",
+        "zh": "已锁定的白玻璃提示：采用 C 的 Toast 结构，无色调白玻璃，圆角 16px。填色为 rgb(255 255 255 / 0.90)。边缘光是 ::before 的 1px 渐变描边（顶 .36 / 40% .06 / 底 .12），mask-composite exclude，再加上顶部内高光 inset 0 1px 0 rgba(255, 255, 255, 0.36) 与投影 0 1px 6px rgba(0, 0, 0, 0.25)。backdrop-filter 只作薄霜：blur(16px) brightness(1) contrast(0.9) saturate(1.8)。padding 10px 16px，20×20 实心状态图标，16px semibold 黑标题，14px medium 正文且 padding-left 28px，无关闭按钮，状态色只在图标上。不是 Alert A（glassyui 复刻），不是 Alert C（白底实心 Toast），也不是 Alert B（站内 .ta 玻璃）。"
+      },
+      "whenToUse": {
+        "en": "Use this treatment when the product needs this white-glass Toast-structure alert. Do not use unlocked Alert A or C as the product default, and do not substitute Alert B’s locked .ta glass for this lock.",
+        "zh": "产品里需要这一套白玻璃 Toast 结构提示时使用。不要把未锁定的 Alert A 或 C 当成产品默认，也不要用已锁定的 Alert B（.ta 玻璃）替代本条定稿。"
+      },
+      "tokens": [
+        {
+          "name": "radius",
+          "value": "16px",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .glassSpecimens .glass-toast border-radius"
+        },
+        {
+          "name": "padding",
+          "value": "10px 16px",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .glassSpecimens .glass-toast padding"
+        },
+        {
+          "name": "fill",
+          "value": "rgb(255 255 255 / 0.90)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .glassSpecimens .glass-toast background"
+        },
+        {
+          "name": "edge light",
+          "value": "::before 1px gradient stroke, linear-gradient(180deg, rgba(255,255,255,.36), rgba(255,255,255,.06) 40%, rgba(255,255,255,.12)), mask-composite exclude (and -webkit-mask-composite xor)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .glassSpecimens .glass-toast::before"
+        },
+        {
+          "name": "top inset",
+          "value": "inset 0 1px 0 rgba(255, 255, 255, 0.36)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .glassSpecimens .glass-toast box-shadow"
+        },
+        {
+          "name": "lift shadow",
+          "value": "0 1px 6px rgba(0, 0, 0, 0.25)",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .glassSpecimens .glass-toast box-shadow"
+        },
+        {
+          "name": "backdrop-filter",
+          "value": "blur(16px) brightness(1) contrast(0.9) saturate(1.8) — thin frost only",
+          "status": "verified",
+          "source": "pages/Components/glass-specimens.css .glassSpecimens .glass-toast backdrop-filter"
+        },
+        {
+          "name": "layout / type",
+          "value": "C’s Toast structure: .pt-twoline / .pt-head (flex, align-items center, gap 8px); title 16px / weight 600 / #000; body 14px / weight 500 / rgba(0, 0, 0, 0.9) / padding-left 28px; color #000; no close on any of the four states",
+          "status": "verified",
+          "source": "pages/Components/Glass.tsx GlassToast; pages/Components/glass-specimens.css .glass-toast .pt-*"
+        },
+        {
+          "name": "status icons",
+          "value": "20×20 solid ProductToastIcon; status color only on the icons (success #00B42A, error #F53F3F, info #165DFF, warning #FF7D00). Fill stays untinted white — no status tint in the glass.",
+          "status": "verified",
+          "source": "pages/Components/Glass.tsx PRODUCT_TOAST_ICONS and GlassToast"
+        }
+      ],
+      "must": [
+        {
+          "en": "Use these verified .glass-toast tokens for this white-glass Toast-structure alert.",
+          "zh": "这一套白玻璃 Toast 结构提示使用这些已核实的 .glass-toast token。"
+        },
+        {
+          "en": "Keep the specimen on the Glass comparison at #glass-alert-d.",
+          "zh": "标本保留在 Glass 对照的 #glass-alert-d。"
+        }
+      ],
+      "never": [
+        {
+          "en": "Do not retune the fill, edge light, top inset, lift shadow, or backdrop-filter values.",
+          "zh": "不要改动填色、边缘光、顶部内高光、投影或 backdrop-filter 的数值。"
+        },
+        {
+          "en": "Do not add a close control, do not put status color in the fill, do not replace this with unlocked Alert A or C, and do not substitute Alert B’s locked .ta glass.",
+          "zh": "不要加关闭按钮，不要把状态色混进填色，不要用未锁定的 Alert A 或 C 替换本条，也不要用已锁定的 Alert B（.ta 玻璃）替代。"
+        },
+        {
+          "en": "Do not write Alert B or its specimen back onto the Glass page.",
+          "zh": "不要把 Alert B 或其标本写回 Glass 页。"
+        }
+      ],
+      "sources": [
+        "pages/Components/glass-specimens.css .glassSpecimens .glass-toast and .glass-toast::before (current uncommitted landed recipe; do not retune).",
+        "pages/Components/Glass.tsx GlassToast / ProductToastIcon, column id glass-alert-d."
+      ],
+      "page": {
+        "hash": "#components/components-rules/alert-d",
+        "examples": [
+          {
+            "id": "tones",
+            "specimen": "alert-d-tones",
+            "title": {
+              "en": "Info, success, warning, and danger",
+              "zh": "提示、成功、警告、危险"
+            },
+            "caption": {
+              "en": "The locked white-glass Toast-structure alert (.glass-toast). Copy is the Chinese set already used on the Glass comparison. No close control on any of the four states. The same specimen also stays on the Glass page at #glass-alert-d.",
+              "zh": "已锁定的白玻璃 Toast 结构提示（.glass-toast）。文案沿用 Glass 对照页已使用的中文套件。四种状态都没有关闭按钮。同一标本也保留在 Glass 页的 #glass-alert-d。"
+            }
+          }
+        ],
+        "sizes": [
+          {
+            "name": "radius",
+            "value": "16px",
+            "status": "verified",
+            "source": "tokens.radius"
+          },
+          {
+            "name": "padding",
+            "value": "10px 16px",
+            "status": "verified",
+            "source": "tokens.padding"
+          },
+          {
+            "name": "status icons",
+            "value": "20px × 20px solid icons; status color only on the icons",
+            "status": "verified",
+            "source": "tokens.status icons"
+          },
+          {
+            "name": "title type",
+            "value": "16px / weight 600 / #000",
+            "status": "verified",
+            "source": "tokens.layout / type"
+          },
+          {
+            "name": "body type",
+            "value": "14px / weight 500 / rgba(0, 0, 0, 0.9) / padding-left 28px",
+            "status": "verified",
+            "source": "tokens.layout / type"
+          }
+        ],
+        "states": [
+          {
+            "name": "tones",
+            "value": {
+              "en": "Four tones (info, success, warning, danger). Status color stays only on the 20×20 icons: success #00B42A, error #F53F3F, info #165DFF, warning #FF7D00. The glass fill stays untinted white.",
+              "zh": "四种状态（info、success、warning、danger）。状态色只出现在 20×20 图标上：success #00B42A、error #F53F3F、info #165DFF、warning #FF7D00。玻璃填色保持无色调白。"
+            },
+            "status": "verified",
+            "source": "tokens.status icons"
+          },
+          {
+            "name": "close",
+            "value": {
+              "en": "No close control on any of the four states.",
+              "zh": "四种状态都没有关闭按钮。"
+            },
+            "status": "verified",
+            "source": "pages/Components/Glass.tsx GlassToast (no close control in the markup)"
+          },
+          {
+            "name": "focus / disabled",
+            "status": "pending",
+            "value": {
+              "en": "No focus or disabled token is recorded in the contract.",
+              "zh": "契约中未记录焦点或禁用 token。"
+            }
+          }
+        ],
+        "usage": {
+          "use": [
+            {
+              "en": "Use this verified .glass-toast set when the product needs this white-glass Toast-structure alert.",
+              "zh": "产品里需要这一套白玻璃 Toast 结构提示时，使用这些已核实的 .glass-toast token。"
+            }
+          ],
+          "notFor": [
+            {
+              "en": "Do not use unlocked Alert A or C as the product default, do not substitute Alert B’s locked .ta glass, and do not write Alert B back onto the Glass page.",
+              "zh": "不要把未锁定的 Alert A 或 C 当成产品默认，不要用已锁定的 Alert B（.ta 玻璃）替代，也不要把 Alert B 写回 Glass 页。"
+            }
+          ]
+        },
+        "edgeCases": {
+          "status": "pending",
+          "items": []
+        },
+        "accessibility": {
+          "status": "pending",
+          "items": []
+        },
+        "api": {
+          "status": "pending",
+          "items": []
+        },
+        "related": [
+          {
+            "id": "alert-a",
+            "status": "excluded",
+            "note": {
+              "en": "Alert A is an unlocked glassyui replica, not this lock.",
+              "zh": "Alert A 是未锁定的 glassyui 复刻，不是本条定稿。"
+            }
+          },
+          {
+            "id": "alert-c",
+            "status": "excluded",
+            "note": {
+              "en": "Alert C is the unlocked in-product white Toast, not glass.",
+              "zh": "Alert C 是未锁定的站内白底 Toast，不是玻璃。"
+            }
+          },
+          {
+            "id": "alert-b",
+            "status": "locked",
+            "note": {
+              "en": "Alert B is a separate formal lock for the in-product .ta glass alert. Its comparison column must stay off the Glass page.",
+              "zh": "Alert B 是另一条正式定稿，用于站内 .ta 玻璃提示。其对照列必须保持不出现在 Glass 页。"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "productLocksNotOnSite": [
+    {
+      "id": "sidebar-loading-skeletons",
+      "status": "product-lock-not-on-site",
+      "title": {
+        "en": "Sidebar loading-skeleton families",
+        "zh": "侧栏加载骨架两套"
+      },
+      "summary": {
+        "en": "Verified in product source on origin/develop, not yet on the design-system site. Two families exist and must not be averaged: (1) Home left-dock chrome skeleton, (2) AppSidebar auth-unresolved footer loading sets. No design-system specimen was added.",
+        "zh": "已在 origin/develop 的产品源码中核实，设计系统站点上尚无标本。存在两套，不得做平均：（1）Home 左侧 dock 骨架；（2）AppSidebar 认证未决时的页脚加载。未因此新增设计系统标本。"
+      },
+      "families": [
+        {
+          "id": "home-left-dock-skeleton",
+          "title": {
+            "en": "Family 1 — Home left dock chrome skeleton",
+            "zh": "第一套 — Home 左侧 dock 骨架"
+          },
+          "tokens": [
+            {
+              "name": "dock width",
+              "value": "244px",
+              "status": "verified",
+              "source": "aigc-web-turbo origin/develop packages/home-left-dock/src/HomeLeftDockSkeleton.tsx HOME_LEFT_DOCK_WIDTH_PX"
+            },
+            {
+              "name": "block fill / border",
+              "value": "background #2a2a2a, border #232323, radius 10px, animate-pulse (motion-reduce: none)",
+              "status": "verified",
+              "source": "same file SKELETON_BG / SKELETON_BORDER / SKELETON_PULSE"
+            },
+            {
+              "name": "nav row",
+              "value": "h-9, gap-2, rounded-[10px], icon slot size-6 rounded-[8px]",
+              "status": "verified",
+              "source": "same file SkeletonNavRow"
+            }
+          ]
+        },
+        {
+          "id": "appsidebar-footer-loading-sets",
+          "title": {
+            "en": "Family 2 — AppSidebar auth-unresolved footer sets (mem509 / mem510)",
+            "zh": "第二套 — AppSidebar 认证未决页脚（mem509 / mem510）"
+          },
+          "tokens": [
+            {
+              "name": "set 1",
+              "value": "unresolved + session clue → logged-in two-row placeholder (never Login). Rows match StatusActions: size-10 / h-10 / gap-2 / rounded-[10px]. Skin is solid bg-white/[0.045] only — no border, no hollow chrome, no nested avatar/name.",
+              "status": "verified",
+              "source": "aigc-web-turbo origin/develop apps/base/src/components/Sidebar/AppSidebar.tsx HomeDockLoggedInFooterPlaceholder and mem509/mem510 comments"
+            },
+            {
+              "name": "set 2",
+              "value": "unresolved + no session clue → real Login chrome (not set 1). Do not use HomeLeftDockStatusSkeleton (mismatched h-10×2 vs Activity+Login / account rows).",
+              "status": "verified",
+              "source": "same file comments mem507 / mem509, showLoggedOutFooterLoading"
+            },
+            {
+              "name": "tone token",
+              "value": "bg-white/[0.045] (also exported as HOME_SKELETON_TONE_CLASS in apps/base/src/app/home/lib/homeSkeleton.ts). Do not average this with family 1’s #2a2a2a.",
+              "status": "verified",
+              "source": "AppSidebar.tsx and homeSkeleton.ts on origin/develop"
+            }
+          ]
+        }
+      ],
+      "must": [
+        {
+          "en": "Keep the two families distinct. Do not merge #2a2a2a and bg-white/[0.045].",
+          "zh": "两套保持区分。不要把 #2a2a2a 与 bg-white/[0.045] 合并。"
+        }
+      ],
+      "never": [
+        {
+          "en": "Do not invent a third sidebar skeleton or a design-system specimen just to fill the rules page.",
+          "zh": "不要为了填规则页而发明第三套侧栏骨架或新的设计系统标本。"
+        }
+      ],
+      "sources": [
+        "aigc-web-turbo origin/develop packages/home-left-dock/src/HomeLeftDockSkeleton.tsx (read-only; parked feature/black-friday work was not used)",
+        "aigc-web-turbo origin/develop apps/base/src/components/Sidebar/AppSidebar.tsx mem507 / mem509 / mem510 comments",
+        "aigc-web-turbo origin/develop apps/base/src/app/home/lib/homeSkeleton.ts HOME_SKELETON_TONE_CLASS"
+      ]
+    }
+  ],
+  "pending": [
+    {
+      "id": "micro-glass-daily",
+      "reason": "disagreement-or-not-locked-on-site",
+      "title": {
+        "en": "Micro-glass everyday daily",
+        "zh": "微玻璃常用 daily"
+      },
+      "detail": {
+        "en": "The Micro-glass section badge is Locked, but the daily caption and cardsSpec say daily is a candidate in the library, not a new lock. glass-library.html labels it 候选. A hint said drama marketplace cards use daily, not A; drama-marketplace usage was not found on aigc-web-turbo origin/develop, so that product use is unverified here. Daily is not in the formal contract. Specimen tokens were not changed.",
+        "zh": "微玻璃小节徽章为定稿，但 daily 图注和 cardsSpec 写明它在库中为候选、不是新的锁定。glass-library.html 标为候选。有提示称 drama marketplace 卡片用 daily 而非 A；在 aigc-web-turbo origin/develop 未找到该用法，故产品使用未经核实。daily 不进入正式契约。标本 token 未改。"
+      }
+    },
+    {
+      "id": "library-toast",
+      "reason": "library-lock-not-verified-as-current-product-lock",
+      "title": {
+        "en": "Library / former site Locked Toast specimen",
+        "zh": "组件库 / 原站点已锁定 Toast 标本"
+      },
+      "detail": {
+        "en": "glass-library.html section 2 · Toast is badged 定稿 (r12, padding 8, height 40, site baseline+(c), copy “已导出 1080p 视频”). That specimen was removed from the design-system Glass page and must stay gone. It is omitted from the formal contract because current in-product use could not be verified (no matching “1080p video exported” toast in turbo origin/develop; the in-product Toaster is the unlocked solid-white Alert C). Do not invent it back into the contract or onto the page.",
+        "zh": "glass-library.html 第 2 节 Toast 标有定稿（r12、padding 8、高 40、站内基线+(c)，文案「已导出 1080p 视频」）。该标本已从设计系统 Glass 页移除，且必须保持移除。因无法核实它仍是当前产品定稿（turbo origin/develop 中没有对应的 1080p 导出 Toast；站内 Toaster 是未锁定的白底 Alert C），故不写入正式契约。不要把它发明回契约或页面。"
+      }
+    },
+    {
+      "id": "pricing-super-discount-stroke",
+      "reason": "not-verified-in-source",
+      "title": {
+        "en": "Pricing / Super Discount column stroke (solid purple, not a gradient)",
+        "zh": "定价 / Super Discount 列描边（纯色紫，不是渐变）"
+      },
+      "detail": {
+        "en": "Not on the design-system site. A solid purple column stroke was named as a lock hint, but no matching locked specimen or current product source was verified in topview-landing-page origin/main or aigc-web-turbo origin/develop under “Super Discount”. Cancelled pricing stroke-gradient and Summit / Speakers preview work are excluded from this contract. Pending — not in the formal contract.",
+        "zh": "设计系统站点上没有此项。提示称 Super Discount 列描边应为纯色紫而非渐变，但在 topview-landing-page origin/main 与 aigc-web-turbo origin/develop 中未能核实到对应的已锁定标本或当前产品源码。已取消的定价描边渐变以及 Summit / Speakers 预览工作被排除在本契约之外。待定，不进入正式契约。"
+      }
+    },
+    {
+      "id": "drama-marketplace-skeleton-whitespace",
+      "reason": "not-verified-in-source",
+      "title": {
+        "en": "Drama marketplace skeleton whitespace",
+        "zh": "Drama marketplace 骨架留白"
+      },
+      "detail": {
+        "en": "Not on the design-system site. No drama-marketplace skeleton source was found on aigc-web-turbo origin/develop. Parked feature/black-friday work was not used. Pending — not in the formal contract. No specimen was invented.",
+        "zh": "设计系统站点上没有此项。在 aigc-web-turbo origin/develop 未找到 drama-marketplace 骨架源码。未使用停放的 feature/black-friday 改动。待定，不进入正式契约。未发明标本。"
+      }
+    },
+    {
+      "id": "bf-highlight-vs-product",
+      "reason": "value-gap-not-invented",
+      "title": {
+        "en": "BF Segmented B highlight vs later product tab",
+        "zh": "黑五 Segmented B 高光与后来产品 tab 的差异"
+      },
+      "detail": {
+        "en": "Recorded as a caveat on the locked BF Segmented B entry. The later “toned-down” product value was not verified, so it is not written as a token.",
+        "zh": "已作为已锁定黑五 Segmented B 的附注记录。后来“减弱后”的产品数值未经核实，因此不写成 token。"
+      }
+    }
+  ],
+  "excludedFromFormalContract": [
+    {
+      "id": "color-gray",
+      "reason": "The whole Color Gray page is a pending inventory, not tokenized, and is excluded.",
+      "siteHash": "#colors/colors-gray"
+    },
+    {
+      "id": "purple-white-buttons",
+      "reason": "Purple / white button specimens are not locked; white secondary is still not aligned. Unlocked on the Glass page. Not in this contract."
+    },
+    {
+      "id": "alert-a",
+      "reason": "Alert A is an unlocked glassyui replica, not a product lock."
+    },
+    {
+      "id": "alert-c",
+      "reason": "Alert C is the in-product solid-white Toast, explicitly unlocked and not glass."
+    },
+    {
+      "id": "official-main-blue-button",
+      "reason": "Official main blue button #4E40F3, homepage white-ground primary generate, and bypass purples (Quick Starts / Drama / Motion, and so on) are excluded."
+    },
+    {
+      "id": "summit-speakers-preview",
+      "reason": "Summit / Speakers preview is excluded."
+    },
+    {
+      "id": "cancelled-pricing-stroke-gradient",
+      "reason": "Cancelled pricing stroke-gradient and hover-header work are excluded."
+    },
+    {
+      "id": "parked-bf-feature-branch",
+      "reason": "Parked Black Friday feature-branch changes in product repos are excluded and were not used as sources."
+    },
+    {
+      "id": "tooltip",
+      "reason": "Glass Tooltip is labeled Candidate · not locked."
+    },
+    {
+      "id": "generic-segmented",
+      "reason": "Generic segmented is unlocked / pending."
+    },
+    {
+      "id": "icon-buttons",
+      "reason": "Icon buttons are unlocked / pending."
+    },
+    {
+      "id": "bot-bubble",
+      "reason": "Bot bubble is unlocked / pending."
+    },
+    {
+      "id": "micro-glass-b",
+      "reason": "Micro-glass proposal B is archived, not locked."
+    }
+  ]
+}

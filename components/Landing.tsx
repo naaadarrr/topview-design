@@ -1,5 +1,6 @@
 import React from 'react';
 import { Language, translations } from '../translations';
+import { isHiddenSection } from '../constants';
 
 interface LandingProps {
   onSelect: (id: string) => void;
@@ -18,14 +19,15 @@ const Landing: React.FC<LandingProps> = ({
   const t = translations[language].landing;
   const menuItems = [
     { id: 'logo', label: t.logo },
-    { id: 'colors', label: t.colors },
-    { id: 'typography', label: t.typography },
+    // Foundations groups Color, Spacing, Radius, and Typography; it opens Color.
+    { id: 'colors', label: t.foundations },
     { id: 'motion', label: t.motion },
-  ];
+    { id: 'components', label: t.components },
+  ].filter((item) => !isHiddenSection(item.id)); // HIDDEN_SECTIONS in constants.tsx
 
   return (
     <div className="h-screen bg-white text-black flex flex-col font-sans overflow-hidden">
-      <header className="h-[80px] px-10 flex items-center relative flex-shrink-0 border-b border-black/5">
+      <header className="h-[80px] px-10 flex items-center relative flex-shrink-0 border-b-2 border-black/35">
         <div className="flex items-center">
           <img src="/logo/Topview_Logo_New_RGB/SVG/Horizontal_Black.svg" alt="TopView.AI" className="h-10" />
         </div>
@@ -36,7 +38,7 @@ const Landing: React.FC<LandingProps> = ({
           <button
             key={item.id}
             onClick={() => onSelect(item.id)}
-            className={`flex-1 group relative w-full flex items-center px-10 cursor-pointer border-b border-black/5 last:border-0 origin-center transition-[transform,opacity,background-color] hover:bg-black/[0.02] active:scale-[0.995] ${
+            className={`flex-1 group relative w-full flex items-center px-10 cursor-pointer border-b-2 border-black/35 last:border-0 origin-center [container-type:size] transition-[transform,opacity,background-color] hover:bg-black/[0.02] active:scale-[0.995] ${
               isExiting
                 ? '-translate-y-8 opacity-0 duration-[400ms] ease-[cubic-bezier(0.215,0.61,0.355,1)]'
                 : isEnteringFromSplash
@@ -55,7 +57,7 @@ const Landing: React.FC<LandingProps> = ({
             }
           >
             <div className="w-full flex justify-between items-center">
-              <h2 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tighter transition-transform duration-500 group-hover:translate-x-4">
+              <h2 className="catalog-title text-[min(52cqh,15vw)] leading-none tracking-tighter transition-transform duration-500 group-hover:translate-x-4">
                 {item.label}
               </h2>
               <div className="opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-300 transform translate-x-4 group-hover:translate-x-0 mr-10 shrink-0">

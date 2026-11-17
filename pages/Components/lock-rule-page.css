@@ -1,0 +1,55 @@
+.lock-rule-page {
+  max-width: 1100px;
+}
+
+.lock-rule-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+
+@media (min-width: 1100px) {
+  .lock-rule-layout {
+    grid-template-columns: minmax(0, 1fr) 180px;
+    align-items: start;
+  }
+}
+
+.lock-rule-toc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+@media (min-width: 1100px) {
+  .lock-rule-toc {
+    position: sticky;
+    top: 8px;
+  }
+}
+
+.lock-rule-toc button {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  line-height: 16px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.lock-rule-toc button:hover,
+.lock-rule-toc button:focus-visible {
+  color: #fff;
+}
+
+.lock-rule-section {
+  scroll-margin-top: 32px;
+}
+
+.lock-rule-kicker {
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 8px;
+}

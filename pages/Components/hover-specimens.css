@@ -1,0 +1,359 @@
+.hoverSpecimens {
+  font-family: Inter, "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.hoverSpecimens .stage {
+  position: relative;
+  isolation: isolate;
+  border-radius: 16px;
+  padding: 64px 48px;
+  overflow: hidden;
+  background: #101010;
+  border: 1px solid #ffffff10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hoverSpecimens .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+}
+
+.hoverSpecimens .badge {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #ffffff12;
+  color: #ffffffb0;
+  border: 1px solid #ffffff22;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.hoverSpecimens .caption + .row {
+  margin-top: 16px;
+}
+
+.hoverSpecimens .caption {
+  margin-top: 16px;
+  max-width: 40rem;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: left;
+  align-self: stretch;
+}
+
+.hoverSpecimens .pending {
+  display: inline;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Seedance 2.5 promo — values copied from origin/develop ModelHighlightsSection.tsx. All 待定. */
+.hover-seedance {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 260px;
+  min-height: 112px;
+  padding: 16px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 16px;
+  color: #fff;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.018) 48%, rgba(255, 255, 255, 0.035) 100%),
+    #111214;
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.2),
+    0 0 24px rgba(255, 255, 255, 0.03),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.85),
+    0 1px 0 rgba(0, 0, 0, 0.18);
+  transition: filter 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-seedance:hover {
+  filter: brightness(1.05);
+  transition-duration: 700ms;
+  transition-timing-function: ease-out;
+}
+
+.hover-seedance::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: none;
+  transition: box-shadow 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-seedance:hover::before {
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.9);
+  transition-duration: 700ms;
+  transition-timing-function: ease-out;
+}
+
+.hover-seedance::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: -56px;
+  left: 50%;
+  width: 160px;
+  height: 96px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  filter: blur(40px);
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-seedance:hover::after {
+  opacity: 1;
+  transition-duration: 700ms;
+  transition-timing-function: ease-out;
+}
+
+.hover-seedance .name {
+  position: relative;
+  z-index: 1;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hover-seedance .unlimited {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  color: #ffe600;
+  white-space: nowrap;
+}
+
+/* Film Studio vertical skill / poster card edge light — SkillShowcaseCard.tsx. All 待定. */
+.hover-poster {
+  position: relative;
+  isolation: isolate;
+  width: 260px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #101010;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.68),
+    0 10px 24px rgba(0, 0, 0, 0.22);
+  transition: box-shadow 200ms ease;
+}
+
+.hover-poster:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.72),
+    0 14px 30px rgba(0, 0, 0, 0.3);
+}
+
+.hover-poster .art {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.55) 100%),
+    #181818;
+}
+
+.hover-poster .edge {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 16px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(217, 237, 254, 0.12),
+    inset 0 1px 0 rgba(217, 237, 254, 0.14);
+  transition: box-shadow 200ms ease;
+}
+
+.hover-poster:hover .edge {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(217, 237, 254, 0.24),
+    inset 0 1px 0 rgba(217, 237, 254, 0.3);
+}
+
+/* Contrast: existing fill #2F2F2F as a gray substitute vs a recorded edge highlight. */
+.hover-wrong,
+.hover-right {
+  position: relative;
+  width: 200px;
+  height: 112px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.hover-wrong {
+  background: #181818;
+  transition: background-color 200ms ease;
+}
+
+.hover-wrong:hover {
+  background: #2f2f2f;
+}
+
+.hover-right {
+  background: #181818;
+}
+
+.hover-right .edge {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(217, 237, 254, 0.12),
+    inset 0 1px 0 rgba(217, 237, 254, 0.14);
+  transition: box-shadow 200ms ease;
+}
+
+.hover-right:hover .edge {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(217, 237, 254, 0.24),
+    inset 0 1px 0 rgba(217, 237, 254, 0.3);
+}
+
+.hoverSpecimens .card-label {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+
+.hoverSpecimens .pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Homepage Quick Starts product-entry row — values from origin/develop QuickStartCard.tsx. All 待定. Do not average with SkillShowcaseCard. */
+.hover-quickstart {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 240px;
+  overflow: hidden;
+  border: 0;
+  padding: 4px;
+  border-radius: 16px;
+  background: #090a0a;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hover-quickstart .media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #090a0a;
+}
+
+.hover-quickstart .title {
+  display: block;
+  padding: 4px 8px;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 20px;
+  color: #fff;
+}
+
+.hover-quickstart .edge {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow:
+    inset 0 0 0 1px transparent,
+    inset 0 -1px 0 0 rgba(217, 237, 254, 0.12),
+    inset 0 1px 0 0 rgba(217, 237, 254, 0.12);
+  transition: box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-quickstart:hover .edge {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 0 rgba(217, 237, 254, 0.28),
+    inset 0 1px 0 0 rgba(217, 237, 254, 0.32);
+}
+
+.hover-quickstart .glow {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 4;
+  height: 52px;
+  overflow: hidden;
+  border-radius: 0 0 16px 16px;
+  opacity: 0;
+  transform: scale(0.5);
+  transform-origin: 50% 100%;
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 100%, rgba(255, 255, 255, 0.2), transparent 62%),
+    radial-gradient(120% 18% at 50% 100%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 100%);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.hover-quickstart:hover .glow {
+  opacity: 1;
+  transform: scale(1);
+  transition-duration: 700ms;
+}
+
+.hover-quickstart .floor {
+  pointer-events: none;
+  position: absolute;
+  right: 12px;
+  bottom: 0;
+  left: 12px;
+  z-index: 5;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transition: transform 0ms, opacity 0ms;
+}
+
+.hover-quickstart:hover .floor {
+  transform: scaleX(1);
+  opacity: 1;
+  transition-duration: 700ms;
+  transition-timing-function: ease-out;
+}

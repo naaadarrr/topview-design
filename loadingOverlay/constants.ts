@@ -22,7 +22,7 @@ export const LOADING_OVERLAY_STYLES = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#000',
+    background: '#101010',
     opacity: 1,
     transition: 'opacity 0.42s cubic-bezier(0.23, 1, 0.32, 1)',
     pointerEvents: 'all',

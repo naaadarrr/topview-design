@@ -37,11 +37,8 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
 
       {/* Incorrect Examples Section - Moved above Specs */}
       <section id="motion-incorrect" className="fade-in pt-20 scroll-mt-8" style={{ animationDelay: '0.2s' }}>
-        <div className="flex flex-col gap-4 mb-16">
+        <div className="mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{translations[language].colors.incorrect}</h2>
-          <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
-            {translations[language].colors.incorrectDesc}
-          </p>
         </div>
 
         <div className="flex">
@@ -76,18 +73,14 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
               </div>
             </div>
             <h4 className="text-xl font-bold mb-2 font-sans group-hover:text-white transition-colors">{language === 'zh' ? '模块 Hover Motion' : "Module Hover Motion"}</h4>
-            <p className="max-w-2xl text-sm text-white/40 group-hover:text-white/60 font-sans leading-relaxed transition-colors">{language === 'zh' ? '避免添加复杂的描边动画或不符合视觉感知的装饰性抖动。' : 'Avoid complex stroke animations or decorative jitter that defies visual perception.'}</p>
           </div>
         </div>
       </section>
 
       {/* Related Specs Section */}
       <section id="motion-spec" className="fade-in pt-20 scroll-mt-8" style={{ animationDelay: '0.3s' }}>
-        <div className="flex flex-col gap-4 mb-16">
+        <div className="mb-16">
           <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.spec}</h2>
-          <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 mt-4 md:mt-10 font-normal">
-            {t.techSpecs}
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -119,7 +112,7 @@ const Motion: React.FC<MotionProps> = ({ language }) => {
       {/* Footer / Pending Text */}
       <footer className="pt-24 pb-12 opacity-20 text-center">
         <p className="text-[10px] font-bold uppercase tracking-[0.3em] font-sans">
-          {language === 'zh' ? '更多详细规范 持续补充中...' : 'Additional technical specs pending...'}
+          {language === 'zh' ? '更多规范待补充' : 'More specs pending'}
         </p>
       </footer>
     </div>

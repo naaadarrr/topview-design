@@ -1,0 +1,287 @@
+/* Site chrome theme mapping.
+   Dark is the default (html.dark). Light only needs to switch and stay readable.
+   Locked product specimen stages stay #101010. Color formal-board hexes are not redefined. */
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Dark page chrome = #101010 (index.html --bg-dark #111111 is left as is; this overrides it in dark). */
+html.dark,
+html.dark body,
+html.dark #root {
+  background-color: #101010;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+html.light,
+html.light body,
+html.light #root {
+  background-color: #EFEFEF;
+  color: #111111;
+}
+
+html.light .site-root,
+html.light .site-shell {
+  background-color: #EFEFEF !important;
+  color: #111111;
+}
+
+html.light .site-header {
+  background-color: #EFEFEF !important;
+  color: #111111;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+html.light .site-frame {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Sidebar + header docs type */
+html.light .site-sidebar .text-white,
+html.light .site-header .text-white,
+html.light .site-sidebar .catalog-title.text-white {
+  color: #111111;
+}
+
+html.light .site-sidebar .text-white\/35,
+html.light .site-sidebar .text-white\/35 {
+  color: rgba(17, 17, 17, 0.4);
+}
+
+html.light .site-sidebar .hover\:text-white:hover {
+  color: #111111;
+}
+
+html.light .site-sidebar .text-neutral-500 {
+  color: #737373;
+}
+
+/* Docs labels/type on the page canvas — not inside product stages */
+html.light .site-docs {
+  color: #111111;
+}
+
+html.light .site-docs .text-white {
+  color: #111111;
+}
+html.light .site-docs .text-white\/90 { color: rgba(17, 17, 17, 0.90); }
+html.light .site-docs .text-white\/80 { color: rgba(17, 17, 17, 0.80); }
+html.light .site-docs .text-white\/70 { color: rgba(17, 17, 17, 0.70); }
+html.light .site-docs .text-white\/60 { color: rgba(17, 17, 17, 0.60); }
+html.light .site-docs .text-white\/55 { color: rgba(17, 17, 17, 0.55); }
+html.light .site-docs .text-white\/50 { color: rgba(17, 17, 17, 0.50); }
+html.light .site-docs .text-white\/45 { color: rgba(17, 17, 17, 0.45); }
+html.light .site-docs .text-white\/40 { color: rgba(17, 17, 17, 0.40); }
+html.light .site-docs .text-white\/35 { color: rgba(17, 17, 17, 0.35); }
+html.light .site-docs .text-white\/30 { color: rgba(17, 17, 17, 0.30); }
+html.light .site-docs .text-white\/20 { color: rgba(17, 17, 17, 0.20); }
+html.light .site-docs .text-white\/15 { color: rgba(17, 17, 17, 0.15); }
+html.light .site-docs .text-white\/10 { color: rgba(17, 17, 17, 0.10); }
+
+/* Empty dashed frames (pending plates) need a visible edge on a light page. */
+html.light .site-docs .bg-transparent.border-white\/30,
+html.light .site-docs .border-dashed.border-white\/30 {
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Locked / product stages stay the existing dark #101010 and keep light type. */
+html.light .site-docs .stage,
+html.light .site-docs .product-toast-stage,
+html.light .site-docs .bg-\[\#101010\],
+html.light .site-docs .bg-\[\#222222\],
+html.light .site-docs .bg-\[\#1a1a1a\],
+html.light .site-docs [style*="background: '#101010'"],
+html.light .site-docs [style*="background:#101010"],
+html.light .site-docs [style*="background: #101010"] {
+  color: #ffffff;
+}
+
+html.light .site-docs .stage .text-white,
+html.light .site-docs .product-toast-stage .text-white,
+html.light .site-docs .bg-\[\#101010\] .text-white,
+html.light .site-docs .bg-\[\#222222\] .text-white,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white,
+html.light .site-docs [style*="background: '#101010'"] .text-white,
+html.light .site-docs [style*="background:#101010"] .text-white,
+html.light .site-docs [style*="background: #101010"] .text-white,
+html.light .site-docs [style*="background-color"] .text-white {
+  color: #ffffff;
+}
+
+html.light .site-docs .stage .text-white\/90,
+html.light .site-docs .product-toast-stage .text-white\/90,
+html.light .site-docs .bg-\[\#101010\] .text-white\/90,
+html.light .site-docs .bg-\[\#222222\] .text-white\/90,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white\/90,
+html.light .site-docs [style*="background-color"] .text-white\/90 { color: rgba(255, 255, 255, 0.90); }
+html.light .site-docs .stage .text-white\/80,
+html.light .site-docs .bg-\[\#222222\] .text-white\/80,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white\/80,
+html.light .site-docs [style*="background-color"] .text-white\/80 { color: rgba(255, 255, 255, 0.80); }
+html.light .site-docs .stage .text-white\/70,
+html.light .site-docs .bg-\[\#222222\] .text-white\/70,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white\/70,
+html.light .site-docs [style*="background-color"] .text-white\/70 { color: rgba(255, 255, 255, 0.70); }
+html.light .site-docs .stage .text-white\/60,
+html.light .site-docs .bg-\[\#222222\] .text-white\/60,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white\/60,
+html.light .site-docs [style*="background-color"] .text-white\/60 { color: rgba(255, 255, 255, 0.60); }
+html.light .site-docs .stage .text-white\/50,
+html.light .site-docs .bg-\[\#222222\] .text-white\/50,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white\/50,
+html.light .site-docs [style*="background-color"] .text-white\/50 { color: rgba(255, 255, 255, 0.50); }
+html.light .site-docs .stage .text-white\/40,
+html.light .site-docs .bg-\[\#222222\] .text-white\/40,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white\/40,
+html.light .site-docs [style*="background-color"] .text-white\/40 { color: rgba(255, 255, 255, 0.40); }
+html.light .site-docs .stage .text-white\/30,
+html.light .site-docs .bg-\[\#222222\] .text-white\/30,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white\/30,
+html.light .site-docs [style*="background-color"] .text-white\/30 { color: rgba(255, 255, 255, 0.30); }
+html.light .site-docs .stage .text-white\/20,
+html.light .site-docs .bg-\[\#222222\] .text-white\/20,
+html.light .site-docs .bg-\[\#1a1a1a\] .text-white\/20,
+html.light .site-docs [style*="background-color"] .text-white\/20 { color: rgba(255, 255, 255, 0.20); }
+
+
+/* Catalog landing: white in dark mode (designed), #EFEFEF in light mode. */
+html.light .fixed.inset-0.z-\[200\].bg-white,
+html.light .h-screen.bg-white.text-black {
+  background-color: #EFEFEF !important;
+}
+
+/* Light-mode contrast on the page canvas (#EFEFEF). Do not retune .stage / product recipes.
+   Ink follows the existing light mapping (#111 / rgba(17,17,17,α)); strokes use existing black/α borders. */
+html.light .foundationsSpecimens .space-token {
+  color: rgba(17, 17, 17, 0.70);
+  background: rgba(17, 17, 17, 0.07);
+}
+html.light .foundationsSpecimens .space-value,
+html.light .foundationsSpecimens .space-table-row code,
+html.light .foundationsSpecimens .space-rule {
+  color: rgba(17, 17, 17, 0.85);
+}
+html.light .foundationsSpecimens .space-table-head,
+html.light .foundationsSpecimens .space-where {
+  color: #111111;
+}
+html.light .foundationsSpecimens .space-table-head {
+  border-bottom-width: 2px;
+  border-bottom-color: rgba(0, 0, 0, 0.72);
+}
+html.light .foundationsSpecimens .space-table-row {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+html.light .foundationsSpecimens .space-flag,
+html.light .foundationsSpecimens .space-flag-solo,
+html.light .foundationsSpecimens .space-level,
+html.light .foundationsSpecimens .note,
+html.light .buttonInventory .note,
+html.light .site-docs .caption {
+  color: rgba(17, 17, 17, 0.45);
+}
+html.light .foundationsSpecimens .space-source {
+  color: rgba(17, 17, 17, 0.50);
+}
+html.light .foundationsSpecimens .space-swatch {
+  outline: 1px solid rgba(17, 17, 17, 0.25);
+}
+html.light .site-docs .badge {
+  background: rgba(17, 17, 17, 0.07);
+  color: rgba(17, 17, 17, 0.70);
+  border-color: rgba(17, 17, 17, 0.13);
+}
+/* Glass brand badge: keep #731DFB, use it as ink so it reads on #EFEFEF. */
+html.light .glassSpecimens .badge {
+  background: #731DFB22;
+  color: #731DFB;
+  border-color: #731DFB55;
+}
+html.light .glassSpecimens .badge.wip {
+  background: rgba(17, 17, 17, 0.07);
+  color: rgba(17, 17, 17, 0.70);
+  border-color: rgba(17, 17, 17, 0.13);
+}
+
+/* Restore specimen ink inside locked / product dark stages. */
+html.light .site-docs .stage .note,
+html.light .site-docs .stage .caption,
+html.light .foundationsSpecimens .stage .note {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Dark Color / accessibility tiles that are not .stage: keep specimen ink, do not remap to page type. */
+html.light .site-docs .bg-black,
+html.light .site-docs .bg-\[\#000000\],
+html.light .site-docs .bg-\[\#731DFB\],
+html.light .site-docs [style*="background: '#131313'"],
+html.light .site-docs [style*="background:#131313"],
+html.light .site-docs [style*="background: #131313"] {
+  color: #ffffff;
+}
+html.light .site-docs .bg-black .text-white,
+html.light .site-docs .bg-\[\#000000\] .text-white,
+html.light .site-docs .bg-\[\#731DFB\] .text-white,
+html.light .site-docs [style*="background: '#131313'"] .text-white,
+html.light .site-docs [style*="background:#131313"] .text-white,
+html.light .site-docs [style*="background: #131313"] .text-white {
+  color: #ffffff;
+}
+html.light .site-docs .bg-black .text-white\/90,
+html.light .site-docs .bg-\[\#000000\] .text-white\/90,
+html.light .site-docs .bg-\[\#731DFB\] .text-white\/90,
+html.light .site-docs [style*="background: #131313"] .text-white\/90 { color: rgba(255, 255, 255, 0.90); }
+html.light .site-docs .bg-black .text-white\/80,
+html.light .site-docs .bg-\[\#000000\] .text-white\/80,
+html.light .site-docs .bg-\[\#731DFB\] .text-white\/80,
+html.light .site-docs [style*="background: #131313"] .text-white\/80 { color: rgba(255, 255, 255, 0.80); }
+html.light .site-docs .bg-black .text-white\/70,
+html.light .site-docs .bg-\[\#000000\] .text-white\/70,
+html.light .site-docs .bg-\[\#731DFB\] .text-white\/70,
+html.light .site-docs [style*="background: #131313"] .text-white\/70 { color: rgba(255, 255, 255, 0.70); }
+html.light .site-docs .bg-black .text-white\/60,
+html.light .site-docs .bg-\[\#000000\] .text-white\/60,
+html.light .site-docs .bg-\[\#731DFB\] .text-white\/60,
+html.light .site-docs [style*="background: #131313"] .text-white\/60 { color: rgba(255, 255, 255, 0.60); }
+html.light .site-docs .bg-black .text-white\/50,
+html.light .site-docs .bg-\[\#000000\] .text-white\/50,
+html.light .site-docs .bg-\[\#731DFB\] .text-white\/50,
+html.light .site-docs [style*="background: #131313"] .text-white\/50 { color: rgba(255, 255, 255, 0.50); }
+html.light .site-docs .bg-black .text-white\/40,
+html.light .site-docs .bg-\[\#000000\] .text-white\/40,
+html.light .site-docs .bg-\[\#731DFB\] .text-white\/40 { color: rgba(255, 255, 255, 0.40); }
+html.light .site-docs .bg-black .text-white\/20,
+html.light .site-docs .bg-\[\#000000\] .text-white\/20,
+html.light .site-docs .bg-\[\#731DFB\] .text-white\/20 { color: rgba(255, 255, 255, 0.20); }
+/* Do not retune .pw-lg-trial* or locked glass recipes in this file. */
+
+/* Site heading tiers (mem661): page title / section / sub-heading. Instrument Serif, one color per theme. */
+html.dark { --site-heading-color: #ffffff; }
+html.light { --site-heading-color: #111111; }
+.site-h1,
+.site-h2,
+.site-h3 {
+  font-family: 'Instrument Serif', 'Times New Roman', Times, serif;
+  font-synthesis: none;
+  color: var(--site-heading-color, #ffffff);
+}
+.site-h1 { font-size: 64px; line-height: 1; font-weight: 400; letter-spacing: -0.025em; }
+.site-h2 { font-size: 44px; line-height: 1.1; font-weight: 400; letter-spacing: -0.025em; }
+.site-h3 { font-size: 18px; line-height: 24px; font-weight: 600; }
+@media (min-width: 768px) {
+  .site-h1 { font-size: 88px; }
+  .site-h2 { font-size: 56px; line-height: 72px; }
+}
+@media (min-width: 1024px) {
+  .site-h1 { font-size: 112px; }
+}
+
+/* mem662: dark-mode specimen boards #181818 (page is #101010). Fill only; stroke and contents unchanged. */
+html.dark .site-docs .stage,
+html.dark .site-docs .product-toast-stage {
+  background-color: #181818;
+}

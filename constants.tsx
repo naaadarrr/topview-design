@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ColorSwatch, NavItem } from './types';
+import lockedSystem from './contracts/locked-system.json';
 
 export const CORE_COLORS: ColorSwatch[] = [
   { name: 'TopView Purple', hex: '#731DFB', description: 'Our signature brand color. Vibrant, digital, and authoritative.', textColor: '#FFFFFF' },
@@ -218,7 +219,30 @@ export const LINE_HEIGHTS = [
   { token: 'taller', value: '2' },
 ];
 
-export const NAV_ITEMS: NavItem[] = [
+/**
+ * HIDDEN_SECTIONS: the one switch for hiding a section without deleting it.
+ * A listed id (and every id under it, e.g. `components-rules/<lock>`) is left out of the
+ * left nav, the Landing catalog and the page content. Its hashes redirect (App.tsx
+ * resolveHiddenTarget): a hidden top-level section goes to the catalog, a hidden child
+ * goes to the first visible child of its parent. Pages, translation keys and
+ * contracts/locked-system.json stay in place.
+ * To restore a section, delete its line below.
+ */
+export const HIDDEN_SECTIONS: ReadonlySet<string> = new Set([
+  'motion', // mem647: Motion with Principles / Incorrect / Specs
+  'components-rules', // mem648: Components › Rules and the lock rule pages
+]);
+
+export const isHiddenSection = (id: string): boolean =>
+  [...HIDDEN_SECTIONS].some((hidden) => id === hidden || id.startsWith(`${hidden}/`));
+
+const withoutHidden = (items: NavItem[]): NavItem[] =>
+  items
+    .filter((item) => !isHiddenSection(item.id))
+    .map((item) => (item.children ? { ...item, children: withoutHidden(item.children) } : item));
+
+/** Full tree, hidden sections included. Use NAV_ITEMS for anything shown. */
+export const ALL_NAV_ITEMS: NavItem[] = [
   {
     id: 'logo',
     label: 'Logo',
@@ -236,24 +260,45 @@ export const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    id: 'colors',
-    label: 'Color',
-    path: '/colors',
+    id: 'foundations',
+    label: 'Foundations',
+    path: '/foundations',
+    // Nav-only group. Color, Spacing, Radius, and Typography stay separate pages and keep their hashes.
+    group: true,
     children: [
-      { id: 'colors-purple', label: 'Purple', path: '/colors/purple' },
-      { id: 'colors-supporting', label: 'Supporting', path: '/colors/supporting' },
-      { id: 'colors-gradients', label: 'Gradients', path: '/colors/gradients' },
-      { id: 'colors-accessibility', label: 'Accessibility', path: '/colors/accessibility' },
-      { id: 'colors-incorrect', label: 'Incorrect', path: '/colors/incorrect' },
-    ],
-  },
-  {
-    id: 'typography',
-    label: 'Typography',
-    path: '/typography',
-    children: [
-      { id: 'typography-families', label: 'Families', path: '/typography/families' },
-      { id: 'typography-text-styles', label: 'Text Styles', path: '/typography/text-styles' },
+      {
+        id: 'colors',
+        label: 'Color',
+        path: '/colors',
+        children: [
+          { id: 'colors-purple', label: 'Purple', path: '/colors/purple' },
+          { id: 'colors-supporting', label: 'Supporting', path: '/colors/supporting' },
+          { id: 'colors-layers', label: 'Layers', path: '/colors/layers' },
+          { id: 'colors-gray', label: 'Gray', path: '/colors/gray' },
+          { id: 'colors-gradients', label: 'Gradients', path: '/colors/gradients' },
+          { id: 'colors-accessibility', label: 'Accessibility', path: '/colors/accessibility' },
+          { id: 'colors-incorrect', label: 'Incorrect', path: '/colors/incorrect' },
+        ],
+      },
+      {
+        id: 'spacing',
+        label: 'Spacing',
+        path: '/spacing',
+      },
+      {
+        id: 'radius',
+        label: 'Radius',
+        path: '/radius',
+      },
+      {
+        id: 'typography',
+        label: 'Typography',
+        path: '/typography',
+        children: [
+          { id: 'typography-families', label: 'Families', path: '/typography/families' },
+          { id: 'typography-text-styles', label: 'Text Styles', path: '/typography/text-styles' },
+        ],
+      },
     ],
   },
   {
@@ -266,7 +311,35 @@ export const NAV_ITEMS: NavItem[] = [
       { id: 'motion-spec', label: 'Specs', path: '/motion/spec' },
     ],
   },
+  {
+    id: 'components',
+    label: 'Components',
+    path: '/components',
+    children: [
+      // Same order as ComponentsPage content: Rules, Glass, Controls, Overlays, Dropdown menu, Display, Feedback, Buttons.
+      // Rule children follow the Rules list on the page (lockedSystem.locks order).
+      {
+        id: 'components-rules',
+        label: 'Rules',
+        path: '/components/rules',
+        children: lockedSystem.locks.map((lock) => ({
+          id: `components-rules/${lock.id}`,
+          label: lock.title.en || lock.id,
+          path: `/components/rules/${lock.id}`,
+        })),
+      },
+      { id: 'components-glass', label: 'Glass', path: '/components/glass' },
+      { id: 'components-controls', label: 'Controls', path: '/components/controls' },
+      { id: 'components-overlays', label: 'Overlays', path: '/components/overlays' },
+      { id: 'components-menu', label: 'Dropdown menu', path: '/components/menu' },
+      { id: 'components-display', label: 'Display', path: '/components/display' },
+      { id: 'components-feedback', label: 'Feedback', path: '/components/feedback' },
+      { id: 'components-button', label: 'Buttons', path: '/components/button' },
+    ],
+  },
 ];
+
+export const NAV_ITEMS: NavItem[] = withoutHidden(ALL_NAV_ITEMS);
 
 export const JUHUO_NAV_ITEMS: NavItem[] = [
   {

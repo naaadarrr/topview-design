@@ -234,8 +234,8 @@ const JuhuoColors: React.FC<JuhuoColorsProps> = ({ language }) => {
           </h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
             {language === 'zh'
-              ? '在火焰主色基础上引入冷色或生长色对撞，提升品牌记忆点与科技/增长感。'
-              : 'Introducing cold or growth color collisions to the flame primary color to enhance brand memory and tech/growth feel.'}
+              ? '在火焰主色上加入冷色或生长色作对比。'
+              : 'Cool or growth accents set against the flame primary.'}
           </p>
         </div>
 

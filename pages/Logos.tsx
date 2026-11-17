@@ -212,7 +212,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
     <div className="w-full min-w-0 max-w-full overflow-x-hidden text-white space-y-32">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
-        <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
+        <h1 className="site-h1">
           {t.title}
         </h1>
         <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
@@ -222,22 +222,22 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
 
       <div className="space-y-32 fade-in" style={{ animationDelay: '0.1s' }}>
         <section id="logo-horizontal" className="scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Horizontal</h3>
+          <h3 className="site-h3 mb-8">Horizontal</h3>
           <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_Black.svg" nameBase="TopView-Horizontal-Black" />
         </section>
 
         <section id="logo-horizontal-reverse" className="scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Horizontal Reverse</h3>
+          <h3 className="site-h3 mb-8">Horizontal Reverse</h3>
           <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_White.svg" nameBase="TopView-Horizontal-White" dark />
         </section>
 
         <section id="logo-horizontal-purple" className="scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Horizontal Purple</h3>
+          <h3 className="site-h3 mb-8">Horizontal Purple</h3>
           <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Horizontal_Purple.svg" nameBase="TopView-Horizontal-Purple" />
         </section>
 
         <section id="logo-vertical" className="scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Vertical</h3>
+          <h3 className="site-h3 mb-8">Vertical</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 min-w-0">
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_Black.svg" nameBase="TopView-Vertical-Black" />
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Vertical_White.svg" nameBase="TopView-Vertical-White" dark />
@@ -246,7 +246,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         </section>
 
         <section id="logo-symbol" className="scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Symbol</h3>
+          <h3 className="site-h3 mb-8">Symbol</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 min-w-0">
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_Black.svg" nameBase="TopView-Symbol-Black" />
             <LogoCard path="/logo/Topview_Logo_New_RGB/SVG/Symbol_White.svg" nameBase="TopView-Symbol-White" dark />
@@ -255,7 +255,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         </section>
 
         <section id="logo-animation" className="scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Logo Animation</h3>
+          <h3 className="site-h3 mb-8">Logo Animation</h3>
           <div className="flex flex-col gap-6">
             <LogoAnimation src="/lottie/topview-logo-purple.json" downloadName="TopView-Logo-Animation-Light.json" />
             <LogoAnimation src="/lottie/topview-logo-white.json" downloadName="TopView-Logo-Animation-Dark.json" dark />
@@ -263,7 +263,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         </section>
 
         <section id="logo-favicon" className="scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Favicon</h3>
+          <h3 className="site-h3 mb-8">Favicon</h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             {[
               { file: 'favicon-16x16.png', label: '16×16' },
@@ -295,7 +295,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
         </section>
 
         <section id="logo-japan" className="scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Japan</h3>
+          <h3 className="site-h3 mb-8">Japan</h3>
           <div className="group relative w-full md:w-1/3 min-w-0 bg-[#222222] rounded-[10px] p-12 md:p-14 min-h-[200px] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-inner">
             <img
               src="/logo/Topview_Logo_New_RGB/Topview%20Japan%20logo/TopviewJapan_new_logo.png"
@@ -318,7 +318,7 @@ const Logos: React.FC<LogosProps> = ({ language }) => {
 
         {/* Download Section */}
         <section id="logo-download" className="pb-4 scroll-mt-8">
-          <h3 className="catalog-title text-[24px] leading-[32px] text-white mb-8">Download All Assets</h3>
+          <h3 className="site-h3 mb-8">Download All Assets</h3>
           <div className="flex flex-col items-start gap-6">
             <button
               onClick={handleDownloadAll}

@@ -1,7 +1,21 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var theme = stored === 'light' ? 'light' : 'dark';
+          var root = document.documentElement;
+          root.classList.remove('light', 'dark');
+          root.classList.add(theme);
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topview.design</title>
@@ -13,6 +27,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -74,9 +89,6 @@
         .font-darker {
             font-family: 'Darker Grotesque', sans-serif;
         }
-        /* Legacy typefaces — kept for reference / migration */
-        .font-outfit { font-family: 'Outfit', sans-serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }

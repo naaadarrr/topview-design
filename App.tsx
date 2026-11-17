@@ -4,16 +4,71 @@ import Logos from './pages/Logos';
 import Colors from './pages/Colors';
 import JuhuoColors from './pages/JuhuoColors';
 import Typography from './pages/Typography';
+import Foundations from './pages/Foundations';
 import Motion from './pages/Motion';
+import ComponentsPage from './pages/Components/ComponentsPage';
 import Splash from './components/Splash';
 import Landing from './components/Landing';
 import { Language } from './translations';
+import { JUHUO_NAV_ITEMS, NAV_ITEMS, isHiddenSection } from './constants';
+import SiteThemeToggle, { TopviewWordmark } from './components/SiteThemeToggle';
 
 type ViewState = 'splash' | 'catalog' | 'content';
 type BrandLine = 'topview' | 'juhuo';
 
 const JUHUO_SECTIONS = new Set(['juhuo-colors']);
 const PANEL_TRANSITION_MS = 800;
+
+// Foundations is a nav-only group; its members (colors, spacing, radius, typography) stay real sections.
+const KNOWN_SECTIONS = new Set(
+  [...NAV_ITEMS, ...JUHUO_NAV_ITEMS].flatMap((item) =>
+    item.group ? (item.children ?? []).map((child) => child.id) : [item.id]
+  )
+);
+
+/** Old / group hashes land on the real Color, Spacing, and Radius pages. */
+const HASH_ALIASES: Record<string, { section: string; subId: string | null }> = {
+  color: { section: 'colors', subId: null },
+  foundations: { section: 'colors', subId: null },
+  'foundations/colors': { section: 'colors', subId: null },
+  'foundations/spacing': { section: 'spacing', subId: null },
+  'foundations/radius': { section: 'radius', subId: null },
+  'foundations/foundations-spacing': { section: 'spacing', subId: null },
+  'foundations/foundations-radius': { section: 'radius', subId: null },
+  // Hover moved into Overlays > Hover card (mem640).
+  'components/components-hover': { section: 'components', subId: 'overlays-hover-card' },
+};
+
+type HashTarget = { section: string; subId: string | null; canonical?: string };
+
+/**
+ * Sections in HIDDEN_SECTIONS (constants.tsx) never render. A hidden top-level section
+ * (e.g. #motion, #motion/motion-spec) goes to the catalog; a hidden child (e.g.
+ * #components/components-rules, #components/components-rules/<lock>) goes to the first
+ * visible child of its parent (Components › Glass).
+ */
+const resolveHiddenTarget = (section: string, subId: string | null): HashTarget | 'catalog' | null => {
+  if (isHiddenSection(section)) return 'catalog';
+  if (!subId || !isHiddenSection(subId)) return null;
+  const first = NAV_ITEMS.find((item) => item.id === section)?.children?.[0]?.id ?? null;
+  return { section, subId: first, canonical: first ? `${section}/${first}` : section };
+};
+
+const readLocationHash = (): HashTarget | 'catalog' | null => {
+  const raw = window.location.hash.replace(/^#/, '');
+  if (!raw) return null;
+  const alias = HASH_ALIASES[raw];
+  if (alias) {
+    return { ...alias, canonical: alias.subId ? `${alias.section}/${alias.subId}` : alias.section };
+  }
+  const [section, ...rest] = raw.split('/');
+  const subId = rest.length ? rest.join('/') : null;
+  const hidden = section ? resolveHiddenTarget(section, subId) : null;
+  if (hidden) return hidden;
+  if (!section || !KNOWN_SECTIONS.has(section)) return null;
+  return { section, subId };
+};
+
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('splash');
@@ -26,6 +81,42 @@ const App: React.FC = () => {
   const [brandLine, setBrandLine] = useState<BrandLine>('topview');
   const language: Language = 'en';
   const mainRef = React.useRef<HTMLElement>(null);
+  const viewRef = React.useRef<ViewState>(view);
+  viewRef.current = view;
+
+  useEffect(() => {
+    const applyHash = (updateView: boolean) => {
+      const parsed = readLocationHash();
+      if (!parsed) return;
+      if (parsed === 'catalog') {
+        // Hidden section: drop the hash; from a content page, return to the catalog.
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+        if (viewRef.current === 'content') {
+          setIsCatalogEntering(true);
+          setView('catalog');
+          setIsCatalogExiting(false);
+        }
+        return;
+      }
+      if (parsed.canonical && window.location.hash !== `#${parsed.canonical}`) {
+        history.replaceState(null, '', `#${parsed.canonical}`);
+      }
+      setActiveSection(parsed.section);
+      setActiveSubId(parsed.subId);
+      setBrandLine(JUHUO_SECTIONS.has(parsed.section) ? 'juhuo' : 'topview');
+      if (updateView) {
+        setView('content');
+        setIsSplashExiting(false);
+      }
+    };
+    // The intro always plays on first load / hard refresh, then the catalog
+    // is shown. Hash changes after that must not replay the intro.
+    applyHash(false);
+    const onHash = () => applyHash(false);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
 
   useEffect(() => {
     if (!mainRef.current || activeSubId) return;
@@ -33,7 +124,13 @@ const App: React.FC = () => {
   }, [activeSection, view, activeSubId]);
 
   useEffect(() => {
+    if (!mainRef.current || !activeSubId?.includes('/')) return;
+    mainRef.current.scrollTop = 0;
+  }, [activeSection, activeSubId, view]);
+
+  useEffect(() => {
     if (view !== 'content' || !activeSubId || !mainRef.current) return;
+    if (activeSubId.includes('/')) return;
     const target = mainRef.current.querySelector<HTMLElement>(`#${CSS.escape(activeSubId)}`);
     if (!target) return;
     const frame = requestAnimationFrame(() => {
@@ -57,7 +154,12 @@ const App: React.FC = () => {
   }, [isCatalogEntering]);
 
   const handleSplashComplete = useCallback(() => {
-    // Mount catalog under the splash, then raise the splash curtain.
+    // After the intro, always enter the existing catalog / landing page,
+    // even if the arrival URL had a hash. Later in-site navigation still
+    // uses the hash; this path must not jump into a content section.
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
     setView('catalog');
     setIsSplashExiting(true);
     setIsCatalogRevealing(true);
@@ -70,7 +172,14 @@ const App: React.FC = () => {
     }, PANEL_TRANSITION_MS + 350);
   }, []);
 
-  const handleNavigate = (id: string, subId?: string) => {
+  const handleNavigate = (targetId: string, targetSubId?: string) => {
+    const hidden = resolveHiddenTarget(targetId, targetSubId ?? null);
+    if (hidden === 'catalog') {
+      goHome();
+      return;
+    }
+    const id = hidden ? hidden.section : targetId;
+    const subId = hidden ? hidden.subId ?? undefined : targetSubId;
     setActiveSection(id);
     setActiveSubId(subId ?? null);
     setBrandLine(JUHUO_SECTIONS.has(id) ? 'juhuo' : 'topview');
@@ -101,18 +210,21 @@ const App: React.FC = () => {
       case 'logo': return <Logos language={language} />;
       case 'colors': return <Colors language={language} />;
       case 'juhuo-colors': return <JuhuoColors language={language} />;
+      case 'spacing': return <Foundations language={language} section="spacing" />;
+      case 'radius': return <Foundations language={language} section="radius" />;
       case 'typography': return <Typography language={language} />;
       case 'motion': return <Motion language={language} />;
+      case 'components': return <ComponentsPage language={language} activeSubId={activeSubId} onNavigate={handleNavigate} />;
       default: return <Logos language={language} />;
     }
   };
 
   const showSplash = view === 'splash' || isSplashExiting;
-  const showCatalog = view === 'catalog' || isCatalogExiting || isSplashExiting;
+  const showCatalog = view === 'catalog' || isCatalogExiting;
   const showContent = view !== 'splash' || isSplashExiting;
 
   return (
-    <div className="h-full bg-[#0a0a0c] text-white relative overflow-hidden">
+    <div className="site-root h-full bg-[#101010] text-white relative overflow-hidden">
       {/* Splash curtain — slides up to reveal catalog */}
       {showSplash && (
         <div
@@ -142,9 +254,9 @@ const App: React.FC = () => {
 
       {/* Content shell — only <main> may scroll */}
       {showContent && (
-        <div className="fixed inset-0 flex flex-col bg-[#0a0a0c] text-white overflow-hidden">
+        <div className="site-shell fixed inset-0 flex flex-col bg-[#101010] text-white overflow-hidden">
           <div className="shrink-0 px-4 pt-4">
-            <header className="max-w-[1600px] mx-auto h-[80px] rounded-2xl border border-white/10 flex items-center px-5 md:px-6 bg-[#0a0a0c]">
+            <header className="site-header max-w-[1600px] mx-auto h-[80px] rounded-2xl border border-white/10 flex items-center px-5 md:px-6 bg-[#101010]">
               <div
                 className="flex items-center cursor-pointer h-full gap-3"
                 onClick={goHome}
@@ -155,16 +267,18 @@ const App: React.FC = () => {
                     <span className="text-lg font-heading tracking-tight">Juhuo</span>
                   </>
                 ) : (
-                  <img src="/logo/Topview_Logo_New_RGB/SVG/Horizontal_White.svg" alt="TopView" className="h-8" />
+                  <TopviewWordmark />
                 )}
               </div>
+              <SiteThemeToggle language={language} />
             </header>
           </div>
 
-          <div className="flex-1 min-h-0 pb-4 px-4 max-w-[1600px] w-full mx-auto pt-4 overflow-hidden">
-            <div className="items-stretch lg:grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 h-full min-h-0 overflow-hidden">
+          <div className="flex-1 min-h-0 w-full px-4 pb-4 pt-4 overflow-hidden">
+            <div className="max-w-[1600px] mx-auto h-full min-h-0">
+              <div className="items-stretch lg:grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 h-full min-h-0 overflow-hidden">
               <aside className="hidden lg:block h-full min-h-0 shrink-0 overflow-hidden">
-                <div className="h-full w-full rounded-2xl border border-white/10 overflow-hidden">
+                <div className="site-frame site-sidebar h-full w-full rounded-2xl border border-white/10 overflow-hidden">
                   <Sidebar
                     activeId={activeSection}
                     activeSubId={activeSubId}
@@ -177,7 +291,7 @@ const App: React.FC = () => {
 
               <main
                 ref={mainRef}
-                className="min-w-0 min-h-0 h-full rounded-2xl border border-white/10 overflow-y-auto overflow-x-hidden overscroll-contain"
+                className="site-frame site-docs min-w-0 min-h-0 h-full rounded-2xl border border-white/10 overflow-y-auto overflow-x-hidden overscroll-contain"
               >
                 <div className="p-6 md:p-8 h-full min-w-0">
                   <div className="w-full min-w-0 max-w-full">
@@ -185,6 +299,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </main>
+              </div>
             </div>
           </div>
         </div>

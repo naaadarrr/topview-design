@@ -29,5 +29,7 @@ export interface NavItem {
   id: string;
   label: string;
   path: string;
+  /** Nav-only parent: its children are separate pages, not anchors. */
+  group?: boolean;
   children?: NavItem[];
 }

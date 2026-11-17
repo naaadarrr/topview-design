@@ -115,7 +115,7 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
     <div className="max-w-full text-white space-y-48 pb-32 overflow-x-visible">
       {/* 1. Header */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 fade-in">
-        <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
+        <h1 className="site-h1">
           {t.title}
         </h1>
         <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
@@ -161,54 +161,12 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
           </div>
         </div>
 
-        {/* Legacy fonts */}
-        <div className="space-y-8">
-          <div className="flex items-center gap-4">
-            <h3 className="text-sm font-sans font-bold uppercase tracking-widest text-white/30">{t.legacy}</h3>
-            <div className="flex-1 h-px bg-white/10" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 opacity-50">
-            <div className="p-12 rounded-[10px] bg-[#1a1a1a] border border-white/5 border-dashed h-[320px] flex flex-col justify-between">
-              <div>
-                <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-600 mb-8 block font-sans">{t.legacyBrand}</span>
-                <p className="text-7xl font-outfit font-black tracking-tighter">Outfit</p>
-              </div>
-              <div>
-                <p className="font-sans font-bold text-white/30 text-sm mb-6 uppercase tracking-widest">{t.weights}: 400–900</p>
-                <button 
-                  onClick={() => window.open('https://fonts.google.com/specimen/Outfit', '_blank')}
-                  className="group relative flex items-center gap-3 px-6 py-3 bg-white/10 text-white/70 rounded-full font-sans font-bold text-sm hover:bg-white/20 transition-all duration-300"
-                >
-                  {t.downloadGoogleFonts}
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="p-12 rounded-[10px] bg-[#1a1a1a] border border-white/5 border-dashed h-[320px] flex flex-col justify-between">
-              <div>
-                <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-600 mb-8 block font-sans">{t.legacyProduct}</span>
-                <p className="text-7xl font-inter font-bold tracking-tight">Inter</p>
-              </div>
-              <div>
-                <p className="font-sans font-bold text-white/30 text-sm mb-6 uppercase tracking-widest">{t.weights}: 300–700</p>
-                <button 
-                  onClick={() => window.open('https://fonts.google.com/specimen/Inter', '_blank')}
-                  className="group relative flex items-center gap-3 px-6 py-3 bg-white/10 text-white/70 rounded-full font-sans font-bold text-sm hover:bg-white/20 transition-all duration-300"
-                >
-                  {t.downloadGoogleFonts}
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* 3. Text Styles (Chakra UI Inspired) */}
       <section id="typography-text-styles" className="fade-in pt-12 scroll-mt-8" style={{ animationDelay: '0.15s' }}>
         <div className="flex flex-col gap-4 mb-16">
-          <h2 className="text-[44px] md:text-[56px] font-heading tracking-tight">Text Styles</h2>
+          <h2 className="site-h2">Text Styles</h2>
           <p className="text-sm text-white/40 font-sans">Hierarchical scale inspired by industry standards.</p>
         </div>
         
@@ -283,6 +241,8 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
           </svg>
         </button>
       </section>
+
+      <p className="text-sm leading-[22px] font-sans text-white/40">{t.legacyLine}</p>
 
       {/* Lightbox Modal */}
       {selectedIndex !== null && createPortal(

@@ -4,6 +4,14 @@ import {
   TOPVIEW_PURPLE_SCALE,
   TOPVIEW_SUPPORTING_COLORS,
 } from '../constants';
+import { HOMEPAGE_GRAY_GROUPS } from '../constants/homepageGrays';
+import {
+  COLOR_CROSS_LAYER,
+  COLOR_FORMAL_BOARD,
+  COLOR_ROLES,
+  type CrossLayerId,
+  type ColorRoleId,
+} from '../constants/colorRoles';
 import { Language, translations } from '../translations';
 import { ColorSwatch } from '../types';
 
@@ -11,7 +19,133 @@ interface ColorsProps {
   language: Language;
 }
 
+
+type ColorCopy = (typeof translations)['en']['colors'];
+
+const ROLE_TITLE_KEY: Record<ColorRoleId, keyof ColorCopy> = {
+  background: 'layersRoleBackground',
+  surface: 'layersRoleSurface',
+  'surface-raised': 'layersRoleSurfaceRaised',
+  overlay: 'layersRoleOverlay',
+};
+
+const ROLE_DUTY_KEY: Record<ColorRoleId, keyof ColorCopy> = {
+  background: 'layersDutyBackground',
+  surface: 'layersDutySurface',
+  'surface-raised': 'layersDutySurfaceRaised',
+  overlay: 'layersDutyOverlay',
+};
+
+const CROSS_TITLE_KEY: Record<CrossLayerId, keyof ColorCopy> = {
+  text: 'layersRoleText',
+  'border-subtle': 'layersRoleBorderSubtle',
+  'border-strong': 'layersRoleBorderStrong',
+  fill: 'layersRoleFill',
+};
+
+const CROSS_DUTY_KEY: Record<CrossLayerId, keyof ColorCopy> = {
+  text: 'layersDutyText',
+  'border-subtle': 'layersDutyBorderSubtle',
+  'border-strong': 'layersDutyBorderStrong',
+  fill: 'layersDutyFill',
+};
+
+const MAPPED_SOURCE_KEY: Partial<Record<ColorRoleId | CrossLayerId, keyof ColorCopy>> = {
+  background: 'layersSourceBackground',
+  surface: 'layersSourceSurface',
+  'border-subtle': 'layersSourceBorderSubtle',
+  'border-strong': 'layersSourceBorderStrong',
+  fill: 'layersSourceFill',
+};
+
+const formalTitle = (t: ColorCopy, id: ColorRoleId | CrossLayerId) =>
+  id in ROLE_TITLE_KEY ? t[ROLE_TITLE_KEY[id as ColorRoleId]] : t[CROSS_TITLE_KEY[id as CrossLayerId]];
+
+const formalDuty = (t: ColorCopy, id: ColorRoleId | CrossLayerId) =>
+  id in ROLE_DUTY_KEY ? t[ROLE_DUTY_KEY[id as ColorRoleId]] : t[CROSS_DUTY_KEY[id as CrossLayerId]];
+
+const RolePlate: React.FC<{
+  name: string;
+  duty: string;
+  hex: string | null;
+  pendingLabel: string;
+  mappedSource?: string;
+  candidates?: { hex: string; note: string; pending?: boolean }[];
+  copied: string | null;
+  onCopy: (hex: string) => void;
+}> = ({ name, duty, hex, pendingLabel, mappedSource, candidates, copied, onCopy }) => {
+  const isPending = !hex;
+  return (
+    <div>
+      {hex ? (
+        <button
+          type="button"
+          onClick={() => onCopy(hex)}
+          aria-label={copied === hex ? `Copied ${hex}` : `Copy ${hex}`}
+          className="block w-full text-left"
+        >
+          <div
+            className="aspect-[5/4] w-full rounded-[20px] border border-white/15"
+            style={{ background: hex }}
+          />
+        </button>
+      ) : (
+        <div
+          className="aspect-[5/4] w-full rounded-[20px] border border-dashed border-white/30 bg-transparent"
+          aria-label={`${name} ${pendingLabel}`}
+        />
+      )}
+      <div className="mt-3 min-w-0">
+        <div className="font-sans text-[20px] leading-[26px] font-semibold text-white">{name}</div>
+        <div className="mt-0.5 font-sans text-[14px] leading-[20px] text-white/55">{duty}</div>
+        {hex ? (
+          <div className="mt-1 font-sans text-[13px] leading-[18px] font-medium tabular-nums text-white/80">
+            {hex}
+          </div>
+        ) : (
+          <div className="mt-1 font-sans text-[12px] leading-[18px] text-white/45">{pendingLabel}</div>
+        )}
+        {hex && mappedSource && (
+          <p className="mt-1 font-sans text-[12px] leading-[17px] text-white/40">{mappedSource}</p>
+        )}
+        {candidates?.map((item) => (
+          item.pending ? (
+            <div key={`${name}-${item.hex}-${item.note}`} className="mt-3">
+              <div
+                className="aspect-[5/4] w-full rounded-[20px] border border-dashed border-white/30 bg-transparent"
+                aria-label={`${item.hex} ${pendingLabel}`}
+              />
+              <button
+                type="button"
+                onClick={() => onCopy(item.hex)}
+                aria-label={copied === item.hex ? `Copied ${item.hex}` : `Copy ${item.hex}`}
+                className="mt-1.5 block w-full text-left"
+              >
+                <span className="font-sans text-[13px] font-medium tabular-nums text-white/80">{item.hex}</span>
+                <span className="ml-1.5 font-sans text-[12px] leading-[18px] text-white/45">{pendingLabel}</span>
+              </button>
+              <p className="mt-1 font-sans text-[12px] leading-[17px] text-white/40">{item.note}</p>
+            </div>
+          ) : (
+            <button
+              key={`${name}-${item.hex}-${item.note}`}
+              type="button"
+              onClick={() => onCopy(item.hex)}
+              aria-label={copied === item.hex ? `Copied ${item.hex}` : `Copy ${item.hex}`}
+              className="mt-1.5 block w-full text-left"
+            >
+              <span className="font-sans text-[13px] font-medium tabular-nums text-white/80">{item.hex}</span>
+              <span className="ml-1.5 font-sans text-[13px] leading-[18px] text-white/40">{item.note}</span>
+            </button>
+          )
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Colors: React.FC<ColorsProps> = ({ language }) => {
+
   const t = translations[language].colors;
   const [copied, setCopied] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -57,7 +191,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
   return (
     <div className="max-w-full text-white space-y-48 pb-40 overflow-x-hidden">
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 w-full">
-        <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
+        <h1 className="site-h1">
           {t.title}
         </h1>
         <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
@@ -67,7 +201,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
 
       <section id="colors-purple" className="scroll-mt-8">
         <div className="flex flex-col gap-4 mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">
+          <h2 className="site-h2">
             {t.purple}
           </h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
@@ -118,12 +252,12 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
 
       <section id="colors-supporting" className="fade-in scroll-mt-8" style={{ animationDelay: '0.1s' }}>
         <div className="flex flex-col gap-4 mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.supporting}</h2>
+          <h2 className="site-h2">{t.supporting}</h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
             {t.supportingDesc}
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {TOPVIEW_SUPPORTING_COLORS.map((color) => {
             const isCopied = copied === color.hex;
             return (
@@ -132,14 +266,17 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                 type="button"
                 onClick={() => copyToClipboard(color.hex)}
                 aria-label={isCopied ? `Copied ${color.hex}` : `Copy ${color.hex}`}
-                className="rounded-[16px] bg-transparent p-3 text-left border border-white/10 transition-colors hover:border-white/25"
+                className="bg-transparent p-0 text-left"
               >
                 <div
-                  className="aspect-[16/10] rounded-lg"
+                  className="aspect-[5/4] rounded-[20px] border border-white/10"
                   style={{ background: color.hex }}
                 />
-                <div className="mt-3 flex items-center justify-between gap-2">
-                  <span className="font-sans text-[13px] font-medium tabular-nums text-white">
+                <div className="mt-3 min-w-0">
+                  <div className="font-sans text-[15px] leading-[20px] font-medium text-white">{color.name}</div>
+                  <div className="mt-0.5 font-sans text-[13px] leading-[18px] text-white/55">{color.usage}</div>
+                <div className="mt-1 flex items-center justify-between gap-2">
+                  <span className="font-sans text-[13px] font-medium tabular-nums text-white/80">
                     {color.hex}
                   </span>
                   <span className="shrink-0 text-white" aria-hidden="true">
@@ -155,20 +292,200 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                     )}
                   </span>
                 </div>
+                </div>
               </button>
             );
           })}
         </div>
       </section>
 
+
+      <section id="colors-layers" className="fade-in scroll-mt-8" style={{ animationDelay: '0.11s' }}>
+        <div className="flex flex-col gap-4 mb-10">
+          <h2 className="site-h2">{t.layers}</h2>
+          <p className="max-w-xl text-[14px] leading-[20px] font-sans text-white/60 font-normal">
+            {t.layersDesc}
+          </p>
+        </div>
+
+        <div className="max-w-2xl">
+          <div
+            className="rounded-[24px] p-8 border border-white/15"
+            style={{ background: '#101010' }}
+          >
+            <div className="font-sans text-[11px] leading-[16px] font-medium text-white/70 mb-6">
+              {t.layersRoleBackground}
+            </div>
+            <div className="rounded-[18px] p-8" style={{ background: '#131313' }}>
+              <div className="font-sans text-[11px] leading-[16px] font-medium text-white/80 mb-6">
+                {t.layersRoleSurface}
+              </div>
+              <div className="rounded-[14px] p-8 border border-dashed border-white/30 bg-transparent">
+                <div className="font-sans text-[11px] leading-[16px] font-medium text-white/55 mb-6">
+                  {t.layersRoleSurfaceRaised} · {t.layersPending}
+                </div>
+                <div className="rounded-[10px] min-h-[8rem] p-8 border border-dashed border-white/25 bg-transparent">
+                  <div className="font-sans text-[11px] leading-[16px] font-medium text-white/50">
+                    {t.layersRoleOverlay} · {t.layersPending}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="mt-3 font-sans text-[12px] leading-[17px] text-white/45">
+            {t.layersStackCaption}
+          </p>
+        </div>
+
+        <div className="mt-14">
+          <h3 className="site-h3 mb-6">{t.layersRolesTitle}</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {COLOR_ROLES.map((role) => (
+              <RolePlate
+                key={role.id}
+                name={t[ROLE_TITLE_KEY[role.id as ColorRoleId]]}
+                duty={t[ROLE_DUTY_KEY[role.id as ColorRoleId]]}
+                hex={role.hex}
+                pendingLabel={t.layersPending}
+                mappedSource={MAPPED_SOURCE_KEY[role.id] ? t[MAPPED_SOURCE_KEY[role.id]!] : undefined}
+                candidates={role.alsoVerified?.map((item) => ({
+                  hex: item.hex,
+                  note: t[item.sourceKey as keyof ColorCopy],
+                  pending: item.pending,
+                }))}
+                copied={copied}
+                onCopy={copyToClipboard}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-14">
+          <h3 className="site-h3 mb-6">{t.layersCrossTitle}</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {COLOR_CROSS_LAYER.map((item) => (
+              <RolePlate
+                key={item.id}
+                name={t[CROSS_TITLE_KEY[item.id as CrossLayerId]]}
+                duty={t[CROSS_DUTY_KEY[item.id as CrossLayerId]]}
+                hex={item.hex}
+                pendingLabel={t.layersPending}
+                mappedSource={MAPPED_SOURCE_KEY[item.id] ? t[MAPPED_SOURCE_KEY[item.id]!] : undefined}
+                candidates={item.alsoVerified?.map((cand) => ({
+                  hex: cand.hex,
+                  note: t[cand.sourceKey as keyof ColorCopy],
+                  pending: cand.pending,
+                }))}
+                copied={copied}
+                onCopy={copyToClipboard}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 max-w-2xl space-y-3">
+          <h3 className="site-h3">{t.layersNotesTitle}</h3>
+          <p className="font-sans text-[13px] leading-[19px] text-white/55">{t.layersNotePrimary}</p>
+          <p className="font-sans text-[13px] leading-[19px] text-white/55">{t.layersNoteGlass}</p>
+          <p className="font-sans text-[13px] leading-[19px] text-white/55">{t.layersNoteInverse}</p>
+          <p className="font-sans text-[13px] leading-[19px] text-white/55">{t.layersNoteLeftovers}</p>
+          <p className="font-sans text-[13px] leading-[19px] text-white/55">{t.layersNoteFlyout}</p>
+        </div>
+      </section>
+
+      <section id="colors-gray" className="fade-in scroll-mt-8" style={{ animationDelay: '0.12s' }}>
+        <div className="flex flex-col gap-4 mb-8">
+          <h2 className="site-h2">{t.gray}</h2>
+          <p className="max-w-xl text-[14px] leading-[20px] font-sans text-white/60 font-normal">
+            {t.grayDesc}
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {COLOR_FORMAL_BOARD.map((item) => (
+            <RolePlate
+              key={item.id}
+              name={formalTitle(t, item.id)}
+              duty={formalDuty(t, item.id)}
+              hex={item.hex}
+              pendingLabel={t.layersPending}
+              candidates={item.alsoVerified?.map((cand) => ({
+                hex: cand.hex,
+                note: t[cand.sourceKey as keyof ColorCopy],
+                pending: cand.pending,
+              }))}
+              copied={copied}
+              onCopy={copyToClipboard}
+            />
+          ))}
+        </div>
+        <div className="mt-20">
+          <h3 className="site-h3 mb-2">{t.grayInventoryTitle}</h3>
+          <p className="max-w-2xl mb-10 font-sans text-[13px] leading-[19px] text-white/50">{t.grayInventoryIntro}</p>
+        <div className="space-y-16">
+          {HOMEPAGE_GRAY_GROUPS.map((group) => {
+            const groupTitle =
+              group.id === 'shell' ? t.grayGroupShell
+              : group.id === 'rail' ? t.grayGroupRail
+              : group.id === 'modules' ? t.grayGroupModules
+              : t.grayGroupPreview;
+            return (
+              <div key={group.id}>
+                <h3 className="site-h3 mb-5">{groupTitle}</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                  {group.swatches.map((color) => {
+                    const isCopied = copied === color.hex;
+                    const usage = color.usage[language];
+                    return (
+                      <button
+                        key={color.hex}
+                        type="button"
+                        onClick={() => copyToClipboard(color.hex)}
+                        aria-label={isCopied ? `Copied ${color.hex}` : `Copy ${color.hex}`}
+                        className="bg-transparent p-0 text-left"
+                      >
+                        <div
+                          className="aspect-[5/4] rounded-[20px] border border-white/15"
+                          style={{ background: color.hex }}
+                        />
+                        <div className="mt-3 flex items-center justify-between gap-2">
+                          <span className="font-sans text-[13px] font-medium tabular-nums text-white/80">
+                            {color.hex}
+                          </span>
+                          <span className="shrink-0 text-white" aria-hidden="true">
+                            {isCopied ? (
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M20 6L9 17l-5-5" />
+                              </svg>
+                            ) : (
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" />
+                                <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                              </svg>
+                            )}
+                          </span>
+                        </div>
+                        <p className="mt-2 font-sans text-[12px] leading-[17px] text-white/55">
+                          {usage}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        </div>
+      </section>
+
       <section id="colors-gradients" className="fade-in scroll-mt-8" style={{ animationDelay: '0.15s' }}>
         <div className="flex flex-col gap-4 mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.gradients}</h2>
+          <h2 className="site-h2">{t.gradients}</h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
             {t.gradientsDesc}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {TOPVIEW_GRADIENTS.map((gradient) => {
             const isCopied = copied === gradient.css;
             return (
@@ -181,7 +498,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
               >
                 <div className="w-full">
                   <div
-                    className="aspect-[16/8] rounded-lg transition-transform duration-300 group-hover:scale-[1.01]"
+                    className="aspect-[5/4] rounded-[20px] transition-transform duration-300 group-hover:scale-[1.01]"
                     style={{ background: gradient.css }}
                   />
                   <div className="mt-3.5 flex items-center justify-between gap-2">
@@ -221,7 +538,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
       {/* 3. Accessibility */}
       <section id="colors-accessibility" className="fade-in scroll-mt-8" style={{ animationDelay: '0.2s' }}>
         <div className="flex flex-col gap-4 mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.accessibility}</h2>
+          <h2 className="site-h2">{t.accessibility}</h2>
           <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
             {t.accessibilityDesc}
           </p>
@@ -250,7 +567,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
 
         {/* Dark Background Contrast Subsection */}
         <div className="mt-32">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-10 font-sans">{language === 'zh' ? '暗色背景对比度 (WCAG)' : 'Dark Background Contrast (WCAG)'}</h3>
+          <h3 className="site-h3 mb-10">{language === 'zh' ? '暗色背景对比度 (WCAG)' : 'Dark Background Contrast (WCAG)'}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {[
               { id: '8', ratio: '3.13:1', color: 'var(--topview-blue)', status: 'Fail (Small Text)', name: 'Purple 600' },
@@ -306,7 +623,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         {/* Incorrect Examples Section */}
         <div id="colors-incorrect" className="mt-48 scroll-mt-8">
           <div className="flex flex-col gap-4 mb-16">
-            <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.incorrect}</h2>
+            <h2 className="site-h2">{t.incorrect}</h2>
             <p className="max-w-md text-[14px] leading-[20px] font-sans text-white/60 font-normal">
               {t.incorrectDesc}
             </p>

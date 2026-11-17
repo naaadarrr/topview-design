@@ -1,0 +1,1212 @@
+/*
+  Locked glass specimens ported from
+  /Users/nadarlau/Work/glass-lab/glass-library.html (mtime 2026-11-09).
+  All rules are scoped under .glassSpecimens so they do not leak.
+*/
+
+.glassSpecimens {
+  --accent: #731DFB;
+  --accent-press: #6418E0;
+  font-family: Inter, "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.glassSpecimens .spec {
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffffa8;
+  margin: 0 0 14px;
+  max-width: 52rem;
+  font-weight: 400;
+}
+
+.glassSpecimens .spec-note {
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffff80;
+  margin: 10px 0 0;
+  max-width: 52rem;
+  font-weight: 400;
+}
+
+.glassSpecimens .badge {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #731DFB33;
+  color: #d7c2ff;
+  border: 1px solid #731DFB55;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.glassSpecimens .badge.wip {
+  background: #ffffff12;
+  color: #ffffffb0;
+  border-color: #ffffff22;
+}
+
+.glassSpecimens .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.glassSpecimens figure {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.glassSpecimens figcaption {
+  font-size: 12px;
+  line-height: 16px;
+  color: #fffc;
+  background: #00000099;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.glassSpecimens .stage {
+  position: relative;
+  isolation: isolate;
+  border-radius: 16px;
+  padding: 64px 48px;
+  overflow: hidden;
+  background: #101010;
+  border: 1px solid #ffffff10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* glass baseline + (c) for toast/alert/seg/icons */
+.glassSpecimens .g {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  overflow: hidden;
+  background: rgba(31, 31, 38, 0.6) linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%);
+  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+  backdrop-filter: blur(6px) saturate(1.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10),
+    inset 1px 1px 0 -0.5px rgba(255, 255, 255, 0.32),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.24),
+    0 4px 12px -3px rgba(0, 0, 0, 0.5);
+}
+.glassSpecimens .g:active {
+  transform: scale(0.97);
+}
+.glassSpecimens button.g {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* ===== 1. Banner arrow FINAL: (b) static + SITE hover/press ===== */
+.glassSpecimens .arrow-final {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: #fff;
+  background-color: rgba(31, 31, 38, 0.6);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%);
+  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+  backdrop-filter: blur(6px) saturate(1.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.24),
+    0 4px 12px -3px rgba(0, 0, 0, 0.5);
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glassSpecimens .arrow-final::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 100%, rgba(255, 255, 255, 0.2), transparent 62%),
+    radial-gradient(120% 18% at 50% 100%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 100%);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glassSpecimens .arrow-final > * {
+  position: relative;
+  z-index: 1;
+}
+.glassSpecimens .arrow-final svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.glassSpecimens .arrow-final:hover,
+.glassSpecimens .arrow-final.show-hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.5),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.2),
+    0 4px 16px -3px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(255, 255, 255, 0.14);
+}
+.glassSpecimens .arrow-final:hover::before,
+.glassSpecimens .arrow-final.show-hover::before,
+.glassSpecimens .arrow-final:active::before,
+.glassSpecimens .arrow-final.show-press::before {
+  opacity: 1;
+}
+.glassSpecimens .arrow-final:active,
+.glassSpecimens .arrow-final.show-press {
+  transform: scale(0.97);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.55),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.55),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.22),
+    0 2px 8px -3px rgba(0, 0, 0, 0.5),
+    0 0 14px rgba(255, 255, 255, 0.16);
+}
+
+/* Tooltip trigger: rounded-rect version of FINAL arrow glass (unlocked candidate) */
+.glassSpecimens .glass-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: rgba(31, 31, 38, 0.6);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%);
+  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+  backdrop-filter: blur(6px) saturate(1.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.24),
+    0 4px 12px -3px rgba(0, 0, 0, 0.5);
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glassSpecimens .glass-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 100%, rgba(255, 255, 255, 0.2), transparent 62%),
+    radial-gradient(120% 18% at 50% 100%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 100%);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glassSpecimens .glass-btn > * {
+  position: relative;
+  z-index: 1;
+}
+.glassSpecimens .glass-btn:hover,
+.glassSpecimens .glass-btn.show-hover,
+.glassSpecimens.force-tt .glass-btn {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.5),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.2),
+    0 4px 16px -3px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(255, 255, 255, 0.14);
+}
+.glassSpecimens .glass-btn:hover::before,
+.glassSpecimens .glass-btn.show-hover::before,
+.glassSpecimens.force-tt .glass-btn::before,
+.glassSpecimens .glass-btn:active::before {
+  opacity: 1;
+}
+.glassSpecimens .glass-btn:active {
+  transform: scale(0.97);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.55),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.55),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.22),
+    0 2px 8px -3px rgba(0, 0, 0, 0.5),
+    0 0 14px rgba(255, 255, 255, 0.16);
+}
+.glassSpecimens .glass-btn:focus {
+  outline: none;
+}
+.glassSpecimens .glass-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.glassSpecimens .tt-wrap {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.glassSpecimens .tt {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(4px) scale(0.96);
+  z-index: 5;
+  pointer-events: none;
+  height: 30px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(31, 31, 38, 0.72);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%);
+  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+  backdrop-filter: blur(6px) saturate(1.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.24),
+    0 4px 12px -3px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 100ms ease-out, transform 100ms ease-out, visibility 100ms;
+}
+.glassSpecimens .tt-wrap:hover .tt,
+.glassSpecimens .tt-wrap:focus-within .tt,
+.glassSpecimens .tt-wrap.show .tt,
+.glassSpecimens.force-tt .tt {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition: opacity 150ms ease-out 80ms, transform 150ms ease-out 80ms, visibility 0s linear 80ms;
+}
+.glassSpecimens .tt-wrap.esc-hide .tt,
+.glassSpecimens.force-tt .tt-wrap.esc-hide .tt {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(4px) scale(0.96);
+  transition: opacity 100ms ease-out, transform 100ms ease-out, visibility 100ms;
+}
+.glassSpecimens .tt-cap {
+  margin-top: 18px;
+  max-width: 280px;
+}
+.glassSpecimens .tt-cap h3 {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 650;
+  margin-bottom: 4px;
+  font-family: inherit;
+}
+.glassSpecimens .tt-cap p {
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffffa8;
+  margin: 0;
+}
+
+/* Tooltip demo card only: .stage overflow:hidden clips the absolutely
+   positioned .tt (bottom: calc(100% + 8px), centered, nowrap). The EN
+   label is wider than the trigger, so the bubble was cut by the card.
+   Do not change global .stage overflow (other specimens rely on it). */
+.glassSpecimens .stage.tt-stage {
+  overflow: visible;
+  padding-left: 120px;
+}
+
+.glassSpecimens .stack {
+  display: grid;
+  gap: 10px;
+}
+
+/* ===== 4 Segmented (unlocked / pending) ===== */
+.glassSpecimens .seg {
+  position: relative;
+  width: 240px;
+  height: 36px;
+  border-radius: 18px;
+}
+.glassSpecimens .seg .thumb {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 78px;
+  height: 30px;
+  border-radius: 15px;
+  z-index: 1;
+  transition: transform 380ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  background: rgba(255, 255, 255, 0.12) linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 60%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 1px 1px 0 -0.5px rgba(255, 255, 255, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.glassSpecimens .seg .tabs {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  padding: 3px;
+  z-index: 2;
+}
+.glassSpecimens .seg .tabs button {
+  width: 78px;
+  height: 30px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: #ffffffa3;
+  cursor: pointer;
+}
+.glassSpecimens .seg .tabs button[aria-selected="true"] {
+  color: #fff;
+}
+
+/* ===== 4b BF compact Segmented · B lock (glass-edge-light thumb) ===== */
+.glassSpecimens .bf-seg {
+  position: relative;
+  display: inline-flex;
+  height: 26px;
+  border-radius: 999px;
+  isolation: isolate;
+  overflow: hidden;
+  background: rgba(31, 31, 38, 0.55) linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%);
+  -webkit-backdrop-filter: blur(8px) saturate(1.25);
+  backdrop-filter: blur(8px) saturate(1.25);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    inset 1px 1px 0 -0.5px rgba(255, 255, 255, 0.18),
+    inset 0 2px 0 -1px rgba(255, 255, 255, 0.16),
+    inset 0 -1.5px 0 -1px rgba(255, 255, 255, 0.10),
+    0 2px 8px -2px rgba(0, 0, 0, 0.45);
+}
+.glassSpecimens .bf-seg .thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 52px;
+  height: 22px;
+  border-radius: 999px;
+  z-index: 1;
+  transition: transform 320ms cubic-bezier(0.34, 1.35, 0.64, 1);
+  pointer-events: none;
+  background: #1a1814;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 214, 102, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 214, 102, 0.10),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+}
+.glassSpecimens .bf-seg .tabs {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  padding: 2px;
+}
+.glassSpecimens .bf-seg .tabs button {
+  width: 52px;
+  height: 22px;
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+}
+.glassSpecimens .bf-seg .tabs button[aria-selected="true"] {
+  color: #ffe8a8;
+}
+.glassSpecimens .bf-seg-demo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ===== 5 Buttons (unlocked / pending) ===== */
+.glassSpecimens .btn {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 20px;
+  border: 0;
+  font: inherit;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s, background-color 0.12s;
+}
+.glassSpecimens .btn:active {
+  transform: scale(0.96);
+}
+.glassSpecimens .btn.primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: #731DFB;
+  color: #fff;
+  box-shadow: none;
+  font-size: 14px;
+  line-height: 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.glassSpecimens .btn.primary:hover,
+.glassSpecimens .btn.primary.is-hover {
+  background: #6317E3;
+  filter: none;
+}
+.glassSpecimens .btn.primary:active {
+  background: #6317E3;
+  transform: none;
+}
+.glassSpecimens .btn.primary:disabled {
+  background: #731DFB;
+  opacity: 0.7;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+.glassSpecimens .btn.white {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0b0b0f;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.18),
+    0 8px 20px rgba(0, 0, 0, 0.16),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.08);
+}
+.glassSpecimens .btn.white:active,
+.glassSpecimens .btn.white.is-pressed {
+  background: rgba(255, 255, 255, 0.80);
+}
+.glassSpecimens .btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.glassSpecimens .btn.sec {
+  color: #fff;
+  padding: 0 20px;
+}
+
+
+/* Liquid Glass trial for the purple rounded-rect button. Unlocked.
+   Material confirmed from macOS 27 Community Figma 483:9276 (and the brief’s
+   four-layer non-blue tint recipe). Shape stays the current specimen:
+   height 40, radius 8, type 14/500, product purple #731DFB — not the
+   board’s 48 circle, 80×48 capsule, or accent #db34f2 / #0091ff.
+   Not Alert D’s pakashiro / mask-composite edge-light. */
+.glassSpecimens .pw-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+@media (min-width: 768px) {
+  .glassSpecimens .pw-compare {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .glassSpecimens .pw-compare > * {
+    min-width: 0;
+  }
+}
+.glassSpecimens .pw-lg-note {
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+.glassSpecimens .pw-lg-trial {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  box-shadow:
+    0 8px 15px rgba(0, 0, 0, 0.28),
+    0 2px 4px rgba(0, 0, 0, 0.16);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  overflow: visible;
+}
+/* mem604 stack, plus mem606: the left/right #e6e6e6 hairlines
+   (offset ±1.25, spread -0.75) were removed. Purple sits underneath;
+   glass highlight and thin dark top/bottom edges sit on top.
+   Avoid mem601 (White Backing 0.94 + color-burn washed to white/gray on #101010)
+   and mem603 (accent painted at 0.82, covering highlights, reading as a flat
+   slightly lighter purple). Soft upper-half highlight uses plus-lighter so it
+   can add on top of #731DFB. Figma inner-shadow numbers and blur 6 stay.
+   Not a solid opaque flat fill, not a thick white backing, and not Alert D’s
+   pakashiro / mask-composite. */
+.glassSpecimens .pw-lg-trial-hair {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 8px;
+  pointer-events: none;
+  background: transparent;
+  box-shadow:
+    inset 0 1px 0 rgb(0 0 0 / 0.42),
+    inset 0 -1px 0 rgb(0 0 0 / 0.50);
+}
+.glassSpecimens .pw-lg-trial-backing {
+  position: absolute;
+  inset: -0.5px;
+  z-index: 0;
+  border-radius: 8.5px;
+  pointer-events: none;
+  background: #fff;
+  opacity: 0.10;
+}
+.glassSpecimens .pw-lg-trial-material {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+}
+.glassSpecimens .pw-lg-trial-tint-w50,
+.glassSpecimens .pw-lg-trial-tint-sat,
+.glassSpecimens .pw-lg-trial-tint-ov,
+.glassSpecimens .pw-lg-trial-tint-accent,
+.glassSpecimens .pw-lg-trial-glass-mul,
+.glassSpecimens .pw-lg-trial-in-burn,
+.glassSpecimens .pw-lg-trial-in-dodge-bot,
+.glassSpecimens .pw-lg-trial-in-dodge-top,
+.glassSpecimens .pw-lg-trial-frost {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.glassSpecimens .pw-lg-trial-tint-w50 {
+  background: rgb(255 255 255 / 0.08);
+}
+.glassSpecimens .pw-lg-trial-tint-sat {
+  background: #fff;
+  mix-blend-mode: saturation;
+  opacity: 0.18;
+}
+.glassSpecimens .pw-lg-trial-tint-ov {
+  background: #999999;
+  mix-blend-mode: overlay;
+  opacity: 0.18;
+}
+.glassSpecimens .pw-lg-trial-tint-accent {
+  background: #731DFB;
+  opacity: 0.76;
+}
+.glassSpecimens .pw-lg-trial-glass-mul {
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.38) 0%,
+    rgb(255 255 255 / 0.18) 32%,
+    rgb(255 255 255 / 0.06) 55%,
+    rgb(255 255 255 / 0) 72%
+  );
+  mix-blend-mode: plus-lighter;
+}
+.glassSpecimens .pw-lg-trial-frost {
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.glassSpecimens .pw-lg-trial-in-burn {
+  box-shadow: inset 0 40px 30px -40px #e6e6e6;
+  mix-blend-mode: color-burn;
+  mix-blend-mode: plus-darker;
+}
+.glassSpecimens .pw-lg-trial-in-dodge-bot {
+  box-shadow: inset 0 -40px 10px -40px #1a1a1a;
+  mix-blend-mode: color-dodge;
+  mix-blend-mode: plus-lighter;
+}
+.glassSpecimens .pw-lg-trial-in-dodge-top {
+  box-shadow: inset 0 40px 10px -40px #1a1a1a;
+  mix-blend-mode: color-dodge;
+  mix-blend-mode: plus-lighter;
+}
+.glassSpecimens .pw-lg-trial-label {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+}
+/* Restrained hover/press: same stack, slight backing shift only. */
+.glassSpecimens .pw-lg-trial:hover .pw-lg-trial-backing,
+.glassSpecimens .pw-lg-trial:focus-visible .pw-lg-trial-backing {
+  opacity: 0.07;
+}
+.glassSpecimens .pw-lg-trial:active .pw-lg-trial-backing {
+  opacity: 0.05;
+}
+.glassSpecimens .pw-lg-trial:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 0.45);
+  outline-offset: 3px;
+}
+
+/* ===== 6 Icon buttons (unlocked / pending) ===== */
+.glassSpecimens .ibtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+}
+.glassSpecimens .ibtn.sq {
+  border-radius: 8px;
+}
+.glassSpecimens .ibtn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ===== 7 Card · micro glass ===== */
+.glassSpecimens .cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.glassSpecimens .cards figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.glassSpecimens .cards figcaption {
+  font-size: 11px;
+  line-height: 14px;
+  color: #ffffffa0;
+  background: none;
+  padding: 0;
+  text-align: left;
+  border: 0;
+  justify-self: start;
+}
+.glassSpecimens .card-micro {
+  position: relative;
+  width: 360px;
+  max-width: 100%;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  color: #fff;
+  isolation: isolate;
+}
+.glassSpecimens .card-micro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, var(--rim-top)), rgba(255, 255, 255, var(--rim-bot)) 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.glassSpecimens .card-micro.a {
+  --rim-top: 0.10;
+  --rim-bot: 0.04;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 50%), rgba(23, 23, 23, 0.92);
+  backdrop-filter: blur(3px) saturate(1.1);
+  -webkit-backdrop-filter: blur(3px) saturate(1.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+.glassSpecimens .card-micro.b {
+  --rim-top: 0.10;
+  --rim-bot: 0.05;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 50%), rgba(31, 31, 38, 0.78);
+  backdrop-filter: blur(6px) saturate(1.2);
+  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.24);
+}
+.glassSpecimens .card-micro.daily {
+  --rim-top: 0.05;
+  --rim-bot: 0.03;
+  background: linear-gradient(180deg, rgba(255, 248, 240, 0.015), transparent 50%), rgba(23, 23, 23, 0.82);
+  backdrop-filter: blur(3px) saturate(1.1);
+  -webkit-backdrop-filter: blur(3px) saturate(1.1);
+  box-shadow: inset 0 1px 0 rgba(255, 248, 240, 0.035), 0 8px 24px rgba(0, 0, 0, 0.20);
+}
+.glassSpecimens .card-micro .cap {
+  font-size: 11px;
+  line-height: 14px;
+  color: #ffffff80;
+  margin-bottom: 6px;
+}
+.glassSpecimens .card-micro h3 {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 650;
+  margin: 0 0 4px;
+  font-family: inherit;
+}
+.glassSpecimens .card-micro p {
+  font-size: 12px;
+  line-height: 17px;
+  color: #ffffffc0;
+  margin: 0;
+  text-wrap: pretty;
+}
+.glassSpecimens .card-archive {
+  margin-top: 14px;
+  border: 1px solid #ffffff14;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: #00000033;
+  max-width: 420px;
+}
+.glassSpecimens .card-archive > summary {
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 16px;
+  color: #ffffff90;
+  list-style: none;
+}
+.glassSpecimens .card-archive > summary::-webkit-details-marker {
+  display: none;
+}
+.glassSpecimens .card-archive[open] > summary {
+  margin-bottom: 10px;
+}
+
+/* Module hover icons — literals from turbo COMMUNITY_* / FILM_SUITE_* classes.
+   size-8 (32×32), rounded-lg (8px), fill/sheen/blur match .arrow-final. Not rounded-full. */
+.glassSpecimens .module-card {
+  position: relative;
+  width: 240px;
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(80% 70% at 20% 0%, rgba(140, 120, 180, 0.28), transparent 60%),
+    linear-gradient(180deg, #2a2a32, #141418);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: default;
+}
+.glassSpecimens .module-card .module-label {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 3;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.86);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+.glassSpecimens .module-icon {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  color: #fff;
+  background-color: rgba(31, 31, 38, 0.6);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 50%);
+  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+  backdrop-filter: blur(6px) saturate(1.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.24),
+    0 4px 12px -3px rgba(0, 0, 0, 0.5);
+  transition:
+    opacity 150ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 150ms cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glassSpecimens .module-icon.pos-tr {
+  right: 10px;
+  top: 10px;
+}
+.glassSpecimens .module-icon.pos-br {
+  right: 10px;
+  bottom: 10px;
+}
+.glassSpecimens .module-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 100%, rgba(255, 255, 255, 0.2), transparent 62%),
+    radial-gradient(120% 18% at 50% 100%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 100%);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glassSpecimens .module-icon svg {
+  position: relative;
+  z-index: 1;
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.glassSpecimens .module-icon.is-hover,
+.glassSpecimens .module-card:not(.is-forced) .module-icon {
+  opacity: 0;
+}
+.glassSpecimens .module-card:not(.is-forced):hover .module-icon,
+.glassSpecimens .module-card:not(.is-forced):focus-within .module-icon,
+.glassSpecimens .module-icon.is-visible,
+.glassSpecimens .module-card.is-forced .module-icon {
+  opacity: 1;
+}
+.glassSpecimens .module-icon:hover,
+.glassSpecimens .module-card.is-forced .module-icon.show-hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.5),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.2),
+    0 4px 16px -3px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(255, 255, 255, 0.14);
+}
+.glassSpecimens .module-icon:hover::before,
+.glassSpecimens .module-card.is-forced .module-icon.show-hover::before,
+.glassSpecimens .module-icon:active::before,
+.glassSpecimens .module-icon.show-press::before {
+  opacity: 1;
+}
+.glassSpecimens .module-icon:active,
+.glassSpecimens .module-icon.show-press {
+  transform: scale(0.97);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 3px 0 -1.5px rgba(255, 255, 255, 0.55),
+    inset 0 -2.5px 0 -1.5px rgba(255, 255, 255, 0.55),
+    inset 0 -1px 4px 0 rgba(0, 0, 0, 0.22),
+    0 2px 8px -3px rgba(0, 0, 0, 0.5),
+    0 0 14px rgba(255, 255, 255, 0.16);
+}
+@media (prefers-reduced-motion: reduce) {
+  .glassSpecimens .module-icon:active,
+  .glassSpecimens .module-icon.show-press {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glassSpecimens .card-micro.a {
+    background: #171717;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glassSpecimens .card-micro.b {
+    background: #1a1a1c;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glassSpecimens .card-micro.daily {
+    background: #1c1c1c;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glassSpecimens .card-micro::before {
+    background: rgba(255, 255, 255, 0.10);
+  }
+  .glassSpecimens .bf-seg {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: #1c1c22;
+  }
+}
+
+.glassSpecimens .state-label {
+  font-size: 12px;
+  margin-bottom: 8px;
+  opacity: 0.8;
+}
+
+
+/* ===== Alert comparison: A glassyui replica, C product Toast, D A’s glass + C’s structure ===== */
+.glassSpecimens .alert-compare {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 1400px) {
+  .glassSpecimens .alert-compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 800px) {
+  .glassSpecimens .alert-compare {
+    grid-template-columns: 1fr;
+  }
+}
+.glassSpecimens .alert-col .col-spec {
+  font-size: 11px;
+  line-height: 15px;
+  color: #ffffffa8;
+  margin: 0 0 12px;
+  font-weight: 400;
+}
+
+/* A. glassyui-faithful replica (from glass-alert.html .lg-alert). Not locked as a product treatment. */
+.glassSpecimens .lg-alert {
+  --fill: 13 44 82;
+  --ink: #b2d6ff;
+  --tint: 0 103 217;
+  --hl: rgb(255 255 255 / 0.12);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: 1.125rem;
+  background: rgb(var(--fill) / 0.88);
+  box-shadow: inset 0 1px 0 var(--hl), inset 0 0 0 0.5px rgb(var(--tint) / 0.45);
+  color: #f5f5f7;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  -webkit-backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
+  backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
+}
+.glassSpecimens .lg-alert[data-tone="success"] { --fill: 22 60 48; --ink: #7cebc0; --tint: 51 214 159; }
+.glassSpecimens .lg-alert[data-tone="warning"] { --fill: 70 54 22; --ink: #ffd27a; --tint: 255 189 56; }
+.glassSpecimens .lg-alert[data-tone="danger"] { --fill: 76 30 44; --ink: #ffa6b7; --tint: 255 92 122; }
+.glassSpecimens .lg-alert .ic {
+  display: inline-flex;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.0625rem;
+  color: var(--ink);
+}
+.glassSpecimens .lg-alert .ic svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.glassSpecimens .lg-alert .body {
+  display: grid;
+  flex: 1;
+  gap: 0.125rem;
+  min-width: 0;
+}
+.glassSpecimens .lg-alert .t { font-weight: 600; margin: 0; }
+.glassSpecimens .lg-alert .d { opacity: 0.82; }
+
+/* C. In-product / site-original Toast — NOT glass, NOT locked.
+   Tokens copied from apps/base/src/components/ui/toast.tsx + toaster.tsx + hooks/useToast.tsx. */
+.glassSpecimens .product-toast-stage {
+  background: #101010;
+  border: 1px solid #ffffff10;
+  border-radius: 16px;
+  padding: 20px 16px;
+}
+.glassSpecimens .product-toast {
+  position: relative;
+  display: flex;
+  width: auto;
+  max-width: 100%;
+  align-items: center;
+  overflow: hidden;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  padding: 10px 16px;
+  box-shadow: 0 8px 30px rgba(15, 15, 20, 0.12);
+}
+.glassSpecimens .product-toast .pt-twoline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+.glassSpecimens .product-toast .pt-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.glassSpecimens .product-toast .pt-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+.glassSpecimens .product-toast .pt-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  color: #000;
+}
+.glassSpecimens .product-toast .pt-body {
+  margin: 0;
+  padding-left: 28px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+
+/* D. C's Toast structure + 16px radius / backdrop-filter + thicker untinted white glass.
+   Not locked. Not a new product lock.
+   Radius is 16px (Panel). Kept from A: blur 16 / saturate 1.8 / contrast .9.
+   Fill is rgb(255 255 255 / 0.90): slightly lower opacity than the previous .93,
+   not written back to .87, still pure white with no --fill / status-tint mix.
+   Not opaque solid #fff.
+   Edge: pakashiro / glass-edge-light 1px gradient stroke via ::before, starting from
+   the skill (top .28 / mid .06 / bottom .12). Top only is nudged to .36 so it reads
+   on this light card; mid and bottom stay at the skill values so the rim is not evenly
+   bright. Plus inset 0 1px 0 rgba(255,255,255,.36) — skill default is .08, raised
+   within the allowed band. Lift unchanged. Light stays on the rim;
+   no full-face wash. Status color lives only on the 20x20 icons.
+   Kept from C: 20x20 icons, 16px semibold title, 14px medium body, pt-body 28px, padding
+   10px 16px, no close, black type, #101010 stage. No C solid #fff, no C 0 8px 30px outline,
+   no B r12 / padding 8 / 36px tile. */
+.glassSpecimens .glass-toast {
+  --fill: 13 44 82;
+  --tint: 0 103 217;
+  position: relative;
+  display: flex;
+  width: auto;
+  max-width: 100%;
+  align-items: center;
+  overflow: hidden;
+  border: none;
+  border-radius: 16px;
+  padding: 10px 16px;
+  color: #000;
+  background: rgb(255 255 255 / 0.90);
+  -webkit-backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
+  backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.36),
+    0 1px 6px rgba(0, 0, 0, 0.25);
+}
+.glassSpecimens .glass-toast::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  box-sizing: border-box;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.36), rgba(255,255,255,.06) 40%, rgba(255,255,255,.12));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.glassSpecimens .glass-toast[data-tone="success"] { --fill: 22 60 48; --tint: 51 214 159; }
+.glassSpecimens .glass-toast[data-tone="warning"] { --fill: 70 54 22; --tint: 255 189 56; }
+.glassSpecimens .glass-toast[data-tone="danger"],
+.glassSpecimens .glass-toast[data-tone="error"] { --fill: 76 30 44; --tint: 255 92 122; }
+.glassSpecimens .glass-toast .pt-twoline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+.glassSpecimens .glass-toast .pt-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.glassSpecimens .glass-toast .pt-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+.glassSpecimens .glass-toast .pt-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  color: #000;
+}
+.glassSpecimens .glass-toast .pt-body {
+  margin: 0;
+  padding-left: 28px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  color: rgba(0, 0, 0, 0.9);
+}
