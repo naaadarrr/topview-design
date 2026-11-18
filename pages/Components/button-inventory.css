@@ -36,43 +36,16 @@
 
 .buttonInventory .inv-row {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: 24px;
 }
 
-/* Primary-only: keep default / pressed / disabled on one row. */
-.buttonInventory .stage-primary {
-  overflow-x: auto;
-}
-.buttonInventory .inv-row-primary {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 24px;
-}
-.buttonInventory .inv-row-primary .purple-thick {
+.buttonInventory .inv-row .purple-thick {
   width: auto;
   flex-shrink: 0;
-}
-
-.buttonInventory .inv-cell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.buttonInventory .inv-state {
-  font-size: 12px;
-  line-height: 16px;
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.buttonInventory .inv-col {
-  width: 288px;
 }
 
 .buttonInventory .caption {
@@ -83,46 +56,9 @@
   max-width: 42rem;
 }
 
-/* Install Plugin press is translateY(1px) only (same source as Controls). */
-.buttonInventory .install-plugin.is-pressed {
-  transform: translateY(1px);
-}
-
-.buttonInventory .white-small:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
-  outline-offset: 2px;
-}
-
-/* SkillShowcaseCard hover CTA "Use" — USE_HOVER_CTA. */
-.buttonInventory .white-small {
-  display: inline-flex;
-  height: 28px;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 8px;
-  padding: 0 12px;
-  background: #fff;
-  color: #0a0a0a;
-  font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-    inset 0 -2px 0 0 rgba(0, 0, 0, 0.1),
-    0 2px 0 0 #d4d4d8;
-  cursor: pointer;
-  transition: opacity 200ms, transform 200ms, background-color 200ms, box-shadow 200ms;
-}
-.buttonInventory .white-small:hover { background: #f4f4f5; }
-.buttonInventory .white-small:active,
-.buttonInventory .white-small.is-pressed {
-  transform: translateY(1px);
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.08),
-    0 1px 0 0 #d4d4d8;
+/* The shared Install Plugin recipe keeps its icon gap on other pages. */
+.buttonInventory .install-plugin {
+  gap: 0;
 }
 
 /* Quick Start dialog primary — QuickStartDialogShell.tsx QuickStartDialogPrimaryButton. */
@@ -132,7 +68,6 @@
   height: 52px;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   border: 0;
   border-radius: 13px;
   padding: 0 20px;
@@ -148,24 +83,13 @@
   cursor: pointer;
   transition: background-color 200ms, transform 200ms, box-shadow 200ms;
 }
-.buttonInventory .purple-thick:hover,
-.buttonInventory .purple-thick.is-hover { background: #7E32FF; }
-.buttonInventory .purple-thick:active,
-.buttonInventory .purple-thick.is-pressed {
+.buttonInventory .purple-thick:hover { background: #7E32FF; }
+.buttonInventory .purple-thick:active {
   transform: translateY(2px);
   box-shadow:
     inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
     inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
     0 1px 0 0 #5B12D4;
-}
-.buttonInventory .purple-thick:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-  background: #731DFB;
-  transform: none;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-    0 3px 0 0 #5B12D4;
 }
 .buttonInventory .purple-thick:focus-visible {
   outline: 2px solid #BFA6FF;
@@ -186,35 +110,202 @@
   line-height: 20px;
   cursor: pointer;
 }
-.buttonInventory .cancel-board:hover,
-.buttonInventory .cancel-board.is-hover { background: #3a3a3a; }
-.buttonInventory .cancel-board:disabled { opacity: 0.4; cursor: default; }
+.buttonInventory .cancel-board:hover { background: #3a3a3a; }
 .buttonInventory .cancel-board:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px #8A8A8A;
 }
 
-/* Small white + Cancel side by side (mem640). Layout only; button recipes unchanged. */
-.buttonInventory .inv-pair {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-  align-items: start;
+
+.buttonInventory .inv-slot {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
 }
-.buttonInventory .stage-row {
-  padding: 64px 24px;
-  overflow-x: auto;
-}
-.buttonInventory .inv-row-nowrap {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 24px;
-}
-.buttonInventory .inv-row-nowrap > .inv-cell {
+
+.buttonInventory .product-button {
+  box-sizing: border-box;
+  display: inline-flex;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #fff;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: none;
+  white-space: nowrap;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
 }
+.buttonInventory .product-button.board-type {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.buttonInventory .product-button.pricing-type {
+  font-family: "Instrument Sans", sans-serif;
+}
+.buttonInventory .product-button.shared-focus:focus-visible {
+  box-shadow: 0 0 0 1px #2c2c2c, 0 0 0 3px #0d99ff;
+}
+
+.buttonInventory .product-button.brand-flat {
+  position: relative;
+  height: 40px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #731DFB;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.buttonInventory .product-button.brand-flat:hover { background: #6317E3; }
+.buttonInventory .product-button.brand-flat:active { transform: scale(1); }
+
+.buttonInventory .product-button.legacy-indigo {
+  width: 112px;
+  height: 40px;
+  border-radius: 8px;
+  padding: 6px 12px;
+  background: #4e40f3;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+  user-select: none;
+  transition: all 150ms ease-out;
+}
+.buttonInventory .product-button.legacy-indigo:hover { background: #6255FF; }
+.buttonInventory .product-button.legacy-indigo:active { background: #0a78c9; }
+
+.buttonInventory .product-button.pricing-ledge {
+  width: 100%;
+  margin-bottom: 3px;
+  border-radius: 13px;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.buttonInventory .product-button.pricing-ledge:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+.buttonInventory .product-button.pricing-ledge:active { transform: translateY(2px); }
+
+.buttonInventory .product-button.studio-white {
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #fff;
+  color: #09090b;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out;
+}
+.buttonInventory .product-button.studio-white:hover { background: #f3f4f6; color: #09090b; }
+.buttonInventory .product-button.studio-white:active { background: #e5e7eb; color: #09090b; }
+.buttonInventory .product-button.neutral-board {
+  border-radius: 8px;
+  padding: 8px 16px;
+  background: #3a3a3a;
+  font-size: 14px;
+  line-height: 20px;
+}
+.buttonInventory .product-button.ghost-board {
+  height: 36px;
+  border-radius: 8px;
+  padding: 0 16px;
+  color: #8A8A8A;
+  font-size: 14px;
+  line-height: 20px;
+}
+.buttonInventory .product-button.ghost-board:hover { background: rgba(255, 255, 255, 0.05); }
+.buttonInventory .product-button.danger-board {
+  border-radius: 8px;
+  padding: 8px 16px;
+  background: #dc2626;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.buttonInventory .product-button.danger-board:hover { background: #ef4444; }
+.buttonInventory .product-button.danger-board:focus-visible {
+  box-shadow: 0 0 0 2px #141414, 0 0 0 4px #f87171;
+}
+
+.buttonInventory .product-button.pricing-team {
+  background: #3D7AE8;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.28), inset 0 -2px 0 0 rgba(0, 0, 0, 0.22), 0 3px 0 0 #1D4FB8;
+}
+.buttonInventory .product-button.pricing-team:hover { background: #3369D4; }
+.buttonInventory .product-button.pricing-team:active {
+  background: #2A5BC0;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 0 rgba(0, 0, 0, 0.18), 0 1px 0 0 #1D4FB8;
+}
+.buttonInventory .product-button.pricing-enterprise {
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFF3D6 50%, #FFD666 100%);
+  color: #0a0a0a;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.9), inset 0 -2px 0 0 rgba(0, 0, 0, 0.12), 0 3px 0 0 #d4d4d8;
+}
+.buttonInventory .product-button.pricing-enterprise:hover {
+  background: linear-gradient(90deg, #FAFAFA 0%, #FFEFC8 50%, #FFCC4D 100%);
+}
+.buttonInventory .product-button.pricing-enterprise:active {
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 0 rgba(0, 0, 0, 0.1), 0 1px 0 0 #d4d4d8;
+}
+.buttonInventory .product-button.header-gradient {
+  height: 32px;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  background-color: #0d99ff;
+  background-image: linear-gradient(to right, #3b82f6, #a855f7);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  user-select: none;
+  transition: all 150ms ease-out;
+}
+.buttonInventory .product-button.header-gradient:hover {
+  background-color: #0b87e0;
+  background-image: linear-gradient(to right, #2563eb, #9333ea);
+}
+.buttonInventory .product-button.header-gradient:active { background-color: #0a78c9; }
+
+@media (prefers-reduced-motion: reduce) {
+  .buttonInventory .product-button.pricing-ledge { transition: none; }
+  .buttonInventory .product-button.pricing-ledge:active { transform: none; }
+}
+
+/* AuthModal active inline Link; no unused CVA underline offset. */
+.buttonInventory .product-button.auth-link {
+  gap: 8px;
+  height: auto;
+  border: none;
+  border-radius: 6px;
+  padding: 0;
+  background-color: transparent;
+  color: #4E40F3;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.buttonInventory .product-button.auth-link:hover { text-decoration: underline; }
 
 /* Size: one Primary recipe at product heights 32 / 36 / 40.
    Carbon Button Style Size pattern (layout only). Site colors only. */

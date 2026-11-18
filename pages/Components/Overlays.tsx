@@ -3,6 +3,8 @@ import { Language, translations } from '../../translations';
 import './overlays-specimens.css';
 import './glass-specimens.css';
 import Hover from './Hover';
+import DropdownMenu from './DropdownMenu';
+import PopoverDateFilter, { DateFilterSelection } from './PopoverDateFilter';
 
 interface OverlaysProps {
   language: Language;
@@ -21,6 +23,7 @@ const DIALOG_NAME_INITIAL = 'Asset';
 const Overlays: React.FC<OverlaysProps> = ({ language }) => {
   const t = translations[language].overlays;
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const [dateFilter, setDateFilter] = useState<DateFilterSelection>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogName, setDialogName] = useState(DIALOG_NAME_INITIAL);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -81,13 +84,13 @@ const Overlays: React.FC<OverlaysProps> = ({ language }) => {
             {popoverOpen ? (
               <div className="popover-panel" role="dialog" aria-label={t.popover}>
                 <span className="popover-edge" aria-hidden />
-                <div className="popover-body">{t.popoverBody}</div>
+                <div className="popover-body">
+                  <PopoverDateFilter language={language} value={dateFilter} onChange={setDateFilter} />
+                </div>
               </div>
             ) : null}
           </div>
         </div>
-        <p className="caption">{t.popoverNote}</p>
-        <p className="caption popover-source">{t.popoverSource}</p>
       </section>
 
       <section>
@@ -104,7 +107,6 @@ const Overlays: React.FC<OverlaysProps> = ({ language }) => {
             </div>
           </div>
         </div>
-        <p className="caption">{t.tooltipNote}</p>
       </section>
 
       {/* Hover card: the product hover light (formerly the Hover page). */}
@@ -163,7 +165,11 @@ const Overlays: React.FC<OverlaysProps> = ({ language }) => {
             </>
           ) : null}
         </div>
-        <p className="caption">{t.dialogNote}</p>
+      </section>
+
+      <section id="overlays-menu" className="scroll-mt-8">
+        <SectionHeading title={translations[language].components.menu} />
+        <DropdownMenu language={language} />
       </section>
     </div>
   );

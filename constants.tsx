@@ -263,7 +263,7 @@ export const ALL_NAV_ITEMS: NavItem[] = [
     id: 'foundations',
     label: 'Foundations',
     path: '/foundations',
-    // Nav-only group. Color, Spacing, Radius, and Typography stay separate pages and keep their hashes.
+    // Nav-only group. Color, Spacing, Radius, Typography, and Glass stay separate pages and keep their hashes.
     group: true,
     children: [
       {
@@ -299,6 +299,7 @@ export const ALL_NAV_ITEMS: NavItem[] = [
           { id: 'typography-text-styles', label: 'Text Styles', path: '/typography/text-styles' },
         ],
       },
+      { id: 'glass', label: 'Glass', path: '/glass' },
     ],
   },
   {
@@ -316,7 +317,7 @@ export const ALL_NAV_ITEMS: NavItem[] = [
     label: 'Components',
     path: '/components',
     children: [
-      // Same order as ComponentsPage content: Rules, Glass, Controls, Overlays, Dropdown menu, Display, Feedback, Buttons.
+      // Same order as ComponentsPage content: Rules, Controls, Buttons, Overlays, Display, Feedback.
       // Rule children follow the Rules list on the page (lockedSystem.locks order).
       {
         id: 'components-rules',
@@ -328,13 +329,14 @@ export const ALL_NAV_ITEMS: NavItem[] = [
           path: `/components/rules/${lock.id}`,
         })),
       },
-      { id: 'components-glass', label: 'Glass', path: '/components/glass' },
       { id: 'components-controls', label: 'Controls', path: '/components/controls' },
-      { id: 'components-overlays', label: 'Overlays', path: '/components/overlays' },
-      { id: 'components-menu', label: 'Dropdown menu', path: '/components/menu' },
+      { id: 'components-button', label: 'Buttons', path: '/components/button' },
+      {
+        id: 'components-overlays', label: 'Overlays', path: '/components/overlays',
+        children: [{ id: 'overlays-menu', label: 'Dropdown menu', path: '/components/overlays/menu' }],
+      },
       { id: 'components-display', label: 'Display', path: '/components/display' },
       { id: 'components-feedback', label: 'Feedback', path: '/components/feedback' },
-      { id: 'components-button', label: 'Buttons', path: '/components/button' },
     ],
   },
 ];

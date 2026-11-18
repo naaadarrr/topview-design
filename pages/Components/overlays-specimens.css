@@ -288,3 +288,66 @@
 .overlaySpecimens .dialog-layer .dialog-panel {
   pointer-events: auto;
 }
+
+/* Actual FilterMenu / DateFilter quick-presets subset, b0c5a29. Tailwind 3.4
+   defaults sky-500/300/400; rounded-md resolves --radius .5rem minus 2px.
+   The range readout reuses the existing caption as local-demo feedback. */
+.overlaySpecimens .date-filter-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.overlaySpecimens .date-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.6);
+}
+.overlaySpecimens .date-filter-label svg { color: #38bdf8; }
+.overlaySpecimens .date-filter-clear,
+.overlaySpecimens .date-filter-preset {
+  appearance: none;
+  border: 0;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.overlaySpecimens .date-filter-clear {
+  padding: 0;
+  background: transparent;
+  font-size: 10px;
+  color: rgb(255 255 255 / 0.4);
+}
+.overlaySpecimens .date-filter-clear:hover { color: rgb(255 255 255 / 0.6); }
+.overlaySpecimens .date-filter-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.overlaySpecimens .date-filter-preset {
+  padding: 4px 8px;
+  border-radius: calc(0.5rem - 2px);
+  background: rgb(255 255 255 / 0.05);
+  color: rgb(255 255 255 / 0.6);
+  font-size: 11px;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.overlaySpecimens .date-filter-preset:hover {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+.overlaySpecimens .date-filter-preset[aria-pressed="true"],
+.overlaySpecimens .date-filter-preset[aria-pressed="true"]:hover {
+  background: rgb(14 165 233 / 0.2);
+  color: #7dd3fc;
+}
+.overlaySpecimens .popover-date-filter .caption { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .overlaySpecimens .date-filter-preset { transition: none; }
+}

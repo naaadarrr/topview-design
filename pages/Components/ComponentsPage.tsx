@@ -1,11 +1,9 @@
 import React from 'react';
 import { Language, translations } from '../../translations';
-import Glass from './Glass';
 import Controls from './Controls';
 import Rules from './Rules';
 import Overlays from './Overlays';
 import ButtonInventory from './ButtonInventory';
-import DropdownMenu from './DropdownMenu';
 import Display from './Display';
 import Feedback from './Feedback';
 import LockRulePage from './LockRulePage';
@@ -63,15 +61,6 @@ const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, activeSubId, 
         </section>
       ) : null}
 
-      <section id="components-glass" className="fade-in scroll-mt-8" style={{ animationDelay: '0.1s' }}>
-        <div className="mb-12">
-          <h2 className="site-h2">
-            {t.glass}
-          </h2>
-        </div>
-        <Glass language={language} />
-      </section>
-
       <section id="components-controls" className="fade-in scroll-mt-8" style={{ animationDelay: '0.12s' }}>
         <div className="mb-12">
           <h2 className="site-h2">
@@ -81,6 +70,15 @@ const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, activeSubId, 
         <Controls language={language} />
       </section>
 
+      <section id="components-button" className="fade-in scroll-mt-8" style={{ animationDelay: '0.18s' }}>
+        <div className="mb-12">
+          <h2 className="site-h2">
+            {t.buttons}
+          </h2>
+        </div>
+        <ButtonInventory language={language} />
+      </section>
+
       <section id="components-overlays" className="fade-in scroll-mt-8" style={{ animationDelay: '0.16s' }}>
         <div className="mb-12">
           <h2 className="site-h2">
@@ -88,15 +86,6 @@ const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, activeSubId, 
           </h2>
         </div>
         <Overlays language={language} />
-      </section>
-
-      <section id="components-menu" className="fade-in scroll-mt-8" style={{ animationDelay: '0.16s' }}>
-        <div className="mb-12">
-          <h2 className="site-h2">
-            {t.menu}
-          </h2>
-        </div>
-        <DropdownMenu language={language} />
       </section>
 
       <section id="components-display" className="fade-in scroll-mt-8" style={{ animationDelay: '0.16s' }}>
@@ -115,15 +104,6 @@ const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, activeSubId, 
           </h2>
         </div>
         <Feedback language={language} />
-      </section>
-
-      <section id="components-button" className="fade-in scroll-mt-8" style={{ animationDelay: '0.18s' }}>
-        <div className="mb-12">
-          <h2 className="site-h2">
-            {t.buttons}
-          </h2>
-        </div>
-        <ButtonInventory language={language} />
       </section>
     </div>
   );

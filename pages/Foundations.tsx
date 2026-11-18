@@ -54,13 +54,13 @@ const Foundations: React.FC<FoundationsProps> = ({ language, section }) => {
 
 
   // Site-only numbering, like Spacing; every token is 待定. Use stays as the source line.
-  const radiusScale: { token: string; name: string; value: string; radius: string; tall?: boolean }[] = [
+  const radiusScale: { token: string; name: string; value: string; radius: string }[] = [
     { token: '--radius-01', name: r.scaleTab, value: '6px', radius: '6px' },
     { token: '--radius-02', name: r.scaleButton, value: '8px', radius: '8px' },
     { token: '--radius-03', name: r.scaleSegmentItem, value: '10px', radius: '10px' },
     { token: '--radius-04', name: r.scaleItem, value: '12px', radius: '12px' },
-    { token: '--radius-05', name: r.scalePanel, value: '16px', radius: '16px', tall: true },
-    { token: '--radius-pill', name: r.scalePill, value: `${r.pillValue} (9999px)`, radius: '9999px', tall: true },
+    { token: '--radius-05', name: r.scalePanel, value: '16px', radius: '16px' },
+    { token: '--radius-pill', name: r.scalePill, value: `${r.pillValue} (9999px)`, radius: '9999px' },
   ];
 
   const radiusDuties: Duty[] = [
@@ -196,35 +196,44 @@ const Foundations: React.FC<FoundationsProps> = ({ language, section }) => {
 
         <div>
           <SectionHeading title={r.scaleLabel} />
-          <div className="stage radius-board">
-            <div className="radius-grid">
-              {radiusScale.map((item) => (
-                <figure key={item.token} className="radius-cell">
-                  <div className={`radius-swatch${item.tall ? ' is-tall' : ''}`} style={{ borderRadius: item.radius }} />
-                  <figcaption>
-                    <code className="radius-token">{item.token}</code>
-                    <span className="radius-value">{item.value}<span className="radius-flag">{r.pending}</span></span>
-                    <span className="radius-use">{item.name}</span>
-                  </figcaption>
-                </figure>
-              ))}
+          <div className="space-table radius-table">
+            <div className="space-table-head space-radius-grid">
+              <span>{s.colScaleToken}</span>
+              <span>{r.colValue}</span>
+              <span>{r.colUse}</span>
+              <span>{s.colExample}</span>
             </div>
-            <p className="note">{r.scaleNote}</p>
+            {radiusScale.map((item) => (
+              <div key={item.token} className="space-table-row space-radius-grid">
+                <span className="space-token-cell">
+                  <code className="space-token">{item.token}</code>
+                </span>
+                <span className="space-value">{item.value}</span>
+                <span className="space-where">{item.name}</span>
+                <span className="space-example">
+                  <span className="space-swatch radius-swatch" style={{ borderRadius: item.radius }} />
+                </span>
+              </div>
+            ))}
           </div>
+          <p className="note mt-4">{r.scaleNote}</p>
         </div>
 
         <div>
           <SectionHeading title={r.dutyLabel} />
-          <div className="stage">
-            <div className="duty-list">
-              {radiusDuties.map((item) => (
-                <div key={item.name} className="duty">
-                  <div className="duty-name">{item.name}</div>
-                  <div className="duty-value">{item.value}</div>
-                  <div className="duty-used">{item.used}</div>
-                </div>
-              ))}
+          <div className="space-table radius-table">
+            <div className="space-table-head space-radius-duty-grid">
+              <span>{s.colWhere}</span>
+              <span>{r.colRadius}</span>
+              <span>{s.colSource}</span>
             </div>
+            {radiusDuties.map((item) => (
+              <div key={item.name} className="space-table-row space-radius-duty-grid">
+                <span className="space-where">{item.name}</span>
+                <span className="space-value">{item.value}</span>
+                <span className="space-source">{item.used}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>

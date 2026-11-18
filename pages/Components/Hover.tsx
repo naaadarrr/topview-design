@@ -40,16 +40,6 @@ const Hover: React.FC<HoverProps> = ({ language }) => {
               <span className="edge" aria-hidden="true" />
             </button>
           </div>
-          <p className="caption">
-            <span className="pending">{t.pending}</span>
-            {' — '}
-            {t.seedanceNote}
-          </p>
-          <p className="caption">
-            <span className="pending">{t.pending}</span>
-            {' — '}
-            {t.posterNote}
-          </p>
           <div className="row">
             <button type="button" className="hover-quickstart" aria-label={t.quickStartTitle}>
               <span className="media" aria-hidden="true" />
@@ -59,11 +49,6 @@ const Hover: React.FC<HoverProps> = ({ language }) => {
               <span className="floor" aria-hidden="true" />
             </button>
           </div>
-          <p className="caption">
-            <span className="pending">{t.pending}</span>
-            {' — '}
-            {t.quickStartNote}
-          </p>
         </div>
       </section>
 

@@ -13,19 +13,17 @@ const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
   </h3>
 );
 
-const Cell: React.FC<{ state: string; children: React.ReactNode; wide?: boolean }> = ({ state, children, wide }) => (
-  <div className={`inv-cell${wide ? ' inv-col' : ''}`}>
-    {children}
-    <span className="inv-state">{state}</span>
-  </div>
-);
-
-const ArrowRight: React.FC<{ stroke?: number }> = ({ stroke = 2.25 }) => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M5 12h14" />
-    <path d="m12 5 7 7-7 7" />
-  </svg>
-);
+const VARIANTS = [
+  { id: 'brand-flat', className: 'product-button board-type brand-flat' },
+  { id: 'quick-start-raised', className: 'purple-thick' },
+  { id: 'white-raised', className: 'install-plugin' },
+  { id: 'studio-white', className: 'product-button shared-focus studio-white' },
+  { id: 'neutral-board', className: 'product-button board-type neutral-board' },
+  { id: 'outline-board', className: 'cancel-board' },
+  { id: 'ghost-board', className: 'product-button board-type ghost-board' },
+  { id: 'danger-board', className: 'product-button board-type danger-board' },
+  { id: 'auth-link', className: 'product-button auth-link' },
+];
 
 const SIZE_ROWS = [
   { labelKey: 'ctrlSmall' as const, heightClass: 'size-h32', measure: '32 / 2' },
@@ -43,75 +41,17 @@ const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {
       </p>
 
       <section>
-        <SectionHeading title={t.primary} />
-        <div className="stage stage-primary">
-          <div className="inv-row-primary">
-            <Cell state={t.stateDefault}>
-              <button type="button" className="purple-thick">{t.quickStartLabel}<ArrowRight stroke={2.2} /></button>
-            </Cell>
-            <Cell state={t.statePressed}>
-              <button type="button" className="purple-thick is-pressed">{t.quickStartLabel}<ArrowRight stroke={2.2} /></button>
-            </Cell>
-            <Cell state={t.stateDisabled}>
-              <button type="button" className="purple-thick" disabled>{t.quickStartLabel}<ArrowRight stroke={2.2} /></button>
-            </Cell>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading title={t.solidWhite} />
+        <SectionHeading title={t.variants} />
         <div className="stage">
           <div className="controlsSpecimens inv-row">
-            <Cell state={t.stateDefault}>
-              <button type="button" className="install-plugin">
-                {t.installPluginLabel}
-                <ArrowRight />
-              </button>
-            </Cell>
-            <Cell state={t.statePressed}>
-              <button type="button" className="install-plugin is-pressed">
-                {t.installPluginLabel}
-                <ArrowRight />
-              </button>
-            </Cell>
+            {VARIANTS.map((variant) => (
+              <span className="inv-slot" key={variant.id} data-variant={variant.id}>
+                <button type="button" className={variant.className}>Button</button>
+              </span>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* Small white and Cancel share one row; each keeps its states on one line. */}
-      <div className="inv-pair">
-        <section>
-          <SectionHeading title={t.smallWhite} />
-          <div className="stage stage-row">
-            <div className="inv-row-nowrap">
-              <Cell state={t.stateDefault}>
-                <button type="button" className="white-small">{t.skillUseLabel}</button>
-              </Cell>
-              <Cell state={t.statePressed}>
-                <button type="button" className="white-small is-pressed">{t.skillUseLabel}</button>
-              </Cell>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <SectionHeading title={t.cancel} />
-          <div className="stage stage-row">
-            <div className="inv-row-nowrap">
-              <Cell state={t.stateDefault}>
-                <button type="button" className="cancel-board">{t.cancelLabel}</button>
-              </Cell>
-              <Cell state={t.stateHover}>
-                <button type="button" className="cancel-board is-hover">{t.cancelLabel}</button>
-              </Cell>
-              <Cell state={t.stateDisabled}>
-                <button type="button" className="cancel-board" disabled>{t.cancelLabel}</button>
-              </Cell>
-            </div>
-          </div>
-        </section>
-      </div>
 
       <section>
         <SectionHeading title={t.controlHeightLabel} />
@@ -120,7 +60,7 @@ const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {
             {SIZE_ROWS.map((row) => (
               <div className="size-row" key={row.heightClass}>
                 <button type="button" className={`purple-thick ${row.heightClass}`}>
-                  {t[row.labelKey]}
+                  Button
                 </button>
                 <div className={`size-dim ${row.heightClass}`}>
                   <span className="size-dim-line" aria-hidden="true" />

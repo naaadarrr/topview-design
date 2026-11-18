@@ -5,6 +5,7 @@ import Colors from './pages/Colors';
 import JuhuoColors from './pages/JuhuoColors';
 import Typography from './pages/Typography';
 import Foundations from './pages/Foundations';
+import Glass from './pages/Glass';
 import Motion from './pages/Motion';
 import ComponentsPage from './pages/Components/ComponentsPage';
 import Splash from './components/Splash';
@@ -37,6 +38,14 @@ const HASH_ALIASES: Record<string, { section: string; subId: string | null }> = 
   'foundations/foundations-radius': { section: 'radius', subId: null },
   // Hover moved into Overlays > Hover card (mem640).
   'components/components-hover': { section: 'components', subId: 'overlays-hover-card' },
+  'components/components-menu': { section: 'components', subId: 'overlays-menu' },
+  'components/components-glass': { section: 'glass', subId: null },
+  'components/glass-banner-arrow': { section: 'glass', subId: 'glass-banner-arrow' },
+  'components/components-glass/glass-banner-arrow': { section: 'glass', subId: 'glass-banner-arrow' },
+  'components/glass-tooltip': { section: 'glass', subId: 'glass-tooltip' },
+  'components/components-glass/glass-tooltip': { section: 'glass', subId: 'glass-tooltip' },
+  'components/glass-purple-white': { section: 'glass', subId: 'glass-purple-white' },
+  'components/components-glass/glass-purple-white': { section: 'glass', subId: 'glass-purple-white' },
 };
 
 type HashTarget = { section: string; subId: string | null; canonical?: string };
@@ -45,7 +54,7 @@ type HashTarget = { section: string; subId: string | null; canonical?: string };
  * Sections in HIDDEN_SECTIONS (constants.tsx) never render. A hidden top-level section
  * (e.g. #motion, #motion/motion-spec) goes to the catalog; a hidden child (e.g.
  * #components/components-rules, #components/components-rules/<lock>) goes to the first
- * visible child of its parent (Components › Glass).
+ * visible child of its parent (Components › Controls).
  */
 const resolveHiddenTarget = (section: string, subId: string | null): HashTarget | 'catalog' | null => {
   if (isHiddenSection(section)) return 'catalog';
@@ -213,6 +222,7 @@ const App: React.FC = () => {
       case 'spacing': return <Foundations language={language} section="spacing" />;
       case 'radius': return <Foundations language={language} section="radius" />;
       case 'typography': return <Typography language={language} />;
+      case 'glass': return <Glass language={language} />;
       case 'motion': return <Motion language={language} />;
       case 'components': return <ComponentsPage language={language} activeSubId={activeSubId} onNavigate={handleNavigate} />;
       default: return <Logos language={language} />;

@@ -1,0 +1,38 @@
+.loadingLab {
+  height: 100dvh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 48px;
+  background: #101010;
+  color: #fff;
+  font-family: "Instrument Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+.loadingLab-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.loadingLab h1 { margin: 0; font-size: 24px; line-height: 32px; font-weight: 500; }
+.loadingLab a { color: rgba(255,255,255,0.72); font-size: 13px; text-decoration: none; }
+.loadingLab a:hover { text-decoration: underline; }
+.loadingLab-controls { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px; }
+.loadingLab button {
+  appearance: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  color: rgba(255,255,255,0.72);
+  font: inherit;
+  font-size: 13px;
+  line-height: 20px;
+  cursor: pointer;
+}
+.loadingLab button[aria-pressed="true"], .loadingLab button:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.loadingLab button:focus-visible, .loadingLab a:focus-visible, .loadingLab summary:focus-visible { outline: 2px solid #8A8A8A; outline-offset: 2px; }
+.loadingLab-specimens { display: flex; flex-wrap: wrap; gap: 48px; margin-top: 48px; }
+.loadingLab-specimens section { flex: 1 1 240px; min-width: 0; }
+.loadingLab h2 { margin: 0; font-size: 14px; line-height: 20px; font-weight: 500; }
+.loadingLab-stage { min-height: 240px; display: flex; justify-content: center; align-items: center; }
+.loadingLab-canvas { display: block; width: 88px; height: 88px; touch-action: pan-y; }
+.loadingLab-note, .loadingLab-fallback p, .loadingLab-fallback summary { color: rgba(255,255,255,0.72); font-size: 13px; line-height: 20px; }
+.loadingLab-note { margin-top: 24px; }
+.loadingLab-fallback { display: flex; align-items: center; flex-direction: column; text-align: center; max-width: 240px; }
+.loadingLab-fallback details { max-width: 100%; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .loadingLab { padding: 24px; } .loadingLab-specimens { gap: 24px; } }
