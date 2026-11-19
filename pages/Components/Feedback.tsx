@@ -6,29 +6,6 @@ interface FeedbackProps {
   language: Language;
 }
 
-const ALERT_PATHS: Record<string, string[]> = {
-  info: ['M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z', 'M10 9.2v4.1', 'M10 6.7h.01'],
-  success: ['M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z', 'M6.9 10.2l2.2 2.2 4-4.4'],
-  warning: ['M10 3.6 17 16H3L10 3.6Z', 'M10 8.4v3.4', 'M10 14h.01'],
-  danger: ['M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z', 'M7.6 7.6l4.8 4.8', 'M12.4 7.6l-4.8 4.8'],
-};
-
-const AlertIcon: React.FC<{ tone: string }> = ({ tone }) => (
-  <svg viewBox="0 0 20 20" aria-hidden="true">
-    {(ALERT_PATHS[tone] ?? ALERT_PATHS.info).map((d) => (
-      <path
-        key={d}
-        d={d}
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.6"
-      />
-    ))}
-  </svg>
-);
-
 const PRODUCT_TOAST_ICONS: Record<string, { viewBox: string; circle: string; mark: string; fill: string; width: number }> = {
   success: {
     viewBox: '0 0 20 20',
@@ -81,23 +58,7 @@ const ProductToastIcon: React.FC<{ tone: string }> = ({ tone }) => {
   );
 };
 
-const ProductToast: React.FC<{ tone: string; title: string; body: string }> = ({
-  tone,
-  title,
-  body,
-}) => (
-  <div className="product-toast" data-tone={tone} role={tone === 'warning' || tone === 'error' ? 'alert' : 'status'}>
-    <div className="pt-twoline">
-      <div className="pt-head">
-        <ProductToastIcon tone={tone} />
-        <p className="pt-title">{title}</p>
-      </div>
-      <p className="pt-body">{body}</p>
-    </div>
-  </div>
-);
-
-const GlassToast: React.FC<{ tone: string; title: string; body: string; dataTone: string }> = ({
+const GlassToast: React.FC<{ tone: string; title: string; body?: string; dataTone: string }> = ({
   tone,
   title,
   body,
@@ -109,7 +70,7 @@ const GlassToast: React.FC<{ tone: string; title: string; body: string; dataTone
         <ProductToastIcon tone={tone} />
         <p className="pt-title">{title}</p>
       </div>
-      <p className="pt-body">{body}</p>
+      {body ? <p className="pt-body">{body}</p> : null}
     </div>
   </div>
 );
@@ -139,50 +100,10 @@ const Feedback: React.FC<FeedbackProps> = ({ language }) => {
       </p>
 
       <section id="glass-alert" className="scroll-mt-8">
-        <SectionHeading title={t.alertTitle} />
+        <SectionHeading title={t.alertDTitle} />
         <div className="alert-compare">
-          <div className="alert-col">
-            <SectionHeading title={t.alertATitle} />
-            <div className="stage">
-              <div className="stack">
-                {alerts.map((alert) => (
-                    <div
-                      key={`a-${alert.tone}`}
-                      className="lg-alert"
-                      data-tone={alert.tone}
-                      role={alert.tone === 'warning' || alert.tone === 'danger' ? 'alert' : 'status'}
-                    >
-                      <span className="ic">
-                        <AlertIcon tone={alert.tone} />
-                      </span>
-                      <div className="body">
-                        <p className="t">{alert.title}</p>
-                        <div className="d">{alert.body}</div>
-                      </div>
-                    </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="alert-col" id="glass-alert-c">
-            <SectionHeading title={t.alertCTitle} />
-            <div className="product-toast-stage">
-              <div className="stack">
-                {alerts.map((alert) => (
-                  <ProductToast
-                    key={`c-${alert.tone}`}
-                    tone={alert.tone === 'danger' ? 'error' : alert.tone}
-                    title={alert.title}
-                    body={alert.body}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
           <div className="alert-col" id="glass-alert-d">
-            <SectionHeading title={t.alertDTitle} />
+            <h4 className="font-sans text-[14px] leading-[20px] font-semibold text-white/70 mb-4" aria-hidden="true">&nbsp;</h4>
             <div className="product-toast-stage">
               <div className="stack">
                 {alerts.map((alert) => (
@@ -192,6 +113,22 @@ const Feedback: React.FC<FeedbackProps> = ({ language }) => {
                     dataTone={alert.tone}
                     title={alert.title}
                     body={alert.body}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="alert-col">
+            <h4 className="font-sans text-[14px] leading-[20px] font-semibold text-white/70 mb-4">{t.titleOnly}</h4>
+            <div className="product-toast-stage">
+              <div className="stack">
+                {alerts.map((alert) => (
+                  <GlassToast
+                    key={`title-${alert.tone}`}
+                    tone={alert.tone === 'danger' ? 'error' : alert.tone}
+                    dataTone={alert.tone}
+                    title={alert.title}
                   />
                 ))}
               </div>

@@ -38,7 +38,8 @@ const HASH_ALIASES: Record<string, { section: string; subId: string | null }> = 
   'foundations/foundations-radius': { section: 'radius', subId: null },
   // Hover moved into Overlays > Hover card (mem640).
   'components/components-hover': { section: 'components', subId: 'overlays-hover-card' },
-  'components/components-menu': { section: 'components', subId: 'overlays-menu' },
+  'components/components-menu': { section: 'components', subId: 'components-overlays' },
+  'components/overlays-menu': { section: 'components', subId: 'components-overlays' },
   'components/components-glass': { section: 'glass', subId: null },
   'components/glass-banner-arrow': { section: 'glass', subId: 'glass-banner-arrow' },
   'components/components-glass/glass-banner-arrow': { section: 'glass', subId: 'glass-banner-arrow' },

@@ -39,7 +39,6 @@ const Sidebar: React.FC<SidebarProps> = ({
       case 'components-rules': return c.rules;
       case 'components-controls': return c.controls;
       case 'components-overlays': return c.overlays;
-      case 'overlays-menu': return c.menu;
       case 'components-display': return c.display;
       case 'components-feedback': return c.feedback;
       case 'components-button': return c.buttons;

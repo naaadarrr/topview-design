@@ -299,7 +299,7 @@ export const ALL_NAV_ITEMS: NavItem[] = [
     label: 'Components',
     path: '/components',
     children: [
-      // Same order as ComponentsPage content: Rules, Controls, Buttons, Overlays, Display, Feedback.
+      // Same order as ComponentsPage content: Rules, Forms, Buttons, Overlays, Display, Feedback.
       // Rule children follow the Rules list on the page (lockedSystem.locks order).
       {
         id: 'components-rules',
@@ -311,12 +311,9 @@ export const ALL_NAV_ITEMS: NavItem[] = [
           path: `/components/rules/${lock.id}`,
         })),
       },
-      { id: 'components-controls', label: 'Controls', path: '/components/controls' },
+      { id: 'components-controls', label: 'Forms', path: '/components/controls' },
       { id: 'components-button', label: 'Buttons', path: '/components/button' },
-      {
-        id: 'components-overlays', label: 'Overlays', path: '/components/overlays',
-        children: [{ id: 'overlays-menu', label: 'Dropdown menu', path: '/components/overlays/menu' }],
-      },
+      { id: 'components-overlays', label: 'Overlays', path: '/components/overlays' },
       { id: 'components-display', label: 'Display', path: '/components/display' },
       { id: 'components-feedback', label: 'Feedback', path: '/components/feedback' },
     ],

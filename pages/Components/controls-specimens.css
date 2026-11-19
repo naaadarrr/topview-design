@@ -92,11 +92,6 @@
   content: '';
 }
 
-.controlsSpecimens .prompt-surface.is-disabled {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
 .controlsSpecimens .prompt-surface textarea {
   position: relative;
   z-index: 2;
@@ -193,9 +188,9 @@
   height: 18px;
   padding: 0 4px;
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #050505;
+  color: rgba(255, 255, 255, 0.72);
   font: inherit;
   font-size: 11px;
   line-height: 14px;
@@ -269,6 +264,112 @@
 
 .controlsSpecimens .board-switch[data-state='checked'] .board-switch-thumb {
   translate: var(--board-switch-travel) 0;
+}
+
+/* --- Checkbox: ui/checkbox.tsx. Label row from BackupCodesPanel (gap-2.5, 13px white/70). --- */
+.controlsSpecimens .choice-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.controlsSpecimens .choice-row.is-disabled {
+  cursor: not-allowed;
+}
+
+.controlsSpecimens .form-checkbox {
+  display: grid;
+  place-content: center;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  padding: 2px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: transparent;
+  color: hsl(210, 40%, 98%);
+  cursor: pointer;
+}
+
+.controlsSpecimens .form-checkbox.is-checked {
+  border-color: transparent;
+  background: #731dfb;
+}
+
+.controlsSpecimens .form-checkbox:focus-visible,
+.controlsSpecimens .form-checkbox.show-focus {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(222.2, 84%, 4.9%), 0 0 0 4px hsl(212.7, 26.8%, 83.9%);
+}
+
+.controlsSpecimens .form-checkbox:disabled,
+.controlsSpecimens .form-checkbox.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.controlsSpecimens .form-checkbox .check {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- Radio: VideoResolutionSelector.tsx + RadioChecked. Unchecked is lucide Circle. --- */
+.controlsSpecimens .radio-field {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.controlsSpecimens .radio-field-label {
+  min-width: 80px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.controlsSpecimens .radio-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.controlsSpecimens .radio-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.controlsSpecimens .radio-option.is-selected {
+  color: #fff;
+}
+
+.controlsSpecimens .radio-mark {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.controlsSpecimens .radio-option:hover .radio-mark,
+.controlsSpecimens .radio-option.show-hover .radio-mark {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* --- Select trigger and glass menu --- */
@@ -417,6 +518,159 @@
   outline: none;
 }
 
+/* MentionReferenceMenu search row: 16px icon, 14px field, #8A8A8A placeholder, menu width 286. */
+.controlsSpecimens .select-menu.is-search {
+  width: 286px;
+}
+
+.controlsSpecimens .select-search {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  color: #8a8a8a;
+}
+
+.controlsSpecimens .select-search .icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.controlsSpecimens .select-search input {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  outline: none;
+}
+
+.controlsSpecimens .select-search input::placeholder {
+  color: #8a8a8a;
+}
+
+.controlsSpecimens .select-search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.controlsSpecimens .select-menu.is-search .select-menu-body {
+  padding: 4px;
+}
+
+.controlsSpecimens .select-empty {
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #8a8a8a;
+}
+
+/* BoardSegmentedTabs: 32px pills, gap 8, sliding pill, chip edge. */
+.controlsSpecimens .seg-list {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+}
+
+.controlsSpecimens .seg-pill {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  height: 32px;
+  transform-origin: left center;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.11) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.controlsSpecimens .seg-tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  margin: 0;
+  padding: 1px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.controlsSpecimens .seg-face {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 999px;
+  padding: 0 12px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.controlsSpecimens .seg-tab.is-active .seg-face {
+  color: #fff;
+  background: transparent;
+}
+
+.controlsSpecimens .seg-edge {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  padding: 1px;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.04) 60%,
+    rgba(255, 255, 255, 0.16) 100%
+  );
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000, #000) content-box exclude, linear-gradient(#000, #000);
+}
+
+.controlsSpecimens .seg-tab.is-active .seg-edge {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .controlsSpecimens .seg-tab:not(.is-active):hover .seg-face {
+    background: #3a3a3a;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .controlsSpecimens .seg-pill {
+    transition: none;
+  }
+}
+
 /* --- Slider: BoardSlider md in board-ui-scope --- */
 .controlsSpecimens .board-slider {
   position: relative;
@@ -505,189 +759,7 @@
   color: #fff;
 }
 
-/* --- Sub-tool tabs --- */
-.controlsSpecimens .subtool-wrap {
-  position: relative;
-  min-width: 0;
-  margin: 0 -24px;
-}
 
-.controlsSpecimens .subtool-track {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 8px;
-  overflow-x: auto;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 8px 16px;
-  scrollbar-width: none;
-}
-
-.controlsSpecimens .subtool-track::-webkit-scrollbar {
-  display: none;
-}
-
-.controlsSpecimens .subtool-btn {
-  position: relative;
-  display: inline-flex;
-  height: 32px;
-  flex-shrink: 0;
-  align-items: center;
-  gap: 8px;
-  overflow: hidden;
-  white-space: nowrap;
-  border: 0;
-  border-radius: 8px;
-  padding: 0 12px;
-  background: transparent;
-  box-shadow: none;
-  outline: none;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  color: #8a8a8a;
-  cursor: pointer;
-  transition: color 180ms ease, background-color 180ms ease;
-}
-
-.controlsSpecimens .subtool-btn:hover {
-  color: #fff;
-}
-
-.controlsSpecimens .subtool-btn.is-active {
-  background: #3d3d3d;
-  color: #fff;
-}
-
-.controlsSpecimens .subtool-btn::before {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-  content: '';
-  background: radial-gradient(
-    ellipse at 50% 120%,
-    rgba(255, 255, 255, 0.22),
-    transparent 68%
-  );
-  transform-origin: 50% 100%;
-  transform: scale(0.5);
-  opacity: 0;
-  transition: transform 0ms, opacity 0ms;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .controlsSpecimens .subtool-btn:hover::before {
-    transform: scale(1);
-    opacity: 1;
-    transition-duration: 700ms;
-  }
-}
-
-.controlsSpecimens .subtool-btn.is-active::before {
-  transform: scale(1);
-  opacity: 1;
-  transition-duration: 700ms;
-}
-
-.controlsSpecimens .subtool-btn .label,
-.controlsSpecimens .subtool-btn .icon {
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-.controlsSpecimens .subtool-btn .icon {
-  width: 14px;
-  height: 14px;
-}
-
-.controlsSpecimens .subtool-underline {
-  pointer-events: none;
-  position: absolute;
-  right: 12px;
-  bottom: 0;
-  left: 12px;
-  z-index: 2;
-  height: 1px;
-  transform-origin: center;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.55),
-    transparent
-  );
-}
-
-.controlsSpecimens .subtool-btn.is-active .subtool-underline {
-  transform: scaleX(1);
-  transition: transform 1200ms linear;
-}
-
-.controlsSpecimens .subtool-btn:not(.is-active) .subtool-underline {
-  transform: scaleX(0);
-  transition: transform 0ms;
-}
-
-.controlsSpecimens .subtool-fade {
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 4;
-  width: 40px;
-}
-
-.controlsSpecimens .subtool-fade.left {
-  left: 0;
-  background: linear-gradient(to right, #131313, transparent);
-}
-
-.controlsSpecimens .subtool-fade.right {
-  right: 0;
-  background: linear-gradient(to left, #131313, transparent);
-}
-
-
-/* Homepage Plugin floor “Install Plugin” — values from origin/develop GptAstraFloor.tsx. All 待定. Do not average with other white buttons or Glass White / Cancel. */
-.controlsSpecimens .install-plugin {
-  display: inline-flex;
-  height: 48px;
-  min-width: 0;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 0;
-  border-radius: 13px;
-  padding: 0 16px;
-  background: #fff;
-  color: #0a0a0a;
-  font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-    inset 0 -2px 0 0 rgba(0, 0, 0, 0.1),
-    0 2px 0 0 #d4d4d8;
-  cursor: pointer;
-  transition: transform 200ms, background-color 200ms, box-shadow 200ms;
-}
-
-.controlsSpecimens .install-plugin:hover {
-  background: #f4f4f5;
-}
-
-.controlsSpecimens .install-plugin:active {
-  transform: translateY(1px);
-}
-
-.controlsSpecimens .install-plugin:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
-  outline-offset: 2px;
-}
 
 .controlsSpecimens .caption {
   margin-top: 16px;
@@ -805,92 +877,3 @@
   background: #333333;
 }
 
-/* --- Homepage FilmStudioShowcase FeaturedCaseTabChip (origin/develop b0c5a29) --- */
-.controlsSpecimens .home-tab-list {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 4px;
-}
-
-.controlsSpecimens .home-tab-chip {
-  appearance: none;
-  position: relative;
-  display: inline-flex;
-  height: 36px;
-  flex-shrink: 0;
-  align-items: center;
-  padding: 1px;
-  border: 0;
-  border-radius: 20px;
-  background: none;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  outline: none;
-}
-
-.controlsSpecimens .home-tab-chip-face {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  height: 100%;
-  align-items: center;
-  overflow: hidden;
-  border-radius: 19px;
-  padding: 0 14px;
-  color: rgba(255, 255, 255, 0.72);
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.controlsSpecimens .home-tab-chip.is-active .home-tab-chip-face {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.08) 100%);
-}
-
-.controlsSpecimens .home-tab-chip-hover-fill {
-  position: absolute;
-  inset: 0;
-  border-radius: 19px;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.08) 100%);
-  opacity: 0;
-  transition: opacity 160ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.controlsSpecimens .home-tab-chip-label {
-  position: relative;
-  z-index: 1;
-}
-
-.controlsSpecimens .home-tab-chip-edge {
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  padding: 1px;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0.04) 60%, rgba(255, 255, 255, 0.4) 100%);
-  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000, #000) content-box exclude, linear-gradient(#000, #000);
-  opacity: 0;
-  transition: opacity 160ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.controlsSpecimens .home-tab-chip.is-active .home-tab-chip-edge {
-  opacity: 1;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .controlsSpecimens .home-tab-chip:not(.is-active):hover .home-tab-chip-face {
-    background: transparent;
-  }
-
-  .controlsSpecimens .home-tab-chip:not(.is-active):hover .home-tab-chip-hover-fill {
-    opacity: 1;
-  }
-
-  .controlsSpecimens .home-tab-chip:not(.is-active):hover .home-tab-chip-edge {
-    opacity: 0.8;
-  }
-}

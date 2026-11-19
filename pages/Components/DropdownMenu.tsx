@@ -267,6 +267,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ language }) => {
             ) : null}
           </div>
         </div>
+        <p className="caption">{t.oldNote}</p>
       </section>
 
       <section id="menu-board-select">
@@ -274,6 +275,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ language }) => {
         <div className="stage is-popover">
           <BoardSelect labels={selectLabels} triggerLabel={t.trigger} />
         </div>
+        <p className="caption">{t.newNote}</p>
       </section>
     </div>
   );

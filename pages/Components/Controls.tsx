@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Language, translations } from '../../translations';
 import './controls-specimens.css';
 
@@ -12,29 +12,69 @@ const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
   </h3>
 );
 
-const SparklesIcon = () => (
-  <svg className="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-    <path d="M20 3v4" />
-    <path d="M22 5h-4" />
+const GroupLabel: React.FC<{ title: string }> = ({ title }) => (
+  <h3 className="font-sans text-[14px] leading-[20px] font-semibold text-white/70">{title}</h3>
+);
+
+const CheckIcon = () => (
+  <svg className="check" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M20 6 9 17l-5-5" />
   </svg>
 );
 
-const ImagePlayIcon = () => (
-  <svg className="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="m11 16-5 5" />
-    <path d="M11 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6.5" />
-    <path d="M15.765 22a.5.5 0 0 1-.765-.424V13.5a.5.5 0 0 1 .765-.424l5.878 3.674a1 1 0 0 1 0 1.65z" />
-    <circle cx="9" cy="9" r="2" />
+const CircleIcon = () => (
+  <svg className="radio-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
   </svg>
 );
 
-const TypeIcon = () => (
-  <svg className="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M4 7V4h16v3" />
-    <path d="M9 20h6" />
-    <path d="M12 4v16" />
+const RadioCheckedIcon = () => (
+  <svg className="radio-mark" viewBox="0 0 18 18" aria-hidden="true">
+    <circle cx="9" cy="9" r="8.5" fill="none" stroke="#731DFB" strokeWidth="1" />
+    <circle cx="9" cy="9" r="6" fill="#731DFB" />
   </svg>
+);
+
+const FormCheckbox: React.FC<{
+  checked: boolean;
+  label: string;
+  disabled?: boolean;
+  showFocus?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+}> = ({ checked, label, disabled = false, showFocus = false, onCheckedChange }) => (
+  <label className={`choice-row${disabled ? ' is-disabled' : ''}`}>
+    <button
+      type="button"
+      role="checkbox"
+      aria-checked={checked}
+      disabled={disabled}
+      tabIndex={showFocus ? -1 : undefined}
+      className={`form-checkbox${checked ? ' is-checked' : ''}${showFocus ? ' show-focus' : ''}${disabled ? ' is-disabled' : ''}`}
+      onClick={() => onCheckedChange?.(!checked)}
+    >
+      {checked ? <CheckIcon /> : null}
+    </button>
+    <span>{label}</span>
+  </label>
+);
+
+const RadioOption: React.FC<{
+  selected: boolean;
+  label: string;
+  showHover?: boolean;
+  onSelect?: () => void;
+}> = ({ selected, label, showHover = false, onSelect }) => (
+  <button
+    type="button"
+    role="radio"
+    aria-checked={selected}
+    tabIndex={onSelect ? 0 : -1}
+    className={`radio-option${selected ? ' is-selected' : ''}${showHover ? ' show-hover' : ''}`}
+    onClick={onSelect}
+  >
+    {selected ? <RadioCheckedIcon /> : <CircleIcon />}
+    <span>{label}</span>
+  </button>
 );
 
 const ChevronDown = () => (
@@ -75,11 +115,9 @@ const SearchField: React.FC<{
 
 const PromptSurface: React.FC<{
   placeholder: string;
-  defaultValue?: string;
-  disabled?: boolean;
-}> = ({ placeholder, defaultValue = '', disabled = false }) => {
+}> = ({ placeholder }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState('');
 
   const resize = () => {
     const el = ref.current;
@@ -93,12 +131,11 @@ const PromptSurface: React.FC<{
   }, [value]);
 
   return (
-    <div className={`prompt-surface${disabled ? ' is-disabled' : ''}`}>
+    <div className="prompt-surface">
       <textarea
         ref={ref}
         value={value}
         placeholder={placeholder}
-        disabled={disabled}
         onChange={(event) => setValue(event.target.value)}
       />
     </div>
@@ -177,6 +214,88 @@ const DefaultSelect: React.FC<{
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+const SEGMENTED = ['segmentBoard', 'segmentInspirations', 'segmentDocuments'] as const;
+
+const SegmentedTabs: React.FC<{ labels: Record<(typeof SEGMENTED)[number], string>; ariaLabel: string }> = ({
+  labels,
+  ariaLabel,
+}) => {
+  const [value, setValue] = useState<(typeof SEGMENTED)[number]>('segmentBoard');
+  const btnRefs = useRef<Partial<Record<(typeof SEGMENTED)[number], HTMLButtonElement | null>>>({});
+  const pillRef = useRef<HTMLSpanElement>(null);
+  const first = useRef(true);
+
+  useLayoutEffect(() => {
+    const tab = btnRefs.current[value];
+    const pill = pillRef.current;
+    if (!tab || !pill) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    pill.style.transition = first.current || reduce ? 'none' : '';
+    first.current = false;
+    pill.style.width = `${tab.offsetWidth}px`;
+    pill.style.transform = `translateX(${tab.offsetLeft}px)`;
+  }, [value, labels]);
+
+  return (
+    <div className="seg-list" role="tablist" aria-label={ariaLabel}>
+      <span className="seg-pill" ref={pillRef} aria-hidden />
+      {SEGMENTED.map((id) => (
+        <button
+          key={id}
+          ref={(el) => {
+            btnRefs.current[id] = el;
+          }}
+          type="button"
+          role="tab"
+          aria-selected={value === id}
+          className={`seg-tab${value === id ? ' is-active' : ''}`}
+          onClick={() => setValue(id)}
+        >
+          <span className="seg-face">{labels[id]}</span>
+          <span className="seg-edge" aria-hidden />
+        </button>
+      ))}
+    </div>
+  );
+};
+
+const SearchSelect: React.FC<{
+  placeholder: string;
+  empty: string;
+  options: string[];
+  query: string;
+  onQuery?: (query: string) => void;
+}> = ({ placeholder, empty, options, query, onQuery }) => {
+  const matches = options.filter((option) => option.toLowerCase().includes(query.trim().toLowerCase()));
+  return (
+    <div className="select-menu is-search">
+      <span className="select-menu-edge" aria-hidden />
+      <label className="select-search">
+        <SearchIcon />
+        <input
+          type="search"
+          value={query}
+          placeholder={placeholder}
+          aria-label={placeholder}
+          readOnly={!onQuery}
+          onChange={(event) => onQuery?.(event.target.value)}
+        />
+      </label>
+      <div className="select-menu-body" role="listbox">
+        {matches.length > 0 ? (
+          matches.map((option) => (
+            <button key={option} type="button" role="option" className="select-item">
+              {option}
+            </button>
+          ))
+        ) : (
+          <div className="select-empty">{empty}</div>
+        )}
+      </div>
     </div>
   );
 };
@@ -361,61 +480,6 @@ const LucideUploadIcon = () => (
   </svg>
 );
 
-// FeaturedCaseTabChip from home FilmStudioShowcase.tsx.
-const FeaturedCaseTabChip: React.FC<{ active: boolean; label: string; onClick: () => void }> = ({
-  active,
-  label,
-  onClick,
-}) => (
-  <button
-    type="button"
-    role="tab"
-    aria-selected={active}
-    className={`home-tab-chip${active ? ' is-active' : ''}`}
-    onClick={onClick}
-  >
-    <span className="home-tab-chip-face">
-      {!active ? <span aria-hidden className="home-tab-chip-hover-fill" /> : null}
-      <span className="home-tab-chip-label">{label}</span>
-    </span>
-    <span aria-hidden className="home-tab-chip-edge" />
-  </button>
-);
-
-const TAB_IDS = ['omni-reference', 'image-to-video', 'text-to-video'] as const;
-
-const TAB_ICONS = {
-  'omni-reference': SparklesIcon,
-  'image-to-video': ImagePlayIcon,
-  'text-to-video': TypeIcon,
-} as const;
-
-const SubtoolTabs: React.FC<{ labels: Record<(typeof TAB_IDS)[number], string> }> = ({ labels }) => {
-  const [active, setActive] = useState<(typeof TAB_IDS)[number]>('omni-reference');
-  return (
-    <div className="subtool-wrap">
-      <div className="subtool-track">
-        {TAB_IDS.map((id) => {
-          const isActive = id === active;
-          return (
-            <button
-              key={id}
-              type="button"
-              data-subtool-tab={id}
-              className={`subtool-btn${isActive ? ' is-active' : ''}`}
-              onClick={() => setActive(id)}
-            >
-              {React.createElement(TAB_ICONS[id])}
-              <span className="label">{labels[id]}</span>
-              <span className="subtool-underline" aria-hidden />
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
 const Controls: React.FC<ControlsProps> = ({ language }) => {
   const t = translations[language].controls;
   const [switchOn, setSwitchOn] = useState(true);
@@ -426,7 +490,10 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
   const [sliderSm, setSliderSm] = useState(2);
   const [gridSize, setGridSize] = useState(4);
   const [batchMode, setBatchMode] = useState(false);
-  const [homeTab, setHomeTab] = useState<'functions' | 'skills'>('functions');
+  const [ack, setAck] = useState(false);
+  const [ackOn, setAckOn] = useState(true);
+  const [resolution, setResolution] = useState<'720' | '1080'>('1080');
+  const [menuQuery, setMenuQuery] = useState('');
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -442,15 +509,13 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
 
   return (
     <div className="controlsSpecimens space-y-24">
+      <div>
+        <GroupLabel title={t.fieldsTitle} />
+        <div className="mt-6 space-y-24">
       <section>
         <SectionHeading title={t.inputTitle} />
         <div className="stage">
-          <div className="state-label">{t.stateDefault}</div>
           <PromptSurface placeholder={t.inputPlaceholder} />
-          <div className="state-label" style={{ marginTop: 20 }}>
-            {t.stateDisabled}
-          </div>
-          <PromptSurface placeholder={t.inputPlaceholder} defaultValue={t.inputFilled} disabled />
         </div>
       </section>
 
@@ -473,39 +538,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             <figure>
               <div className="state-label">{t.stateDisabled}</div>
               <SearchField placeholder={t.searchPlaceholder} shortcut={t.searchShortcut} defaultValue={t.searchFilled} disabled />
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading title={t.switchTitle} />
-        <div className="stage">
-          <div className="row">
-            <figure>
-              <div className="state-label">{t.stateOn}</div>
-              <BoardSwitch checked={switchOn} onCheckedChange={setSwitchOn} ariaLabel={t.stateOn} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateOff}</div>
-              <BoardSwitch checked={switchOff} onCheckedChange={setSwitchOff} ariaLabel={t.stateOff} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateFocus}</div>
-              <BoardSwitch checked showFocus ariaLabel={t.stateFocus} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateDisabled}</div>
-              <BoardSwitch checked disabled ariaLabel={t.stateDisabled} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateSm}</div>
-              <BoardSwitch
-                checked={switchSm}
-                onCheckedChange={setSwitchSm}
-                size="sm"
-                ariaLabel={t.stateSm}
-              />
             </figure>
           </div>
         </div>
@@ -542,7 +574,155 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             </div>
           </div>
         </div>
+        <p className="caption">{t.selectNote}</p>
       </section>
+
+      <section>
+        <SectionHeading title={t.segmentTitle} />
+        <div className="stage">
+          <SegmentedTabs
+            ariaLabel={t.segmentTitle}
+            labels={{
+              segmentBoard: t.segmentBoard,
+              segmentInspirations: t.segmentInspirations,
+              segmentDocuments: t.segmentDocuments,
+            }}
+          />
+        </div>
+        <p className="caption">{t.segmentNote}</p>
+      </section>
+
+      <section>
+        <SectionHeading title={t.searchSelectTitle} />
+        <div className="stage stage-open">
+          <div className="row" style={{ alignItems: 'flex-start' }}>
+            <figure>
+              <div className="state-label">{t.stateDefault}</div>
+              <SearchSelect
+                placeholder={t.searchSelectPlaceholder}
+                empty={t.searchSelectEmpty}
+                query={menuQuery}
+                onQuery={setMenuQuery}
+                options={[
+                  t.segmentBoard,
+                  t.segmentInspirations,
+                  t.segmentDocuments,
+                  t.searchImage,
+                  t.searchVideo,
+                  t.searchAudio,
+                ]}
+              />
+            </figure>
+            <figure>
+              <div className="state-label">{t.searchSelectEmpty}</div>
+              <SearchSelect
+                placeholder={t.searchSelectPlaceholder}
+                empty={t.searchSelectEmpty}
+                query={t.searchSelectMiss}
+                options={[]}
+              />
+            </figure>
+          </div>
+        </div>
+        <p className="caption">{t.searchSelectNote}</p>
+      </section>
+        </div>
+      </div>
+
+      <div>
+        <GroupLabel title={t.choicesTitle} />
+        <div className="mt-6 space-y-24">
+      <section>
+        <SectionHeading title={t.switchTitle} />
+        <div className="stage">
+          <div className="row">
+            <figure>
+              <div className="state-label">{t.stateOn}</div>
+              <BoardSwitch checked={switchOn} onCheckedChange={setSwitchOn} ariaLabel={t.stateOn} />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateOff}</div>
+              <BoardSwitch checked={switchOff} onCheckedChange={setSwitchOff} ariaLabel={t.stateOff} />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateFocus}</div>
+              <BoardSwitch checked showFocus ariaLabel={t.stateFocus} />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateDisabled}</div>
+              <BoardSwitch checked disabled ariaLabel={t.stateDisabled} />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateSm}</div>
+              <BoardSwitch
+                checked={switchSm}
+                onCheckedChange={setSwitchSm}
+                size="sm"
+                ariaLabel={t.stateSm}
+              />
+            </figure>
+          </div>
+        </div>
+        <p className="caption">{t.switchNote}</p>
+      </section>
+
+      <section>
+        <SectionHeading title={t.checkboxTitle} />
+        <div className="stage">
+          <div className="row">
+            <figure>
+              <div className="state-label">{t.stateOff}</div>
+              <FormCheckbox checked={ack} label={t.checkboxLabel} onCheckedChange={setAck} />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateOn}</div>
+              <FormCheckbox checked={ackOn} label={t.checkboxLabel} onCheckedChange={setAckOn} />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateFocus}</div>
+              <FormCheckbox checked showFocus label={t.checkboxLabel} />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateDisabled}</div>
+              <FormCheckbox checked disabled label={t.checkboxLabel} />
+            </figure>
+          </div>
+        </div>
+        <p className="caption">{t.checkboxNote}</p>
+      </section>
+
+      <section>
+        <SectionHeading title={t.radioTitle} />
+        <div className="stage">
+          <div className="row">
+            <figure>
+              <div className="state-label">{t.stateDefault}</div>
+              <div className="radio-field">
+                <span className="radio-field-label">{t.radioLabel}</span>
+                <div className="radio-group" role="radiogroup" aria-label={t.radioLabel}>
+                  <RadioOption
+                    selected={resolution === '720'}
+                    label={t.radio720}
+                    onSelect={() => setResolution('720')}
+                  />
+                  <RadioOption
+                    selected={resolution === '1080'}
+                    label={t.radio1080}
+                    onSelect={() => setResolution('1080')}
+                  />
+                </div>
+              </div>
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateHover}</div>
+              <RadioOption showHover label={t.radio720} selected={false} />
+            </figure>
+          </div>
+        </div>
+        <p className="caption">{t.radioNote}</p>
+      </section>
+        </div>
+      </div>
 
       <section>
         <SectionHeading title={t.sliderTitle} />
@@ -557,23 +737,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             {t.stateSm}
           </div>
           <BoardSlider value={sliderSm} onChange={setSliderSm} size="sm" />
-          <div className="state-label" style={{ marginTop: 20 }}>
-            {t.stateDisabled}
-          </div>
-          <BoardSlider value={3} disabled showTicks />
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading title={t.tabsTitle} />
-        <div className="stage">
-          <SubtoolTabs
-            labels={{
-              'omni-reference': t.tabOmniReference,
-              'image-to-video': t.tabImageToVideo,
-              'text-to-video': t.tabTextToVideo,
-            }}
-          />
         </div>
       </section>
 
@@ -601,47 +764,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
               <LucideUploadIcon />
             </ToolbarIconButton>
           </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading title={t.homeTabsTitle} />
-        <div className="stage">
-          <div className="home-tab-list" role="tablist" aria-label={t.homeTabsAria}>
-            <FeaturedCaseTabChip
-              active={homeTab === 'functions'}
-              label={t.homeTabFunctions}
-              onClick={() => setHomeTab('functions')}
-            />
-            <FeaturedCaseTabChip
-              active={homeTab === 'skills'}
-              label={t.homeTabSkills}
-              onClick={() => setHomeTab('skills')}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading title={t.pluginTitle} />
-        <div className="stage">
-          <button type="button" className="install-plugin">
-            {t.pluginLabel}
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.25"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </button>
         </div>
       </section>
     </div>

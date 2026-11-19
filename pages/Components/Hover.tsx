@@ -30,42 +30,18 @@ const Hover: React.FC<HoverProps> = ({ language }) => {
       <section>
         <SubLabel title={t.samplesLabel} />
         <div className="stage">
-          <div className="row">
-            <button type="button" className="hover-seedance" aria-label={t.seedanceTitle}>
-              <span className="name">Seedance 2.5</span>
-              <span className="unlimited">30 DAYS UNLIMITED</span>
-            </button>
+          <div className="row samples">
+            <button type="button" className="hover-seedance" aria-label={t.seedanceTitle} />
             <button type="button" className="hover-poster" aria-label={t.posterTitle}>
               <span className="art" aria-hidden="true" />
               <span className="edge" aria-hidden="true" />
             </button>
-          </div>
-          <div className="row">
             <button type="button" className="hover-quickstart" aria-label={t.quickStartTitle}>
               <span className="media" aria-hidden="true" />
-              <span className="title">Short Film</span>
               <span className="edge" aria-hidden="true" />
               <span className="glow" aria-hidden="true" />
               <span className="floor" aria-hidden="true" />
             </button>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SubLabel title={t.contrastLabel} />
-        <div className="stage">
-          <div className="row">
-            <div className="pair">
-              <button type="button" className="hover-wrong" aria-label={t.contrastWrong} />
-              <div className="card-label">{t.contrastWrong}</div>
-            </div>
-            <div className="pair">
-              <button type="button" className="hover-right" aria-label={t.contrastRight}>
-                <span className="edge" aria-hidden="true" />
-              </button>
-              <div className="card-label">{t.contrastRight}</div>
-            </div>
           </div>
         </div>
       </section>

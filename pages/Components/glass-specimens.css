@@ -361,51 +361,6 @@
   gap: 10px;
 }
 
-/* ===== 4 Segmented (unlocked / pending) ===== */
-.glassSpecimens .seg {
-  position: relative;
-  width: 240px;
-  height: 36px;
-  border-radius: 18px;
-}
-.glassSpecimens .seg .thumb {
-  position: absolute;
-  left: 3px;
-  top: 3px;
-  width: 78px;
-  height: 30px;
-  border-radius: 15px;
-  z-index: 1;
-  transition: transform 380ms cubic-bezier(0.34, 1.4, 0.64, 1);
-  background: rgba(255, 255, 255, 0.12) linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 60%);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    inset 1px 1px 0 -0.5px rgba(255, 255, 255, 0.35),
-    0 1px 3px rgba(0, 0, 0, 0.3);
-}
-.glassSpecimens .seg .tabs {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  padding: 3px;
-  z-index: 2;
-}
-.glassSpecimens .seg .tabs button {
-  width: 78px;
-  height: 30px;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 600;
-  color: #ffffffa3;
-  cursor: pointer;
-}
-.glassSpecimens .seg .tabs button[aria-selected="true"] {
-  color: #fff;
-}
-
 /* ===== 4b BF compact Segmented · B lock (glass-edge-light thumb) ===== */
 .glassSpecimens .bf-seg {
   position: relative;
@@ -766,14 +721,10 @@
 /* ===== Alert comparison: A glassyui replica, C product Toast, D A’s glass + C’s structure ===== */
 .glassSpecimens .alert-compare {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 360px));
   gap: 20px;
   align-items: start;
-}
-@media (max-width: 1400px) {
-  .glassSpecimens .alert-compare {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  justify-content: start;
 }
 @media (max-width: 800px) {
   .glassSpecimens .alert-compare {
@@ -788,113 +739,19 @@
   font-weight: 400;
 }
 
-/* A. glassyui-faithful replica (from glass-alert.html .lg-alert). Not locked as a product treatment. */
-.glassSpecimens .lg-alert {
-  --fill: 13 44 82;
-  --ink: #b2d6ff;
-  --tint: 0 103 217;
-  --hl: rgb(255 255 255 / 0.12);
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.875rem 1rem;
-  border-radius: 1.125rem;
-  background: rgb(var(--fill) / 0.88);
-  box-shadow: inset 0 1px 0 var(--hl), inset 0 0 0 0.5px rgb(var(--tint) / 0.45);
-  color: #f5f5f7;
-  font-size: 0.9375rem;
-  line-height: 1.4;
-  -webkit-backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
-  backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
-}
-.glassSpecimens .lg-alert[data-tone="success"] { --fill: 22 60 48; --ink: #7cebc0; --tint: 51 214 159; }
-.glassSpecimens .lg-alert[data-tone="warning"] { --fill: 70 54 22; --ink: #ffd27a; --tint: 255 189 56; }
-.glassSpecimens .lg-alert[data-tone="danger"] { --fill: 76 30 44; --ink: #ffa6b7; --tint: 255 92 122; }
-.glassSpecimens .lg-alert .ic {
-  display: inline-flex;
-  flex: none;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-top: 0.0625rem;
-  color: var(--ink);
-}
-.glassSpecimens .lg-alert .ic svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.glassSpecimens .lg-alert .body {
-  display: grid;
-  flex: 1;
-  gap: 0.125rem;
-  min-width: 0;
-}
-.glassSpecimens .lg-alert .t { font-weight: 600; margin: 0; }
-.glassSpecimens .lg-alert .d { opacity: 0.82; }
-
-/* C. In-product / site-original Toast — NOT glass, NOT locked.
-   Tokens copied from apps/base/src/components/ui/toast.tsx + toaster.tsx + hooks/useToast.tsx. */
 .glassSpecimens .product-toast-stage {
   background: #101010;
   border: 1px solid #ffffff10;
   border-radius: 16px;
   padding: 20px 16px;
 }
-.glassSpecimens .product-toast {
-  position: relative;
-  display: flex;
-  width: auto;
-  max-width: 100%;
-  align-items: center;
-  overflow: hidden;
-  border: none;
-  border-radius: 8px;
-  background: #fff;
-  color: #000;
-  padding: 10px 16px;
-  box-shadow: 0 8px 30px rgba(15, 15, 20, 0.12);
-}
-.glassSpecimens .product-toast .pt-twoline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: 100%;
-}
-.glassSpecimens .product-toast .pt-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.glassSpecimens .product-toast .pt-icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-.glassSpecimens .product-toast .pt-title {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: normal;
-  color: #000;
-}
-.glassSpecimens .product-toast .pt-body {
-  margin: 0;
-  padding-left: 28px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: normal;
-  color: rgba(0, 0, 0, 0.9);
-}
 
 
 /* D. C's Toast structure + 16px radius / backdrop-filter + thicker untinted white glass.
    Not locked. Not a new product lock.
    Radius is 16px (Panel). Kept from A: blur 16 / saturate 1.8 / contrast .9.
-   Fill is rgb(255 255 255 / 0.90): slightly lower opacity than the previous .93,
-   not written back to .87, still pure white with no --fill / status-tint mix.
-   Not opaque solid #fff.
+   Fill is rgb(255 255 255 / 0.96): raised from .90 so the card reads whiter
+   on the #101010 stage. Still translucent, not opaque solid #fff.
    Edge: pakashiro / glass-edge-light 1px gradient stroke via ::before, starting from
    the skill (top .28 / mid .06 / bottom .12). Top only is nudged to .36 so it reads
    on this light card; mid and bottom stay at the skill values so the rim is not evenly
@@ -917,7 +774,7 @@
   border-radius: 16px;
   padding: 10px 16px;
   color: #000;
-  background: rgb(255 255 255 / 0.90);
+  background: rgb(255 255 255 / 0.96);
   -webkit-backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
   backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
   box-shadow:

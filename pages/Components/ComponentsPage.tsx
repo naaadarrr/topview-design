@@ -66,6 +66,9 @@ const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, activeSubId, 
           <h2 className="site-h2">
             {t.controls}
           </h2>
+          <p className="mt-3 max-w-2xl text-[16px] leading-[22px] font-sans text-white/70 font-normal">
+            {t.formsLine}
+          </p>
         </div>
         <Controls language={language} />
       </section>
