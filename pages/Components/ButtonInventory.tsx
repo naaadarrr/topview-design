@@ -14,10 +14,8 @@ const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
 );
 
 const VARIANTS = [
-  { id: 'brand-flat', className: 'product-button board-type brand-flat' },
-  { id: 'quick-start-raised', className: 'purple-thick' },
-  { id: 'white-raised', className: 'install-plugin' },
-  { id: 'studio-white', className: 'product-button shared-focus studio-white' },
+  { id: 'unicorn-primary', className: 'unicorn-cta unicorn-primary' },
+  { id: 'unicorn-white', className: 'unicorn-cta unicorn-white' },
   { id: 'neutral-board', className: 'product-button board-type neutral-board' },
   { id: 'outline-board', className: 'cancel-board' },
   { id: 'ghost-board', className: 'product-button board-type ghost-board' },
@@ -59,7 +57,7 @@ const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {
           <div className="size-rows">
             {SIZE_ROWS.map((row) => (
               <div className="size-row" key={row.heightClass}>
-                <button type="button" className={`purple-thick ${row.heightClass}`}>
+                <button type="button" className={`unicorn-cta unicorn-primary ${row.heightClass}`}>
                   Button
                 </button>
                 <div className={`size-dim ${row.heightClass}`}>
@@ -83,6 +81,7 @@ const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {
           ))}
         </div>
       </section>
+
     </div>
   );
 };

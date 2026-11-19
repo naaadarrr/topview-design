@@ -127,24 +127,6 @@ export const TOPVIEW_GRADIENTS: GradientSwatch[] = [
     angle: '—',
     description: 'Buy credits chip',
   },
-  {
-    name: 'Ultra Card Shell',
-    css: 'linear-gradient(180deg, #251B3D 0%, #1A1329 50%, #090A0A 100%)',
-    from: '#251B3D',
-    to: '#090A0A',
-    type: 'Linear',
-    angle: '180deg',
-    description: 'Ultra plan surface',
-  },
-  {
-    name: 'Pro Card Shell',
-    css: 'linear-gradient(180deg, #1C1C1E 0%, #121214 55%, #090A0A 100%)',
-    from: '#1C1C1E',
-    to: '#090A0A',
-    type: 'Linear',
-    angle: '180deg',
-    description: 'Pro / Team card surface',
-  },
 ];
 
 /** @deprecated Use TOPVIEW_PURPLE_SCALE */

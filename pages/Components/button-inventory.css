@@ -43,11 +43,6 @@
   gap: 24px;
 }
 
-.buttonInventory .inv-row .purple-thick {
-  width: auto;
-  flex-shrink: 0;
-}
-
 .buttonInventory .caption {
   margin-top: 16px;
   font-size: 12px;
@@ -56,51 +51,16 @@
   max-width: 42rem;
 }
 
-/* The shared Install Plugin recipe keeps its icon gap on other pages. */
-.buttonInventory .install-plugin {
-  gap: 0;
-}
-
-/* Quick Start dialog primary — QuickStartDialogShell.tsx QuickStartDialogPrimaryButton. */
-.buttonInventory .purple-thick {
-  display: inline-flex;
-  width: 100%;
-  height: 52px;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 13px;
-  padding: 0 20px;
-  background: #731DFB;
-  color: #fff;
-  font: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-    inset 0 -2px 0 0 rgba(0, 0, 0, 0.35),
-    0 3px 0 0 #5B12D4;
-  cursor: pointer;
-  transition: background-color 200ms, transform 200ms, box-shadow 200ms;
-}
-.buttonInventory .purple-thick:hover { background: #7E32FF; }
-.buttonInventory .purple-thick:active {
-  transform: translateY(2px);
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
-    0 1px 0 0 #5B12D4;
-}
-.buttonInventory .purple-thick:focus-visible {
-  outline: 2px solid #BFA6FF;
-  outline-offset: 2px;
-}
-
-/* Board Cancel — FolderWorkspace/FolderDialogs.tsx: rounded-panel-button (8px),
-   border border-panel-border (#232323), px-4 py-2, text-sm, hover bg-panel-tab-active
-   (#3a3a3a), disabled opacity 0.4. Text inherits Board foreground #fff. */
+/* Board Cancel size stays. Stroke keeps the card rim shape (1px mask,
+   fade by 60%). Top 0.32 and bottom 0.22 sit closer than the 0.36 / 0.12
+   glass edge, so the ring is a little more even. Fill is transparent so
+   the blur only reads when something sits behind the button. */
 .buttonInventory .cancel-board {
-  border: 1px solid #232323;
+  position: relative;
+  isolation: isolate;
+  --rim-top: 0.32;
+  --rim-bot: 0.22;
+  border: 0;
   border-radius: 8px;
   padding: 8px 16px;
   background: transparent;
@@ -109,8 +69,25 @@
   font-size: 14px;
   line-height: 20px;
   cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 150ms cubic-bezier(0.23, 1, 0.32, 1);
 }
-.buttonInventory .cancel-board:hover { background: #3a3a3a; }
+.buttonInventory .cancel-board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, var(--rim-top)), rgba(255, 255, 255, var(--rim-bot)) 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.buttonInventory .cancel-board:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
 .buttonInventory .cancel-board:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px #8A8A8A;
@@ -155,21 +132,6 @@
   box-shadow: 0 0 0 1px #2c2c2c, 0 0 0 3px #0d99ff;
 }
 
-.buttonInventory .product-button.brand-flat {
-  position: relative;
-  height: 40px;
-  width: 100%;
-  border-radius: 8px;
-  padding: 0 12px;
-  background: #731DFB;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
-  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-.buttonInventory .product-button.brand-flat:hover { background: #6317E3; }
-.buttonInventory .product-button.brand-flat:active { transform: scale(1); }
-
 .buttonInventory .product-button.legacy-indigo {
   width: 112px;
   height: 40px;
@@ -201,28 +163,18 @@
 }
 .buttonInventory .product-button.pricing-ledge:active { transform: translateY(2px); }
 
-.buttonInventory .product-button.studio-white {
-  height: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 10px;
-  padding: 0 12px;
-  background: #fff;
-  color: #09090b;
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 600;
-  user-select: none;
-  transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out;
-}
-.buttonInventory .product-button.studio-white:hover { background: #f3f4f6; color: #09090b; }
-.buttonInventory .product-button.studio-white:active { background: #e5e7eb; color: #09090b; }
 .buttonInventory .product-button.neutral-board {
   border-radius: 8px;
   padding: 8px 16px;
-  background: #3a3a3a;
+  background: #242424;
   font-size: 14px;
   line-height: 20px;
+  box-shadow:
+    inset 0 1px 0 0 #4a4a4a,
+    inset 0 -1px 0 0 #202020;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.buttonInventory .product-button.neutral-board:hover { background: #2F2F2F; }
 .buttonInventory .product-button.ghost-board {
   height: 36px;
   border-radius: 8px;
@@ -232,18 +184,33 @@
   line-height: 20px;
 }
 .buttonInventory .product-button.ghost-board:hover { background: rgba(255, 255, 255, 0.05); }
+/* Same edge as the purple primary. Reds stay #dc2626 / #ef4444 / #f87171.
+   Top uses the existing lighter red. Bottom #C32222 is the same lightness step as #731DFB to #6317E3. */
 .buttonInventory .product-button.danger-board {
   border-radius: 8px;
   padding: 8px 16px;
-  background: #dc2626;
+  background-color: #dc2626;
+  background-image: none;
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
-  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    inset 0 1px 0 0 #f87171,
+    inset 0 -1px 0 0 #c32222;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.buttonInventory .product-button.danger-board:hover { background: #ef4444; }
+.buttonInventory .product-button.danger-board:hover { background-color: #ef4444; }
+.buttonInventory .product-button.danger-board:active { background-color: #dc2626; }
 .buttonInventory .product-button.danger-board:focus-visible {
-  box-shadow: 0 0 0 2px #141414, 0 0 0 4px #f87171;
+  box-shadow:
+    inset 0 1px 0 0 #f87171,
+    inset 0 -1px 0 0 #c32222,
+    0 0 0 2px #141414,
+    0 0 0 4px #f87171;
+}
+@media (prefers-reduced-motion: reduce) {
+  .buttonInventory .product-button.danger-board,
+  .buttonInventory .product-button.neutral-board { transition: none; }
 }
 
 .buttonInventory .product-button.pricing-team {
@@ -289,7 +256,7 @@
   .buttonInventory .product-button.pricing-ledge:active { transform: none; }
 }
 
-/* AuthModal active inline Link; no unused CVA underline offset. */
+/* AuthModal footer link. LogInForm “Sign up” and SignUpStepOne “Sign in” override the link variant to #FFF. The #4E40F3 color is only the inline error link. */
 .buttonInventory .product-button.auth-link {
   gap: 8px;
   height: auto;
@@ -297,7 +264,7 @@
   border-radius: 6px;
   padding: 0;
   background-color: transparent;
-  color: #4E40F3;
+  color: #fff;
   font-size: 13px;
   font-weight: 500;
   text-decoration: none;
@@ -307,8 +274,8 @@
 }
 .buttonInventory .product-button.auth-link:hover { text-decoration: underline; }
 
-/* Size: one Primary recipe at product heights 32 / 36 / 40.
-   Carbon Button Style Size pattern (layout only). Site colors only. */
+/* Size: the current purple primary at 32 / 36 / 40.
+   Vertical padding is cleared so the height is the outer box. */
 .buttonInventory .size-stage {
   padding: 0;
   align-items: stretch;
@@ -331,18 +298,19 @@
 .buttonInventory .size-row:last-child {
   border-bottom: 0;
 }
-.buttonInventory .size-row .purple-thick {
+.buttonInventory .size-row .unicorn-primary {
   grid-column: 2;
   width: auto;
   justify-self: stretch;
   box-sizing: border-box;
+  padding: 0 20px;
 }
 .buttonInventory .size-dim {
   grid-column: 3;
 }
-.buttonInventory .purple-thick.size-h32 { height: 32px; }
-.buttonInventory .purple-thick.size-h36 { height: 36px; }
-.buttonInventory .purple-thick.size-h40 { height: 40px; }
+.buttonInventory .unicorn-primary.size-h32 { height: 32px; }
+.buttonInventory .unicorn-primary.size-h36 { height: 36px; }
+.buttonInventory .unicorn-primary.size-h40 { height: 40px; }
 .buttonInventory .size-dim {
   display: flex;
   align-items: center;
@@ -423,4 +391,121 @@ html.light .buttonInventory .size-table-row {
 }
 html.light .buttonInventory .size-table-row code {
   color: rgba(17, 17, 17, 0.85);
+}
+
+/* Shared edge for the white study and the purple primary. */
+.buttonInventory .unicorn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.buttonInventory .unicorn-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.86);
+  background-image:
+    linear-gradient(180deg, #fff 0 1px, transparent 1px),
+    linear-gradient(0deg, #fff 0 1px, transparent 1px);
+  color: #181818;
+  font-family: Inter, -apple-system, system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 0 #fff,
+    inset 0 -1px 0 0 #fff,
+    inset 0 0 0 1px #fff;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-image 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.buttonInventory .unicorn-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    linear-gradient(180deg, rgb(255 255 255 / 0.38) 0%, transparent 48%),
+    radial-gradient(75% 65% at 50% 115%, rgb(255 255 255 / 0.42) 0%, transparent 72%);
+  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.buttonInventory .unicorn-cta:hover {
+  background-color: #fff;
+}
+.buttonInventory .unicorn-cta:hover::before {
+  opacity: 1;
+}
+.buttonInventory .unicorn-cta:active {
+  background-color: rgba(255, 255, 255, 0.86);
+}
+.buttonInventory .unicorn-cta:active::before {
+  opacity: 0;
+}
+.buttonInventory .unicorn-cta:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+/* White button in the purple primary structure: flat fill, 1px top lighter, 1px bottom darker.
+   Bottom #C4C4C4 is the same lightness step as #731DFB to #6317E3. Hover fill is #fff. */
+.buttonInventory .unicorn-cta.unicorn-white {
+  background-color: rgba(255, 255, 255, 0.86);
+  background-image: none;
+  color: #181818;
+  box-shadow:
+    inset 0 1px 0 0 #fff,
+    inset 0 -1px 0 0 #c4c4c4;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.buttonInventory .unicorn-cta.unicorn-white::before,
+.buttonInventory .unicorn-cta.unicorn-white:hover::before {
+  opacity: 0;
+}
+.buttonInventory .unicorn-cta.unicorn-white:hover {
+  background-color: #fff;
+}
+/* Unicorn .button.primary edge, on our purple.
+   Fill Purple 500 #731DFB. Inset 1px top Purple 300 #A873FF,
+   inset 1px bottom the brand-flat hover #6317E3.
+   Hover fill is linear-gradient(180deg, #731DFB 0%, #9452FF 100%). */
+.buttonInventory .unicorn-cta.unicorn-primary {
+  background-color: #731dfb;
+  background-image: none;
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 0 #a873ff,
+    inset 0 -1px 0 0 #6317e3;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.buttonInventory .unicorn-cta.unicorn-primary::before,
+.buttonInventory .unicorn-cta.unicorn-primary:hover::before {
+  opacity: 0;
+}
+.buttonInventory .unicorn-cta.unicorn-primary:hover {
+  background-image: linear-gradient(180deg, #731DFB 0%, #9452FF 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .buttonInventory .unicorn-cta,
+  .buttonInventory .unicorn-cta::before {
+    transition: none;
+  }
 }
