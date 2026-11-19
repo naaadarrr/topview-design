@@ -257,7 +257,7 @@ html.light .site-docs .bg-\[\#731DFB\] .text-white\/40 { color: rgba(255, 255, 2
 html.light .site-docs .bg-black .text-white\/20,
 html.light .site-docs .bg-\[\#000000\] .text-white\/20,
 html.light .site-docs .bg-\[\#731DFB\] .text-white\/20 { color: rgba(255, 255, 255, 0.20); }
-/* Do not retune .pw-lg-trial* or locked glass recipes in this file. */
+/* Do not retune locked glass recipes in this file. */
 
 /* Site heading tiers (mem661): page title / section / sub-heading. Instrument Serif, one color per theme. */
 html.dark { --site-heading-color: #ffffff; }

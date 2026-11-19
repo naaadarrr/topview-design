@@ -127,6 +127,81 @@
   color: #fff;
 }
 
+.controlsSpecimens .search-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(320px, 100%);
+  height: 40px;
+  margin: 0;
+  padding: 0 8px 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.08);
+  transition: background-color 150ms ease-out;
+}
+
+.controlsSpecimens .search-field:hover,
+.controlsSpecimens .search-field:focus-within,
+.controlsSpecimens .search-field.show-focus {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.controlsSpecimens .search-field.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.controlsSpecimens .search-field .icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.controlsSpecimens .search-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  caret-color: #b57bff;
+}
+
+.controlsSpecimens .search-field input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.controlsSpecimens .search-field input::selection {
+  background: #731dfb;
+  color: #fff;
+}
+
+.controlsSpecimens .search-field input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.controlsSpecimens .search-field kbd {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.7);
+  font: inherit;
+  font-size: 11px;
+  line-height: 14px;
+  flex-shrink: 0;
+}
+
 @media (max-height: 900px) {
   .controlsSpecimens .prompt-surface textarea {
     min-height: 192px;

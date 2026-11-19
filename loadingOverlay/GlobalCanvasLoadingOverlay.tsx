@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { DEFAULT_CANVAS_LOADING_ANIMATION_PARAMS, LOADING_OVERLAY_STYLES } from './constants';
-import { LoadingLogoCanvas } from './LoadingLogoCanvas';
+import { WebGLLoadingLogo } from './WebGLLoadingLogo';
 import type {
   CanvasLoadingAnimationParams,
   GlobalCanvasLoadingOverlayProps,
@@ -36,7 +36,7 @@ export function GlobalCanvasLoadingOverlay({
       aria-live="polite"
     >
       <div style={{ ...LOADING_OVERLAY_STYLES.content, opacity: contentReady ? 1 : 0 }}>
-        <LoadingLogoCanvas
+        <WebGLLoadingLogo
           animationParams={resolvedParams}
           logoSize={logoSize}
           onFirstFrameReady={handleFirstFrameReady}

@@ -44,8 +44,8 @@ const HASH_ALIASES: Record<string, { section: string; subId: string | null }> = 
   'components/components-glass/glass-banner-arrow': { section: 'glass', subId: 'glass-banner-arrow' },
   'components/glass-tooltip': { section: 'glass', subId: 'glass-tooltip' },
   'components/components-glass/glass-tooltip': { section: 'glass', subId: 'glass-tooltip' },
-  'components/glass-purple-white': { section: 'glass', subId: 'glass-purple-white' },
-  'components/components-glass/glass-purple-white': { section: 'glass', subId: 'glass-purple-white' },
+  'components/glass-purple-white': { section: 'glass', subId: null },
+  'components/components-glass/glass-purple-white': { section: 'glass', subId: null },
 };
 
 type HashTarget = { section: string; subId: string | null; canonical?: string };

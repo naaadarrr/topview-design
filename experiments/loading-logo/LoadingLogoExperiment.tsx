@@ -53,9 +53,9 @@ export default function LoadingLogoExperiment() {
       </div>
       <div className="loadingLab-specimens">
         {mode !== 'webgl' && <section><h2>Canvas2D</h2><div className="loadingLab-stage"><PreviewCanvas key={`canvas-${replay}`} kind="canvas" paused={paused} reducedMotion={reducedMotion} /></div></section>}
-        {mode !== 'canvas' && <section><h2>WebGL microcrystals</h2><div className="loadingLab-stage"><PreviewCanvas key={`webgl-${replay}`} kind="webgl" paused={paused} reducedMotion={reducedMotion} /></div></section>}
+        {mode !== 'canvas' && <section><h2>WebGL particles</h2><div className="loadingLab-stage"><PreviewCanvas key={`webgl-${replay}`} kind="webgl" paused={paused} reducedMotion={reducedMotion} /></div></section>}
       </div>
-      <p className="loadingLab-note" role="status">88px. {reducedMotion ? 'Reduced motion: static rendering.' : paused ? 'Paused.' : 'Continuous preview.'} Official loading is unchanged.</p>
+      <p className="loadingLab-note" role="status">Light keeps moving through the mark. Hover pushes a circle of particles away from the pointer. {reducedMotion ? 'Reduced motion: static rendering.' : paused ? 'Paused.' : 'Playing.'} The splash uses this WebGL logo.</p>
     </main>
   );
 }

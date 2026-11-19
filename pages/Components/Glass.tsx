@@ -191,48 +191,6 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
             </div>
           </div>
 
-          <div id="glass-purple-white" className="scroll-mt-8">
-            <SectionHeading title={t.purpleWhiteTitle} />
-            <div className="stage">
-              <div className="pw-compare">
-                <div>
-                  <div className="state-label">{t.purpleWhiteCurrent}</div>
-                  <div className="row">
-                    <button className="btn primary" type="button">{t.generate}</button>
-                    <button className="btn primary is-hover" type="button">{t.stateHover}</button>
-                    <button className="btn primary" type="button" disabled>{t.disabled}</button>
-                  </div>
-                </div>
-                <div>
-                  <div className="state-label">{t.purpleWhiteTrial}</div>
-                  <div className="row">
-                    <button className="pw-lg-trial" type="button">
-                      <span className="pw-lg-trial-hair" aria-hidden="true" />
-                      <span className="pw-lg-trial-backing" aria-hidden="true" />
-                      <span className="pw-lg-trial-material" aria-hidden="true">
-                        <span className="pw-lg-trial-tint-w50" />
-                        <span className="pw-lg-trial-tint-sat" />
-                        <span className="pw-lg-trial-tint-ov" />
-                        <span className="pw-lg-trial-tint-accent" />
-                        <span className="pw-lg-trial-glass-mul" />
-                        <span className="pw-lg-trial-frost" />
-                        <span className="pw-lg-trial-in-burn" />
-                        <span className="pw-lg-trial-in-dodge-bot" />
-                        <span className="pw-lg-trial-in-dodge-top" />
-                      </span>
-                      <span className="pw-lg-trial-label">{t.generate}</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="row" style={{ marginTop: 12 }}>
-                <button className="btn white" type="button">{t.upload}</button>
-                <button className="btn white is-pressed" type="button">{t.pressed}</button>
-                <button className="g btn sec" type="button">{t.cancel}</button>
-              </div>
-            </div>
-          </div>
-
           <div>
             <SectionHeading title={t.iconBtnTitle} />
             <div className="stage">

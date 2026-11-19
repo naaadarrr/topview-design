@@ -43,6 +43,36 @@ const ChevronDown = () => (
   </svg>
 );
 
+const SearchIcon = () => (
+  <svg className="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
+  </svg>
+);
+
+const SearchField: React.FC<{
+  placeholder: string;
+  shortcut: string;
+  defaultValue?: string;
+  disabled?: boolean;
+  showFocus?: boolean;
+  inputRef?: React.Ref<HTMLInputElement>;
+}> = ({ placeholder, shortcut, defaultValue = '', disabled = false, showFocus = false, inputRef }) => (
+  <label className={`search-field${disabled ? ' is-disabled' : ''}${showFocus ? ' show-focus' : ''}`}>
+    <SearchIcon />
+    <input
+      ref={inputRef}
+      type="search"
+      placeholder={placeholder}
+      defaultValue={defaultValue}
+      disabled={disabled}
+      tabIndex={disabled || showFocus ? -1 : undefined}
+      aria-label={placeholder}
+    />
+    <kbd aria-hidden="true">{shortcut}</kbd>
+  </label>
+);
+
 const PromptSurface: React.FC<{
   placeholder: string;
   defaultValue?: string;
@@ -397,6 +427,18 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
   const [gridSize, setGridSize] = useState(4);
   const [batchMode, setBatchMode] = useState(false);
   const [homeTab, setHomeTab] = useState<'functions' | 'skills'>('functions');
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   return (
     <div className="controlsSpecimens space-y-24">
@@ -409,6 +451,30 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             {t.stateDisabled}
           </div>
           <PromptSurface placeholder={t.inputPlaceholder} defaultValue={t.inputFilled} disabled />
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading title={t.searchTitle} />
+        <div className="stage">
+          <div className="row">
+            <figure>
+              <div className="state-label">{t.stateDefault}</div>
+              <SearchField
+                placeholder={t.searchPlaceholder}
+                shortcut={t.searchShortcut}
+                inputRef={searchRef}
+              />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateFocus}</div>
+              <SearchField placeholder={t.searchPlaceholder} shortcut={t.searchShortcut} showFocus />
+            </figure>
+            <figure>
+              <div className="state-label">{t.stateDisabled}</div>
+              <SearchField placeholder={t.searchPlaceholder} shortcut={t.searchShortcut} defaultValue={t.searchFilled} disabled />
+            </figure>
+          </div>
         </div>
       </section>
 
