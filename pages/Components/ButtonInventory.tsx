@@ -1,7 +1,40 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 import { Language, translations } from '../../translations';
 import './controls-specimens.css';
 import './button-inventory.css';
+
+export const BUTTON_INSTALL_COMMAND = 'npx shadcn add @topview/button';
+
+export const ButtonInstall: React.FC<{ language: Language }> = ({ language }) => {
+  const t = translations[language].buttonInventory;
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<number | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) window.clearTimeout(timer.current);
+  }, []);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(BUTTON_INSTALL_COMMAND);
+      setCopied(true);
+      if (timer.current) window.clearTimeout(timer.current);
+      timer.current = window.setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div className="install-command">
+      <code>{BUTTON_INSTALL_COMMAND}</code>
+      <button type="button" onClick={copy} aria-label={copied ? t.copiedCommand : t.copyCommand}>
+        {copied ? <Check size={14} strokeWidth={2} /> : <Copy size={14} strokeWidth={2} />}
+      </button>
+    </div>
+  );
+};
 
 interface ButtonInventoryProps {
   language: Language;
@@ -14,8 +47,8 @@ const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
 );
 
 const VARIANTS = [
-  { id: 'unicorn-primary', className: 'unicorn-cta unicorn-primary' },
-  { id: 'unicorn-white', className: 'unicorn-cta unicorn-white' },
+  { id: 'cta-primary', className: 'product-cta cta-primary' },
+  { id: 'cta-white', className: 'product-cta cta-white' },
   { id: 'neutral-board', className: 'product-button board-type neutral-board' },
   { id: 'outline-board', className: 'cancel-board' },
   { id: 'ghost-board', className: 'product-button board-type ghost-board' },
@@ -52,7 +85,7 @@ const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {
         <div className="stage">
           <div className="button-group">
             <button type="button" className="product-button board-type neutral-board">Button</button>
-            <button type="button" className="unicorn-cta unicorn-white">Button</button>
+            <button type="button" className="product-cta cta-white">Button</button>
           </div>
         </div>
       </section>
@@ -63,7 +96,7 @@ const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {
           <div className="size-rows">
             {SIZE_ROWS.map((row) => (
               <div className="size-row" key={row.heightClass}>
-                <button type="button" className={`unicorn-cta unicorn-primary ${row.heightClass}`}>
+                <button type="button" className={`product-cta cta-primary ${row.heightClass}`}>
                   Button
                 </button>
                 <div className={`size-dim ${row.heightClass}`}>

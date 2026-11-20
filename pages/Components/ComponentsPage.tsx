@@ -3,7 +3,7 @@ import { Language, translations } from '../../translations';
 import Controls from './Controls';
 import Rules from './Rules';
 import Overlays from './Overlays';
-import ButtonInventory from './ButtonInventory';
+import ButtonInventory, { ButtonInstall } from './ButtonInventory';
 import Display from './Display';
 import Feedback from './Feedback';
 import LockRulePage from './LockRulePage';
@@ -83,9 +83,14 @@ const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, page, activeS
 
   const current = pages[page] ?? pages['components-controls'];
 
+  const showButtonInstall = page === 'components-button';
+
   return (
     <div className="max-w-full text-white space-y-16 pb-40">
-      <PageHeader title={current.title} line={current.line} />
+      <div className={showButtonInstall ? 'button-page-intro' : undefined}>
+        <PageHeader title={current.title} line={current.line} />
+        {showButtonInstall ? <ButtonInstall language={language} /> : null}
+      </div>
       <div className="fade-in">{current.body}</div>
     </div>
   );

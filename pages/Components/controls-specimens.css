@@ -110,7 +110,7 @@
   font-size: 14px;
   line-height: 20px;
   color: #fff;
-  caret-color: #b57bff;
+  caret-color: #9452FF;
 }
 
 .controlsSpecimens .prompt-surface textarea::placeholder {
@@ -166,7 +166,7 @@
   font-size: 14px;
   line-height: 20px;
   color: #fff;
-  caret-color: #b57bff;
+  caret-color: #9452FF;
 }
 
 .controlsSpecimens .search-field input::placeholder {
@@ -937,7 +937,7 @@
   font: inherit;
   font-size: 14px;
   line-height: 20px;
-  caret-color: #b57bff;
+  caret-color: #9452FF;
   transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
 }
 
@@ -975,7 +975,7 @@
 /* Login field structure, site tokens.
    Fill #242424. Inset bottom 1px #202020. Radius --radius-02 8px. Padding 12px.
    Text 14px #fff. Placeholder white 40%.
-   Caret and focus outline use --topview-purple (Purple 500 #731DFB).
+   Caret is Purple 400 #9452FF. Focus outline uses --topview-purple (Purple 500 #731DFB).
    Focus outline 2px, offset 2px. */
 .controlsSpecimens .field-stack {
   display: flex;
@@ -984,7 +984,7 @@
   width: min(334px, 100%);
 }
 
-.controlsSpecimens .unicorn-login-fields {
+.controlsSpecimens .login-fields {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -996,7 +996,7 @@
   width: 100%;
 }
 
-.controlsSpecimens .unicorn-login-input {
+.controlsSpecimens .login-input {
   box-sizing: border-box;
   width: 100%;
   margin: 0;
@@ -1011,16 +1011,16 @@
   font-weight: 400;
   line-height: 20px;
   outline: none;
-  caret-color: var(--topview-purple);
+  caret-color: #9452FF;
   transition: outline 150ms ease-out;
 }
 
-.controlsSpecimens .unicorn-login-input::placeholder {
+.controlsSpecimens .login-input::placeholder {
   color: rgba(255, 255, 255, 0.4);
 }
 
-.controlsSpecimens .unicorn-login-input:focus,
-.controlsSpecimens .unicorn-login-input.show-focus {
+.controlsSpecimens .login-input:focus,
+.controlsSpecimens .login-input.show-focus {
   outline: 2px solid var(--topview-purple);
   outline-offset: 2px;
 }

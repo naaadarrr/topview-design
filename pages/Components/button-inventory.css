@@ -1,7 +1,70 @@
-/* Button inventory. Unlocked / 待定 draft, not in the formal contract.
-   Values copied from aigc-web-turbo origin/develop b0c5a29. Not averaged.
+/* Button inventory. Values copied from aigc-web-turbo origin/develop b0c5a29. Not averaged.
+   registry/button.css is the file the install command copies. Keep it on these variants.
    The Install Plugin specimen reuses controls-specimens.css (imported
    read-only), not copied here. */
+
+.button-page-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.install-command {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 4px 4px 4px 14px;
+  border-radius: 9999px;
+  background: #242424;
+  color: rgba(255, 255, 255, 0.92);
+}
+.install-command code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: auto;
+}
+.install-command button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+}
+.install-command button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.install-command button:focus-visible {
+  outline: 2px solid #9452FF;
+  outline-offset: 2px;
+}
+html.light .site-docs .install-command {
+  background: #fff;
+  color: #181818;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+html.light .site-docs .install-command button {
+  color: rgba(24, 24, 24, 0.62);
+}
+html.light .site-docs .install-command button:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #181818;
+}
 
 .buttonInventory {
   font-family: Inter, "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
@@ -106,7 +169,7 @@
   justify-content: center;
   gap: var(--spacing-03);
 }
-.buttonInventory .button-group .unicorn-cta.unicorn-white {
+.buttonInventory .button-group .product-cta.cta-white {
   padding: var(--spacing-03) var(--spacing-05);
   font-size: 14px;
   line-height: 20px;
@@ -310,7 +373,7 @@
 .buttonInventory .size-row:last-child {
   border-bottom: 0;
 }
-.buttonInventory .size-row .unicorn-primary {
+.buttonInventory .size-row .cta-primary {
   grid-column: 2;
   width: auto;
   justify-self: stretch;
@@ -320,9 +383,9 @@
 .buttonInventory .size-dim {
   grid-column: 3;
 }
-.buttonInventory .unicorn-primary.size-h32 { height: 32px; }
-.buttonInventory .unicorn-primary.size-h36 { height: 36px; }
-.buttonInventory .unicorn-primary.size-h40 { height: 40px; }
+.buttonInventory .cta-primary.size-h32 { height: 32px; }
+.buttonInventory .cta-primary.size-h36 { height: 36px; }
+.buttonInventory .cta-primary.size-h40 { height: 40px; }
 .buttonInventory .size-dim {
   display: flex;
   align-items: center;
@@ -406,14 +469,14 @@ html.light .buttonInventory .size-table-row code {
 }
 
 /* Shared edge for the white study and the purple primary. */
-.buttonInventory .unicorn-row {
+.buttonInventory .cta-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 16px;
 }
-.buttonInventory .unicorn-cta {
+.buttonInventory .product-cta {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -446,7 +509,7 @@ html.light .buttonInventory .size-table-row code {
     background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
     background-image 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.buttonInventory .unicorn-cta::before {
+.buttonInventory .product-cta::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -459,25 +522,25 @@ html.light .buttonInventory .size-table-row code {
     radial-gradient(75% 65% at 50% 115%, rgb(255 255 255 / 0.42) 0%, transparent 72%);
   transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.buttonInventory .unicorn-cta:hover {
+.buttonInventory .product-cta:hover {
   background-color: #fff;
 }
-.buttonInventory .unicorn-cta:hover::before {
+.buttonInventory .product-cta:hover::before {
   opacity: 1;
 }
-.buttonInventory .unicorn-cta:active {
+.buttonInventory .product-cta:active {
   background-color: rgba(255, 255, 255, 0.86);
 }
-.buttonInventory .unicorn-cta:active::before {
+.buttonInventory .product-cta:active::before {
   opacity: 0;
 }
-.buttonInventory .unicorn-cta:focus-visible {
+.buttonInventory .product-cta:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.7);
   outline-offset: 2px;
 }
 /* White button in the purple primary structure: flat fill, 1px top lighter, 1px bottom darker.
    Bottom #C4C4C4 is the same lightness step as #731DFB to #6317E3. Hover fill is #fff. */
-.buttonInventory .unicorn-cta.unicorn-white {
+.buttonInventory .product-cta.cta-white {
   background-color: rgba(255, 255, 255, 0.86);
   background-image: none;
   color: #181818;
@@ -487,18 +550,18 @@ html.light .buttonInventory .size-table-row code {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-.buttonInventory .unicorn-cta.unicorn-white::before,
-.buttonInventory .unicorn-cta.unicorn-white:hover::before {
+.buttonInventory .product-cta.cta-white::before,
+.buttonInventory .product-cta.cta-white:hover::before {
   opacity: 0;
 }
-.buttonInventory .unicorn-cta.unicorn-white:hover {
+.buttonInventory .product-cta.cta-white:hover {
   background-color: #fff;
 }
-/* Unicorn .button.primary edge, on our purple.
+/* Primary edge, on our purple.
    Fill Purple 500 #731DFB. Inset 1px top Purple 300 #A873FF,
    inset 1px bottom the brand-flat hover #6317E3.
    Hover fill is linear-gradient(180deg, #731DFB 0%, #9452FF 100%). */
-.buttonInventory .unicorn-cta.unicorn-primary {
+.buttonInventory .product-cta.cta-primary {
   background-color: var(--topview-purple);
   background-image: none;
   color: #fff;
@@ -508,16 +571,16 @@ html.light .buttonInventory .size-table-row code {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-.buttonInventory .unicorn-cta.unicorn-primary::before,
-.buttonInventory .unicorn-cta.unicorn-primary:hover::before {
+.buttonInventory .product-cta.cta-primary::before,
+.buttonInventory .product-cta.cta-primary:hover::before {
   opacity: 0;
 }
-.buttonInventory .unicorn-cta.unicorn-primary:hover {
+.buttonInventory .product-cta.cta-primary:hover {
   background-image: linear-gradient(180deg, var(--topview-purple) 0%, #9452FF 100%);
 }
 @media (prefers-reduced-motion: reduce) {
-  .buttonInventory .unicorn-cta,
-  .buttonInventory .unicorn-cta::before {
+  .buttonInventory .product-cta,
+  .buttonInventory .product-cta::before {
     transition: none;
   }
 }

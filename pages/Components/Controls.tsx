@@ -521,15 +521,15 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
         <SectionHeading title={t.fieldTitle} />
         <div className="stage">
           <div className="field-stack">
-            <div className="unicorn-login-fields">
-              <input className="unicorn-login-input" type="email" placeholder="Email" aria-label="Email" />
-              <input className="unicorn-login-input" type="password" placeholder="Password" aria-label="Password" />
+            <div className="login-fields">
+              <input className="login-input" type="email" placeholder="Email" aria-label="Email" />
+              <input className="login-input" type="password" placeholder="Password" aria-label="Password" />
             </div>
             <div className="form-field">
               <label className="form-field-label" htmlFor="activity-proof">{t.textareaLabel}</label>
               <input
                 id="activity-proof"
-                className="unicorn-login-input"
+                className="login-input"
                 type="text"
                 value={proof}
                 placeholder={t.textareaPlaceholder}

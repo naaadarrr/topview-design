@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "topview",
+  "homepage": "https://topview-design.vercel.app",
+  "items": [
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Topview button.",
+      "files": [
+        {
+          "path": "registry/button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/button.css",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}

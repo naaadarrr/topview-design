@@ -1,0 +1,243 @@
+/* Same values as the Buttons page specimen. Variables fall back to those values
+   so a product repo can render the button before it defines the tokens. */
+
+.product-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: var(--radius-02, 8px);
+  background-color: rgba(255, 255, 255, 0.86);
+  background-image:
+    linear-gradient(180deg, #fff 0 1px, transparent 1px),
+    linear-gradient(0deg, #fff 0 1px, transparent 1px);
+  color: #181818;
+  font-family: Inter, -apple-system, system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 0 #fff,
+    inset 0 -1px 0 0 #fff,
+    inset 0 0 0 1px #fff;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-image 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    linear-gradient(180deg, rgb(255 255 255 / 0.38) 0%, transparent 48%),
+    radial-gradient(75% 65% at 50% 115%, rgb(255 255 255 / 0.42) 0%, transparent 72%);
+  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-cta:hover {
+  background-color: #fff;
+}
+.product-cta:hover::before {
+  opacity: 1;
+}
+.product-cta:active {
+  background-color: rgba(255, 255, 255, 0.86);
+}
+.product-cta:active::before {
+  opacity: 0;
+}
+.product-cta:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+.product-cta.cta-white {
+  background-color: rgba(255, 255, 255, 0.86);
+  background-image: none;
+  color: #181818;
+  box-shadow:
+    inset 0 1px 0 0 #fff,
+    inset 0 -1px 0 0 #c4c4c4;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.product-cta.cta-white::before,
+.product-cta.cta-white:hover::before {
+  opacity: 0;
+}
+.product-cta.cta-white:hover {
+  background-color: #fff;
+}
+.product-cta.cta-primary {
+  background-color: var(--topview-purple, #731DFB);
+  background-image: none;
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 0 #a873ff,
+    inset 0 -1px 0 0 #6317e3;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.product-cta.cta-primary::before,
+.product-cta.cta-primary:hover::before {
+  opacity: 0;
+}
+.product-cta.cta-primary:hover {
+  background-image: linear-gradient(180deg, var(--topview-purple, #731DFB) 0%, #9452FF 100%);
+}
+.product-cta.cta-primary.size-h32,
+.product-cta.cta-primary.size-h36,
+.product-cta.cta-primary.size-h40 {
+  padding: 0 20px;
+}
+.product-cta.cta-primary.size-h32 { height: 32px; }
+.product-cta.cta-primary.size-h36 { height: 36px; }
+.product-cta.cta-primary.size-h40 { height: 40px; }
+
+.product-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #fff;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: none;
+  white-space: nowrap;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+}
+.product-button.board-type {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.product-button.neutral-board {
+  border-radius: var(--radius-02, 8px);
+  padding: var(--spacing-03, 8px) var(--spacing-05, 16px);
+  background: #242424;
+  font-size: 14px;
+  line-height: 20px;
+  box-shadow:
+    inset 0 1px 0 0 #353537,
+    inset 0 -1px 0 0 #202020;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-button.neutral-board:hover { background: var(--fill, #2F2F2F); }
+.product-button.ghost-board {
+  height: 36px;
+  border-radius: var(--radius-02, 8px);
+  padding: 0 var(--spacing-05, 16px);
+  color: #8A8A8A;
+  font-size: 14px;
+  line-height: 20px;
+}
+.product-button.ghost-board:hover { background: rgba(255, 255, 255, 0.05); }
+.product-button.danger-board {
+  border-radius: var(--radius-02, 8px);
+  padding: var(--spacing-03, 8px) var(--spacing-05, 16px);
+  background-color: #dc2626;
+  background-image: none;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  box-shadow:
+    inset 0 1px 0 0 #f87171,
+    inset 0 -1px 0 0 #c32222;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-button.danger-board:hover { background-color: #ef4444; }
+.product-button.danger-board:active { background-color: #dc2626; }
+.product-button.danger-board:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 0 #f87171,
+    inset 0 -1px 0 0 #c32222,
+    0 0 0 2px #141414,
+    0 0 0 4px #f87171;
+}
+.product-button.auth-link {
+  gap: var(--spacing-03, 8px);
+  height: auto;
+  border: none;
+  border-radius: 6px;
+  padding: 0;
+  background-color: transparent;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.product-button.auth-link:hover { text-decoration: underline; }
+
+.cancel-board {
+  position: relative;
+  isolation: isolate;
+  --rim-top: 0.32;
+  --rim-bot: 0.22;
+  border: 0;
+  border-radius: var(--radius-02, 8px);
+  padding: var(--spacing-03, 8px) var(--spacing-05, 16px);
+  background: transparent;
+  color: #fff;
+  font-family: Inter, -apple-system, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.cancel-board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, var(--rim-top)), rgba(255, 255, 255, var(--rim-bot)) 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.cancel-board:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+.cancel-board:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #8A8A8A;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-cta,
+  .product-cta::before,
+  .product-button.danger-board,
+  .product-button.neutral-board,
+  .product-button.auth-link,
+  .cancel-board {
+    transition: none;
+  }
+}
