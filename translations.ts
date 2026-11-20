@@ -124,7 +124,7 @@ export const translations = {
     },
     buttonInventory: {
       variants: "Variants",
-      copyCommand: "Copy command",
+      copyCommand: "Copy prompt",
       copiedCommand: "Copied",
       groupTitle: "Button group",
       pageLine: "Button styles in use on the main path, grouped by role.",
@@ -597,7 +597,7 @@ export const translations = {
     },
     buttonInventory: {
       variants: "变体",
-      copyCommand: "复制命令",
+      copyCommand: "复制提示词",
       copiedCommand: "已复制",
       groupTitle: "按钮组",
       pageLine: "主路径在用的按钮样式，按角色分组。",

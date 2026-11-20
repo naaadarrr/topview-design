@@ -4,7 +4,7 @@ import { Language, translations } from '../../translations';
 import './controls-specimens.css';
 import './button-inventory.css';
 
-export const BUTTON_INSTALL_COMMAND = 'npx shadcn add @topview/button';
+export const BUTTON_PROMPT = `Add a Topview button to this project. Read https://raw.githubusercontent.com/naaadarrr/topview-design/main/registry/button.tsx and https://raw.githubusercontent.com/naaadarrr/topview-design/main/registry/button.css. Copy that component. Use only the variants it defines. Do not invent new ones.`;
 
 export const ButtonInstall: React.FC<{ language: Language }> = ({ language }) => {
   const t = translations[language].buttonInventory;
@@ -17,7 +17,7 @@ export const ButtonInstall: React.FC<{ language: Language }> = ({ language }) =>
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(BUTTON_INSTALL_COMMAND);
+      await navigator.clipboard.writeText(BUTTON_PROMPT);
       setCopied(true);
       if (timer.current) window.clearTimeout(timer.current);
       timer.current = window.setTimeout(() => setCopied(false), 1500);
@@ -27,12 +27,10 @@ export const ButtonInstall: React.FC<{ language: Language }> = ({ language }) =>
   };
 
   return (
-    <div className="install-command">
-      <code>{BUTTON_INSTALL_COMMAND}</code>
-      <button type="button" onClick={copy} aria-label={copied ? t.copiedCommand : t.copyCommand}>
-        {copied ? <Check size={14} strokeWidth={2} /> : <Copy size={14} strokeWidth={2} />}
-      </button>
-    </div>
+    <button type="button" className="prompt-copy" onClick={copy}>
+      {copied ? <Check size={14} strokeWidth={2} /> : <Copy size={14} strokeWidth={2} />}
+      {copied ? t.copiedCommand : t.copyCommand}
+    </button>
   );
 };
 
