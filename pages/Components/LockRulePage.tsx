@@ -86,10 +86,10 @@ const LockRulePage: React.FC<LockRulePageProps> = ({ language, lockId, onNavigat
   }
 
   const page = lock.page;
-  const goOverview = () => onNavigate?.('components', 'components-rules');
+  const goOverview = () => onNavigate?.('components-rules');
   const goRelated = (id: string) => {
     const related = (lockedSystem.locks as LockRecord[]).find((item) => item.id === id);
-    if (related?.page) onNavigate?.('components', `components-rules/${id}`);
+    if (related?.page) onNavigate?.('components-rules', `components-rules/${id}`);
   };
 
   return (

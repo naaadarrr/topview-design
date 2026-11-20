@@ -30,8 +30,8 @@ const CircleIcon = () => (
 
 const RadioCheckedIcon = () => (
   <svg className="radio-mark" viewBox="0 0 18 18" aria-hidden="true">
-    <circle cx="9" cy="9" r="8.5" fill="none" stroke="#731DFB" strokeWidth="1" />
-    <circle cx="9" cy="9" r="6" fill="#731DFB" />
+    <circle cx="9" cy="9" r="8.5" fill="none" stroke="var(--topview-purple)" strokeWidth="1" />
+    <circle cx="9" cy="9" r="6" fill="var(--topview-purple)" />
   </svg>
 );
 
@@ -109,7 +109,11 @@ const SearchField: React.FC<{
       tabIndex={disabled || showFocus ? -1 : undefined}
       aria-label={placeholder}
     />
-    <kbd aria-hidden="true">{shortcut}</kbd>
+    <kbd aria-hidden="true">
+      {[...shortcut].map((glyph, index) => (
+        <span key={`${glyph}-${index}`} className={'⌘⌥⌃⇧'.includes(glyph) ? 'is-symbol' : undefined}>{glyph}</span>
+      ))}
+    </kbd>
   </label>
 );
 
@@ -490,6 +494,7 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
   const [sliderSm, setSliderSm] = useState(2);
   const [gridSize, setGridSize] = useState(4);
   const [batchMode, setBatchMode] = useState(false);
+  const [proof, setProof] = useState('');
   const [ack, setAck] = useState(false);
   const [ackOn, setAckOn] = useState(true);
   const [resolution, setResolution] = useState<'720' | '1080'>('1080');
@@ -512,6 +517,29 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
       <div>
         <GroupLabel title={t.fieldsTitle} />
         <div className="mt-6 space-y-24">
+      <section>
+        <SectionHeading title={t.fieldTitle} />
+        <div className="stage">
+          <div className="field-stack">
+            <div className="unicorn-login-fields">
+              <input className="unicorn-login-input" type="email" placeholder="Email" aria-label="Email" />
+              <input className="unicorn-login-input" type="password" placeholder="Password" aria-label="Password" />
+            </div>
+            <div className="form-field">
+              <label className="form-field-label" htmlFor="activity-proof">{t.textareaLabel}</label>
+              <input
+                id="activity-proof"
+                className="unicorn-login-input"
+                type="text"
+                value={proof}
+                placeholder={t.textareaPlaceholder}
+                onChange={(event) => setProof(event.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section>
         <SectionHeading title={t.inputTitle} />
         <div className="stage">
@@ -574,7 +602,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             </div>
           </div>
         </div>
-        <p className="caption">{t.selectNote}</p>
       </section>
 
       <section>
@@ -589,7 +616,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             }}
           />
         </div>
-        <p className="caption">{t.segmentNote}</p>
       </section>
 
       <section>
@@ -624,7 +650,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             </figure>
           </div>
         </div>
-        <p className="caption">{t.searchSelectNote}</p>
       </section>
         </div>
       </div>
@@ -663,7 +688,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             </figure>
           </div>
         </div>
-        <p className="caption">{t.switchNote}</p>
       </section>
 
       <section>
@@ -688,7 +712,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             </figure>
           </div>
         </div>
-        <p className="caption">{t.checkboxNote}</p>
       </section>
 
       <section>
@@ -719,7 +742,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
             </figure>
           </div>
         </div>
-        <p className="caption">{t.radioNote}</p>
       </section>
         </div>
       </div>

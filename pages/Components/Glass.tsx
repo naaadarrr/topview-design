@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Language, translations } from '../../translations';
 import './glass-specimens.css';
 
@@ -48,40 +48,11 @@ const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
   </h3>
 );
 
-const MicroCard: React.FC<{
-  variant: 'a' | 'daily' | 'b';
-  cap: string;
-  heading: string;
-  body: string;
-  caption: string;
-}> = ({ variant, cap, heading, body, caption }) => (
-  <figure>
-    <div className={`card-micro ${variant}`}>
-      <div className="cap">{cap}</div>
-      <h3>{heading}</h3>
-      <p>{body}</p>
-    </div>
-    <figcaption>{caption}</figcaption>
-  </figure>
-);
-
 const Glass: React.FC<GlassProps> = ({ language }) => {
   const t = translations[language].glass;
-  const [forceTooltip, setForceTooltip] = useState(false);
-  const [escHide, setEscHide] = useState(false);
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setEscHide(true);
-        setForceTooltip(false);
-      }
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, []);
 
   return (
-    <div className={`glassSpecimens space-y-24 ${forceTooltip ? 'force-tt' : ''}`}>
+    <div className="glassSpecimens space-y-24">
       <section id="glass-banner-arrow">
         <SectionHeading title={t.arrowTitle} />
         <div className="stage">
@@ -100,33 +71,9 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
         <SectionHeading title={t.cardsTitle} />
         <div className="stage">
           <div className="cards">
-            <MicroCard
-              variant="a"
-              cap={t.cardCap}
-              heading={t.cardHeading}
-              body={t.cardBody}
-              caption={t.cardACaption}
-            />
-            <MicroCard
-              variant="daily"
-              cap={t.cardCap}
-              heading={t.cardHeading}
-              body={t.cardBody}
-              caption={t.cardDailyCaption}
-            />
+            <div className="card-micro a is-plate" />
+            <div className="card-micro daily is-plate" />
           </div>
-          <details className="card-archive">
-            <summary>{t.cardArchive}</summary>
-            <div className="cards">
-              <MicroCard
-                variant="b"
-                cap={t.cardCap}
-                heading={t.cardHeading}
-                body={t.cardBody}
-                caption={t.cardBCaption}
-              />
-            </div>
-          </details>
         </div>
       </section>
 
@@ -151,46 +98,6 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
         <SectionHeading title={t.pendingTitle} />
 
         <div className="space-y-10 mt-8">
-          <div id="glass-tooltip" className="scroll-mt-8">
-            <SectionHeading title={t.tooltipTitle} />
-            <div className="stage tt-stage">
-              <div className="row" style={{ alignItems: 'flex-end', gap: 28, paddingTop: 36 }}>
-                <div
-                  className={`tt-wrap ${escHide ? 'esc-hide' : ''}`}
-                  onMouseEnter={() => setEscHide(false)}
-                >
-                  <div className="tt" role="tooltip">
-                    {t.tooltipLabel}
-                  </div>
-                  <button
-                    className="glass-btn"
-                    type="button"
-                    onFocus={() => setEscHide(false)}
-                  >
-                    {t.tooltipTrigger}
-                  </button>
-                </div>
-                <div className="tt-cap">
-                  <h3>{t.tooltipTitle}</h3>
-                  <p>{t.tooltipBlurb}</p>
-                </div>
-              </div>
-              <div style={{ marginTop: 16 }}>
-                <button
-                  className="glass-btn"
-                  type="button"
-                  aria-pressed={forceTooltip}
-                  onClick={() => {
-                    setForceTooltip((v) => !v);
-                    setEscHide(false);
-                  }}
-                >
-                  {forceTooltip ? t.tooltipForceHide : t.tooltipForce}
-                </button>
-              </div>
-            </div>
-          </div>
-
           <div>
             <SectionHeading title={t.iconBtnTitle} />
             <div className="stage">

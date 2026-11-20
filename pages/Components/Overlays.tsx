@@ -64,10 +64,6 @@ const Overlays: React.FC<OverlaysProps> = ({ language }) => {
 
   return (
     <div className="overlaySpecimens space-y-24">
-      <p className="max-w-2xl text-[20px] leading-[26px] font-sans text-white font-normal">
-        {t.pageLine}
-      </p>
-
       <section>
         <SectionHeading title={t.popover} />
         <div className="stage is-popover">

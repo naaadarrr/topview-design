@@ -48,7 +48,7 @@
   border-radius: 16px;
   padding: 64px 48px;
   overflow: hidden;
-  background: #101010;
+  background: var(--background);
   border: 1px solid #ffffff10;
   display: flex;
   flex-direction: column;
@@ -71,7 +71,7 @@
      of that padded column; it has no width token of its own. */
   width: 416px;
   max-width: 100%;
-  border-radius: 16px;
+  border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.04);
   background: rgba(255, 255, 255, 0.08);
 }
@@ -100,7 +100,7 @@
   min-height: 240px;
   margin: 0;
   border: 0;
-  border-radius: 16px;
+  border-radius: 24px;
   padding: 8px 12px;
   resize: none;
   background: transparent;
@@ -118,7 +118,7 @@
 }
 
 .controlsSpecimens .prompt-surface textarea::selection {
-  background: #731dfb;
+  background: var(--topview-purple);
   color: #fff;
 }
 
@@ -174,7 +174,7 @@
 }
 
 .controlsSpecimens .search-field input::selection {
-  background: #731dfb;
+  background: var(--topview-purple);
   color: #fff;
 }
 
@@ -185,16 +185,38 @@
 .controlsSpecimens .search-field kbd {
   display: inline-flex;
   align-items: center;
-  height: 18px;
-  padding: 0 4px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #050505;
-  color: rgba(255, 255, 255, 0.72);
-  font: inherit;
-  font-size: 11px;
-  line-height: 14px;
+  justify-content: center;
+  gap: 0;
+  box-sizing: border-box;
   flex-shrink: 0;
+  height: 22px;
+  margin: 0;
+  padding: 0 5px;
+  border: 0;
+  border-radius: 5px;
+  background: #1a1a1a;
+  color: #c8c8c8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0;
+  user-select: none;
+  box-shadow: 0 2px 1px rgba(52, 52, 52, 0.7);
+}
+
+.controlsSpecimens .search-field kbd span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.controlsSpecimens .search-field kbd span.is-symbol {
+  font-size: 15px;
 }
 
 @media (max-height: 900px) {
@@ -299,7 +321,7 @@
 
 .controlsSpecimens .form-checkbox.is-checked {
   border-color: transparent;
-  background: #731dfb;
+  background: var(--topview-purple);
 }
 
 .controlsSpecimens .form-checkbox:focus-visible,
@@ -323,7 +345,7 @@
 .controlsSpecimens .radio-field {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-05);
 }
 
 .controlsSpecimens .radio-field-label {
@@ -337,7 +359,7 @@
 .controlsSpecimens .radio-group {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-05);
   flex-wrap: wrap;
 }
 
@@ -429,15 +451,15 @@
   overflow: hidden;
   width: 12rem;
   border: 0;
-  border-radius: 16px;
+  border-radius: var(--radius-05);
   padding: 0;
   color: #fff;
   background-color: transparent;
   background-image: linear-gradient(
     to bottom,
-    #101010 0%,
-    #101010 65%,
-    rgba(16, 16, 16, 0.68) 100%
+    var(--background) 0%,
+    var(--background) 65%,
+    color-mix(in srgb, var(--background) 68%, transparent) 100%
   );
   -webkit-backdrop-filter: blur(40px);
   backdrop-filter: blur(40px);
@@ -494,13 +516,13 @@
   gap: 1px;
   max-height: 360px;
   overflow-y: auto;
-  padding: 8px;
+  padding: var(--spacing-03);
 }
 
 .controlsSpecimens .select-item {
   border: 0;
   border-radius: 8px;
-  padding: 8px;
+  padding: var(--spacing-03);
   background: transparent;
   color: #fff;
   font-size: 14px;
@@ -852,7 +874,7 @@
   top: 50%;
   width: 28px;
   height: 28px;
-  border-radius: 8px;
+  border-radius: var(--radius-02);
   background: #3a3a3a;
   pointer-events: none;
   transform-origin: center;
@@ -875,5 +897,131 @@
   width: 1px;
   height: 16px;
   background: #333333;
+}
+
+/* Ohm field, input, textarea, native select. Dark values from design.ohmmmm.com/forms. */
+.controlsSpecimens .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(334px, 100%);
+  text-align: left;
+}
+
+.controlsSpecimens .form-field-label {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #ededed;
+}
+
+.controlsSpecimens .form-field-helper {
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+  color: #a1a1a1;
+}
+
+.controlsSpecimens .form-field-control {
+  margin: 0;
+}
+
+.controlsSpecimens .text-input,
+.controlsSpecimens .note-area {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #262626;
+  background: rgba(38, 38, 38, 0.3);
+  color: #ededed;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  caret-color: #b57bff;
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+}
+
+.controlsSpecimens .text-input {
+  height: 36px;
+  padding: 4px 12px;
+  border-radius: 28px;
+}
+
+.controlsSpecimens .note-area {
+  min-height: 64px;
+  padding: 12px;
+  border-radius: 16px;
+  resize: none;
+}
+
+.controlsSpecimens .text-input::placeholder,
+.controlsSpecimens .note-area::placeholder {
+  color: #a1a1a1;
+}
+
+.controlsSpecimens .text-input::selection,
+.controlsSpecimens .note-area::selection {
+  background: var(--topview-purple);
+  color: #fff;
+}
+
+.controlsSpecimens .text-input:focus,
+.controlsSpecimens .note-area:focus {
+  border-color: #ededed;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(237, 237, 237, 0.5);
+}
+
+/* Login field structure, site tokens.
+   Fill #242424. Inset bottom 1px #202020. Radius --radius-02 8px. Padding 12px.
+   Text 14px #fff. Placeholder white 40%.
+   Caret and focus outline use --topview-purple (Purple 500 #731DFB).
+   Focus outline 2px, offset 2px. */
+.controlsSpecimens .field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+  width: min(334px, 100%);
+}
+
+.controlsSpecimens .unicorn-login-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.controlsSpecimens .field-stack .form-field {
+  width: 100%;
+}
+
+.controlsSpecimens .unicorn-login-input {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: var(--radius-02);
+  padding: var(--spacing-04);
+  background: #242424;
+  color: #fff;
+  box-shadow: inset 0 -1px 0 #202020;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  outline: none;
+  caret-color: var(--topview-purple);
+  transition: outline 150ms ease-out;
+}
+
+.controlsSpecimens .unicorn-login-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.controlsSpecimens .unicorn-login-input:focus,
+.controlsSpecimens .unicorn-login-input.show-focus {
+  outline: 2px solid var(--topview-purple);
+  outline-offset: 2px;
 }
 

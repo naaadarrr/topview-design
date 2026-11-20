@@ -1,0 +1,352 @@
+/* Status badge lab. Badge metrics stay on .hf-badge. This file is the
+   Toolcraft inspector plus the stage. */
+
+.status-badge-lab .status-badge-live {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.status-badge-lab .status-badge-live.is-current {
+  outline: 1px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 4px;
+}
+
+.status-badge-lab .status-badge-live:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 4px;
+}
+
+.badge-debug {
+  --bd-bg: oklch(0.205 0 0);
+  --bd-fg: oklch(0.977 0 0);
+  --bd-muted: #262626;
+  --bd-border: oklch(0.311 0.013 279.19);
+  --bd-ring: oklch(0.556 0 0);
+  position: fixed;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-height: calc(100dvh - 20px);
+  border-radius: 8px;
+  border: 1px solid color-mix(in oklab, var(--bd-border) 12%, transparent);
+  background: color-mix(in oklab, var(--bd-bg) 75%, transparent);
+  backdrop-filter: blur(40px) saturate(1.5);
+  -webkit-backdrop-filter: blur(40px) saturate(1.5);
+  color: var(--bd-fg);
+  font-family: Inter, "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+  user-select: none;
+}
+
+.badge-debug.is-inline {
+  position: relative;
+  z-index: 1;
+  width: min(300px, 100%);
+  margin-top: 16px;
+}
+
+.badge-debug-header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 0 4px 0 12px;
+  border-bottom: 1px solid color-mix(in oklab, var(--bd-border) 8%, transparent);
+  cursor: grab;
+  touch-action: none;
+}
+
+.badge-debug-header:active {
+  cursor: grabbing;
+}
+
+.badge-debug.is-collapsed .badge-debug-header {
+  border-bottom-color: transparent;
+}
+
+.badge-debug-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+}
+
+.badge-debug-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: color-mix(in oklab, var(--bd-fg) 72%, transparent);
+  cursor: pointer;
+}
+
+.badge-debug-icon:hover {
+  background: color-mix(in oklab, var(--bd-fg) 8%, transparent);
+  color: var(--bd-fg);
+}
+
+.badge-debug-icon svg {
+  display: block;
+}
+
+.badge-debug-chevron {
+  transform: rotate(180deg);
+  transition: transform 150ms ease-out;
+}
+
+.badge-debug.is-collapsed .badge-debug-chevron {
+  transform: none;
+}
+
+.badge-debug-reset.is-spin svg {
+  animation: badge-debug-spin 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes badge-debug-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.badge-debug-body {
+  display: grid;
+  grid-template-rows: 1fr;
+  min-height: 0;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.badge-debug.is-ready .badge-debug-body {
+  transition: grid-template-rows 180ms ease-out, opacity 150ms ease-out;
+}
+
+.badge-debug.is-collapsed .badge-debug-body {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.badge-debug-scroll {
+  min-height: 0;
+  max-height: calc(100dvh - 56px);
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--bd-fg) 10%, transparent) transparent;
+}
+
+.badge-debug-scroll.is-overflowing {
+  mask-image: linear-gradient(to bottom, transparent, #000 44px, #000 calc(100% - 44px), transparent);
+}
+
+.badge-debug-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.badge-debug-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.badge-debug-scroll::-webkit-scrollbar-thumb {
+  min-height: 44px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--bd-fg) 10%, transparent);
+}
+
+.badge-debug-section {
+  padding: 8px 12px 24px;
+}
+
+.badge-debug-section + .badge-debug-section {
+  border-top: 1px solid color-mix(in oklab, var(--bd-border) 8%, transparent);
+}
+
+.badge-debug-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 36px;
+  margin: 0 -12px;
+  padding: 0 12px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  color: color-mix(in oklab, var(--bd-fg) 75%, transparent);
+}
+
+.badge-debug-section-title:hover {
+  background: color-mix(in oklab, var(--bd-fg) 3%, transparent);
+}
+
+.badge-debug-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.badge-debug-seg {
+  display: flex;
+  width: 100%;
+  padding: 2px;
+  border: 1px solid color-mix(in oklab, var(--bd-border) 40%, transparent);
+  border-radius: 6px;
+  background: color-mix(in oklab, var(--bd-fg) 4%, transparent);
+}
+
+.badge-debug-seg button {
+  flex: 1;
+  height: 26px;
+  margin: 0;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: color-mix(in oklab, var(--bd-fg) 70%, transparent);
+  font: 500 12px/16px Inter, "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.badge-debug-seg button[aria-checked='true'] {
+  background: color-mix(in oklab, var(--bd-fg) 10%, transparent);
+  color: var(--bd-fg);
+}
+
+.badge-debug-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.badge-debug-field-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  line-height: 16px;
+  color: color-mix(in oklab, var(--bd-fg) 72%, transparent);
+}
+
+.badge-debug-field-value {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--bd-fg);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge-debug-value-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  color: var(--bd-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.badge-debug-value,
+.badge-debug-value-input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.badge-debug-value {
+  cursor: text;
+}
+
+.badge-debug-value-input {
+  width: 2.4em;
+  border-bottom: 1px solid color-mix(in oklab, var(--bd-fg) 35%, transparent);
+  border-radius: 0;
+  user-select: text;
+}
+
+.badge-debug-track {
+  position: relative;
+  height: 16px;
+  touch-action: none;
+  cursor: pointer;
+}
+
+.badge-debug-track-line,
+.badge-debug-track-fill {
+  position: absolute;
+  top: 7px;
+  height: 2px;
+  border-radius: 999px;
+}
+
+.badge-debug-track-line {
+  right: 0;
+  left: 0;
+  background: var(--bd-muted);
+}
+
+.badge-debug-track-fill {
+  left: 0;
+  background: var(--bd-fg);
+}
+
+.badge-debug-thumb {
+  position: absolute;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--bd-fg);
+  transform: translateX(-50%);
+}
+
+.badge-debug-palette {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px 6px;
+}
+
+.badge-debug-swatch {
+  aspect-ratio: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid color-mix(in oklab, var(--bd-fg) 16%, transparent);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.badge-debug-swatch.is-selected {
+  outline: 1px solid var(--bd-fg);
+  outline-offset: 2px;
+}
+
+.badge-debug :focus {
+  outline: none;
+}
+
+.badge-debug :focus-visible {
+  outline: 1px solid var(--bd-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-debug.is-ready .badge-debug-body,
+  .badge-debug-chevron,
+  .badge-debug-reset.is-spin svg {
+    transition: none;
+    animation: none;
+  }
+}

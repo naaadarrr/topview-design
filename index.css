@@ -1,16 +1,43 @@
+/* Decided foundation tokens. Keep values identical to constants/foundationTokens.ts.
+   Pending gray roles and pending radius duties are not declared here.
+   --topview-purple and --bg-dark stay in index.html. --bg-dark (#111111) is not --background. */
+:root {
+  --background: #101010;
+  --surface: #131313;
+  --fill: #2F2F2F;
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-strong: #232323;
+
+  --spacing-01: 2px;
+  --spacing-02: 4px;
+  --spacing-03: 8px;
+  --spacing-04: 12px;
+  --spacing-05: 16px;
+  --spacing-06: 24px;
+  --spacing-07: 32px;
+  --spacing-08: 40px;
+
+  --radius-01: 6px;
+  --radius-02: 8px;
+  --radius-03: 10px;
+  --radius-04: 12px;
+  --radius-05: 16px;
+  --radius-pill: 9999px;
+}
+
 /* Site chrome theme mapping.
    Dark is the default (html.dark). Light only needs to switch and stay readable.
-   Locked product specimen stages stay #101010. Color formal-board hexes are not redefined. */
+   Locked product specimen stages stay on --background. Color formal-board hexes are not redefined. */
 
 html.dark {
   color-scheme: dark;
 }
 
-/* Dark page chrome = #101010 (index.html --bg-dark #111111 is left as is; this overrides it in dark). */
+/* Dark page chrome uses --background (index.html --bg-dark #111111 is left as is; this overrides it in dark). */
 html.dark,
 html.dark body,
 html.dark #root {
-  background-color: #101010;
+  background-color: var(--background);
 }
 
 html.light {

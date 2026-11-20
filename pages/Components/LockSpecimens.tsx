@@ -131,7 +131,6 @@ const GlassToast: React.FC<{ tone: string; title: string; body: string; dataTone
 
 const LockSpecimens: React.FC<LockSpecimensProps> = ({ lockId, language }) => {
   const t = translations[language].glass;
-  const zh = translations.zh.glass;
   const [bfIndex, setBfIndex] = useState(0);
 
   if (lockId === 'module-hover-icons') {
@@ -215,10 +214,10 @@ const LockSpecimens: React.FC<LockSpecimensProps> = ({ lockId, language }) => {
 
   if (lockId === 'alert-b') {
     const alerts = [
-      { tone: 'info', title: zh.alertInfoTitle, body: zh.alertInfoBody },
-      { tone: 'success', title: zh.alertSuccessTitle, body: zh.alertSuccessBody },
-      { tone: 'warning', title: zh.alertWarningTitle, body: zh.alertWarningBody },
-      { tone: 'danger', title: zh.alertDangerTitle, body: zh.alertDangerBody },
+      { tone: 'info', title: t.alertInfoTitle, body: t.alertInfoBody },
+      { tone: 'success', title: t.alertSuccessTitle, body: t.alertSuccessBody },
+      { tone: 'warning', title: t.alertWarningTitle, body: t.alertWarningBody },
+      { tone: 'danger', title: t.alertDangerTitle, body: t.alertDangerBody },
     ];
     return (
       <div className="alertBSpecimen glassSpecimens">
@@ -256,10 +255,10 @@ const LockSpecimens: React.FC<LockSpecimensProps> = ({ lockId, language }) => {
 
   if (lockId === 'alert-d') {
     const alerts = [
-      { tone: 'info', title: zh.alertInfoTitle, body: zh.alertInfoBody },
-      { tone: 'success', title: zh.alertSuccessTitle, body: zh.alertSuccessBody },
-      { tone: 'warning', title: zh.alertWarningTitle, body: zh.alertWarningBody },
-      { tone: 'danger', title: zh.alertDangerTitle, body: zh.alertDangerBody },
+      { tone: 'info', title: t.alertInfoTitle, body: t.alertInfoBody },
+      { tone: 'success', title: t.alertSuccessTitle, body: t.alertSuccessBody },
+      { tone: 'warning', title: t.alertWarningTitle, body: t.alertWarningBody },
+      { tone: 'danger', title: t.alertDangerTitle, body: t.alertDangerBody },
     ];
     return (
       <div className="glassSpecimens">

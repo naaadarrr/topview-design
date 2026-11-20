@@ -7,10 +7,10 @@ import {
 import { HOMEPAGE_GRAY_GROUPS } from '../constants/homepageGrays';
 import {
   COLOR_CROSS_LAYER,
-  COLOR_FORMAL_BOARD,
+  COLOR_ROLE_PRIMARY,
   COLOR_ROLES,
   type CrossLayerId,
-  type ColorRoleId,
+  type RoleCandidate,
 } from '../constants/colorRoles';
 import { Language, translations } from '../translations';
 import { ColorSwatch } from '../types';
@@ -21,20 +21,6 @@ interface ColorsProps {
 
 
 type ColorCopy = (typeof translations)['en']['colors'];
-
-const ROLE_TITLE_KEY: Record<ColorRoleId, keyof ColorCopy> = {
-  background: 'layersRoleBackground',
-  surface: 'layersRoleSurface',
-  'surface-raised': 'layersRoleSurfaceRaised',
-  overlay: 'layersRoleOverlay',
-};
-
-const ROLE_DUTY_KEY: Record<ColorRoleId, keyof ColorCopy> = {
-  background: 'layersDutyBackground',
-  surface: 'layersDutySurface',
-  'surface-raised': 'layersDutySurfaceRaised',
-  overlay: 'layersDutyOverlay',
-};
 
 const CROSS_TITLE_KEY: Record<CrossLayerId, keyof ColorCopy> = {
   text: 'layersRoleText',
@@ -50,99 +36,26 @@ const CROSS_DUTY_KEY: Record<CrossLayerId, keyof ColorCopy> = {
   fill: 'layersDutyFill',
 };
 
-const MAPPED_SOURCE_KEY: Partial<Record<ColorRoleId | CrossLayerId, keyof ColorCopy>> = {
-  background: 'layersSourceBackground',
-  surface: 'layersSourceSurface',
-  'border-subtle': 'layersSourceBorderSubtle',
-  'border-strong': 'layersSourceBorderStrong',
-  fill: 'layersSourceFill',
-};
-
-const formalTitle = (t: ColorCopy, id: ColorRoleId | CrossLayerId) =>
-  id in ROLE_TITLE_KEY ? t[ROLE_TITLE_KEY[id as ColorRoleId]] : t[CROSS_TITLE_KEY[id as CrossLayerId]];
-
-const formalDuty = (t: ColorCopy, id: ColorRoleId | CrossLayerId) =>
-  id in ROLE_DUTY_KEY ? t[ROLE_DUTY_KEY[id as ColorRoleId]] : t[CROSS_DUTY_KEY[id as CrossLayerId]];
-
-const RolePlate: React.FC<{
-  name: string;
-  duty: string;
-  hex: string | null;
+const HexNote: React.FC<{
+  item: RoleCandidate;
+  note: string;
   pendingLabel: string;
-  mappedSource?: string;
-  candidates?: { hex: string; note: string; pending?: boolean }[];
   copied: string | null;
   onCopy: (hex: string) => void;
-}> = ({ name, duty, hex, pendingLabel, mappedSource, candidates, copied, onCopy }) => {
-  const isPending = !hex;
-  return (
-    <div>
-      {hex ? (
-        <button
-          type="button"
-          onClick={() => onCopy(hex)}
-          aria-label={copied === hex ? `Copied ${hex}` : `Copy ${hex}`}
-          className="block w-full text-left"
-        >
-          <div
-            className="aspect-[5/4] w-full rounded-[20px] border border-white/15"
-            style={{ background: hex }}
-          />
-        </button>
-      ) : (
-        <div
-          className="aspect-[5/4] w-full rounded-[20px] border border-dashed border-white/30 bg-transparent"
-          aria-label={`${name} ${pendingLabel}`}
-        />
-      )}
-      <div className="mt-3 min-w-0">
-        <div className="font-sans text-[20px] leading-[26px] font-semibold text-white">{name}</div>
-        <div className="mt-0.5 font-sans text-[14px] leading-[20px] text-white/55">{duty}</div>
-        {hex ? (
-          <div className="mt-1 font-sans text-[13px] leading-[18px] font-medium tabular-nums text-white/80">
-            {hex}
-          </div>
-        ) : (
-          <div className="mt-1 font-sans text-[12px] leading-[18px] text-white/45">{pendingLabel}</div>
-        )}
-        {hex && mappedSource && (
-          <p className="mt-1 font-sans text-[12px] leading-[17px] text-white/40">{mappedSource}</p>
-        )}
-        {candidates?.map((item) => (
-          item.pending ? (
-            <div key={`${name}-${item.hex}-${item.note}`} className="mt-3">
-              <div
-                className="aspect-[5/4] w-full rounded-[20px] border border-dashed border-white/30 bg-transparent"
-                aria-label={`${item.hex} ${pendingLabel}`}
-              />
-              <button
-                type="button"
-                onClick={() => onCopy(item.hex)}
-                aria-label={copied === item.hex ? `Copied ${item.hex}` : `Copy ${item.hex}`}
-                className="mt-1.5 block w-full text-left"
-              >
-                <span className="font-sans text-[13px] font-medium tabular-nums text-white/80">{item.hex}</span>
-                <span className="ml-1.5 font-sans text-[12px] leading-[18px] text-white/45">{pendingLabel}</span>
-              </button>
-              <p className="mt-1 font-sans text-[12px] leading-[17px] text-white/40">{item.note}</p>
-            </div>
-          ) : (
-            <button
-              key={`${name}-${item.hex}-${item.note}`}
-              type="button"
-              onClick={() => onCopy(item.hex)}
-              aria-label={copied === item.hex ? `Copied ${item.hex}` : `Copy ${item.hex}`}
-              className="mt-1.5 block w-full text-left"
-            >
-              <span className="font-sans text-[13px] font-medium tabular-nums text-white/80">{item.hex}</span>
-              <span className="ml-1.5 font-sans text-[13px] leading-[18px] text-white/40">{item.note}</span>
-            </button>
-          )
-        ))}
-      </div>
-    </div>
-  );
-};
+}> = ({ item, note, pendingLabel, copied, onCopy }) => (
+  <button
+    type="button"
+    onClick={() => onCopy(item.hex)}
+    aria-label={copied === item.hex ? `Copied ${item.hex}` : `Copy ${item.hex}`}
+    className="mt-2 block text-left"
+  >
+    <span className="font-sans text-[13px] font-medium tabular-nums text-white/80">{item.hex}</span>
+    {item.pending && (
+      <span className="ml-1.5 font-sans text-[12px] leading-[18px] text-white/45">{pendingLabel}</span>
+    )}
+    <span className="mt-0.5 block font-sans text-[12px] leading-[17px] text-white/45">{note}</span>
+  </button>
+);
 
 const Colors: React.FC<ColorsProps> = ({ language }) => {
 
@@ -160,7 +73,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
     name: 'TOPVIEW PURPLE',
     cmyk: '54 / 88 / 0 / 0',
     rgb: '115 / 29 / 251',
-    hex: '#731DFB',
+    hex: COLOR_ROLE_PRIMARY,
     pms: '—'
   };
 
@@ -188,6 +101,11 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
     </div>
   );
 
+  const background = COLOR_ROLES.find((role) => role.id === 'background');
+  const surface = COLOR_ROLES.find((role) => role.id === 'surface');
+  const raised = COLOR_ROLES.find((role) => role.id === 'surface-raised');
+  const overlay = COLOR_ROLES.find((role) => role.id === 'overlay');
+
   return (
     <div className="max-w-full text-white space-y-48 pb-40 overflow-x-hidden">
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 w-full">
@@ -211,7 +129,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
 
         <div
           className="group relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[10px] p-4 flex flex-col justify-end overflow-hidden hover:brightness-110 cursor-none"
-          style={{ backgroundColor: primaryColor.hex, transition: 'filter 0.7s ease' }}
+          style={{ backgroundColor: 'var(--topview-purple)', transition: 'filter 0.7s ease' }}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -232,16 +150,19 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
           <div className="flex flex-col items-start gap-12">
             <div className="text-white font-sans text-[10px] leading-loose uppercase tracking-[0.15em] font-medium space-y-1">
               <div className="flex gap-8">
-                <span className="w-12 inline-block text-white/50">NAME:</span> <span className="font-bold">{primaryColor.name}</span>
+                <span className="w-20 inline-block text-white/50">NAME:</span> <span className="font-bold">{primaryColor.name}</span>
               </div>
               <div className="flex gap-8">
-                <span className="w-12 inline-block text-white/50">CMYK:</span> <span className="font-bold">{primaryColor.cmyk}</span>
+                <span className="w-20 inline-block text-white/50">CMYK:</span> <span className="font-bold">{primaryColor.cmyk}</span>
               </div>
               <div className="flex gap-8">
-                <span className="w-12 inline-block text-white/50">RGB:</span> <span className="font-bold">{primaryColor.rgb}</span>
+                <span className="w-20 inline-block text-white/50">RGB:</span> <span className="font-bold">{primaryColor.rgb}</span>
               </div>
               <div className="flex gap-8">
-                <span className="w-12 inline-block text-white/50">HEX:</span> <span className="font-bold">{primaryColor.hex}</span>
+                <span className="w-20 inline-block text-white/50">TOKEN:</span> <span className="font-bold normal-case tracking-normal">--topview-purple</span>
+              </div>
+              <div className="flex gap-8">
+                <span className="w-20 inline-block text-white/50">HEX:</span> <span className="font-bold">{primaryColor.hex}</span>
               </div>
             </div>
           </div>
@@ -257,7 +178,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             {t.supportingDesc}
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
           {TOPVIEW_SUPPORTING_COLORS.map((color) => {
             const isCopied = copied === color.hex;
             return (
@@ -269,10 +190,10 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                 className="bg-transparent p-0 text-left"
               >
                 <div
-                  className="aspect-[5/4] rounded-[20px] border border-white/10"
+                  className="h-20 rounded-[20px] border border-white/10"
                   style={{ background: color.hex }}
                 />
-                <div className="mt-3 min-w-0">
+                <div className="mt-2 min-w-0">
                   <div className="font-sans text-[15px] leading-[20px] font-medium text-white">{color.name}</div>
                   <div className="mt-0.5 font-sans text-[13px] leading-[18px] text-white/55">{color.usage}</div>
                 <div className="mt-1 flex items-center justify-between gap-2">
@@ -311,23 +232,63 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
         <div className="max-w-2xl">
           <div
             className="rounded-[24px] p-8 border border-white/15"
-            style={{ background: '#101010' }}
+            style={{ background: background?.hex ?? 'transparent' }}
           >
-            <div className="font-sans text-[11px] leading-[16px] font-medium text-white/70 mb-6">
-              {t.layersRoleBackground}
-            </div>
-            <div className="rounded-[18px] p-8" style={{ background: '#131313' }}>
-              <div className="font-sans text-[11px] leading-[16px] font-medium text-white/80 mb-6">
-                {t.layersRoleSurface}
-              </div>
+            {background?.hex && (
+              <button
+                type="button"
+                onClick={() => copyToClipboard(background.hex!)}
+                aria-label={copied === background.hex ? `Copied ${background.hex}` : `Copy ${background.hex}`}
+                className="mb-6 block text-left"
+              >
+                <div className="font-sans text-[11px] leading-[16px] font-medium text-white/70">{t.layersRoleBackground}</div>
+                <div className="mt-1 font-sans text-[13px] leading-[18px] font-medium tabular-nums text-white">{background.hex}</div>
+                <div className="mt-0.5 font-sans text-[12px] leading-[17px] text-white/60">{t.layersDutyBackground}</div>
+              </button>
+            )}
+            <div className="rounded-[18px] p-8" style={{ background: surface?.hex ?? 'transparent' }}>
+              {surface?.hex && (
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(surface.hex!)}
+                  aria-label={copied === surface.hex ? `Copied ${surface.hex}` : `Copy ${surface.hex}`}
+                  className="mb-6 block text-left"
+                >
+                  <div className="font-sans text-[11px] leading-[16px] font-medium text-white/80">{t.layersRoleSurface}</div>
+                  <div className="mt-1 font-sans text-[13px] leading-[18px] font-medium tabular-nums text-white">{surface.hex}</div>
+                  <div className="mt-0.5 font-sans text-[12px] leading-[17px] text-white/60">{t.layersDutySurface}</div>
+                </button>
+              )}
               <div className="rounded-[14px] p-8 border border-dashed border-white/30 bg-transparent">
-                <div className="font-sans text-[11px] leading-[16px] font-medium text-white/55 mb-6">
+                <div className="font-sans text-[11px] leading-[16px] font-medium text-white/55">
                   {t.layersRoleSurfaceRaised} · {t.layersPending}
                 </div>
-                <div className="rounded-[10px] min-h-[8rem] p-8 border border-dashed border-white/25 bg-transparent">
+                <div className="mt-0.5 font-sans text-[12px] leading-[17px] text-white/45">{t.layersDutySurfaceRaised}</div>
+                {raised?.alsoVerified?.map((item) => (
+                  <HexNote
+                    key={item.hex}
+                    item={item}
+                    note={t[item.sourceKey as keyof ColorCopy]}
+                    pendingLabel={t.layersPending}
+                    copied={copied}
+                    onCopy={copyToClipboard}
+                  />
+                ))}
+                <div className="mt-6 rounded-[10px] p-8 border border-dashed border-white/25 bg-transparent">
                   <div className="font-sans text-[11px] leading-[16px] font-medium text-white/50">
                     {t.layersRoleOverlay} · {t.layersPending}
                   </div>
+                  <div className="mt-0.5 font-sans text-[12px] leading-[17px] text-white/45">{t.layersDutyOverlay}</div>
+                  {overlay?.alsoVerified?.map((item) => (
+                    <HexNote
+                      key={item.hex}
+                      item={item}
+                      note={t[item.sourceKey as keyof ColorCopy]}
+                      pendingLabel={t.layersPending}
+                      copied={copied}
+                      onCopy={copyToClipboard}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
@@ -337,48 +298,40 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
           </p>
         </div>
 
-        <div className="mt-14">
-          <h3 className="site-h3 mb-6">{t.layersRolesTitle}</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {COLOR_ROLES.map((role) => (
-              <RolePlate
-                key={role.id}
-                name={t[ROLE_TITLE_KEY[role.id as ColorRoleId]]}
-                duty={t[ROLE_DUTY_KEY[role.id as ColorRoleId]]}
-                hex={role.hex}
-                pendingLabel={t.layersPending}
-                mappedSource={MAPPED_SOURCE_KEY[role.id] ? t[MAPPED_SOURCE_KEY[role.id]!] : undefined}
-                candidates={role.alsoVerified?.map((item) => ({
-                  hex: item.hex,
-                  note: t[item.sourceKey as keyof ColorCopy],
-                  pending: item.pending,
-                }))}
-                copied={copied}
-                onCopy={copyToClipboard}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-14">
+        <div className="mt-14 max-w-3xl">
           <h3 className="site-h3 mb-6">{t.layersCrossTitle}</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-6">
             {COLOR_CROSS_LAYER.map((item) => (
-              <RolePlate
-                key={item.id}
-                name={t[CROSS_TITLE_KEY[item.id as CrossLayerId]]}
-                duty={t[CROSS_DUTY_KEY[item.id as CrossLayerId]]}
-                hex={item.hex}
-                pendingLabel={t.layersPending}
-                mappedSource={MAPPED_SOURCE_KEY[item.id] ? t[MAPPED_SOURCE_KEY[item.id]!] : undefined}
-                candidates={item.alsoVerified?.map((cand) => ({
-                  hex: cand.hex,
-                  note: t[cand.sourceKey as keyof ColorCopy],
-                  pending: cand.pending,
-                }))}
-                copied={copied}
-                onCopy={copyToClipboard}
-              />
+              <div key={item.id}>
+                <div className="font-sans text-[14px] leading-[20px] font-medium text-white">
+                  {t[CROSS_TITLE_KEY[item.id as CrossLayerId]]}
+                </div>
+                <div className="mt-0.5 font-sans text-[13px] leading-[18px] text-white/55">
+                  {t[CROSS_DUTY_KEY[item.id as CrossLayerId]]}
+                </div>
+                {item.hex ? (
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(item.hex!)}
+                    aria-label={copied === item.hex ? `Copied ${item.hex}` : `Copy ${item.hex}`}
+                    className="mt-1 block text-left font-sans text-[13px] leading-[18px] font-medium tabular-nums text-white/80"
+                  >
+                    {item.hex}
+                  </button>
+                ) : (
+                  <div className="mt-1 font-sans text-[12px] leading-[18px] text-white/45">{t.layersPending}</div>
+                )}
+                {item.alsoVerified?.map((cand) => (
+                  <HexNote
+                    key={`${item.id}-${cand.hex}`}
+                    item={cand}
+                    note={t[cand.sourceKey as keyof ColorCopy]}
+                    pendingLabel={t.layersPending}
+                    copied={copied}
+                    onCopy={copyToClipboard}
+                  />
+                ))}
+              </div>
             ))}
           </div>
         </div>
@@ -400,38 +353,21 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
             {t.grayDesc}
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {COLOR_FORMAL_BOARD.map((item) => (
-            <RolePlate
-              key={item.id}
-              name={formalTitle(t, item.id)}
-              duty={formalDuty(t, item.id)}
-              hex={item.hex}
-              pendingLabel={t.layersPending}
-              candidates={item.alsoVerified?.map((cand) => ({
-                hex: cand.hex,
-                note: t[cand.sourceKey as keyof ColorCopy],
-                pending: cand.pending,
-              }))}
-              copied={copied}
-              onCopy={copyToClipboard}
-            />
-          ))}
-        </div>
-        <div className="mt-20">
+        <div className="mt-14">
           <h3 className="site-h3 mb-2">{t.grayInventoryTitle}</h3>
           <p className="max-w-2xl mb-10 font-sans text-[13px] leading-[19px] text-white/50">{t.grayInventoryIntro}</p>
         <div className="space-y-16">
           {HOMEPAGE_GRAY_GROUPS.map((group) => {
             const groupTitle =
-              group.id === 'shell' ? t.grayGroupShell
-              : group.id === 'rail' ? t.grayGroupRail
-              : group.id === 'modules' ? t.grayGroupModules
-              : t.grayGroupPreview;
+              group.id === 'surface' ? t.grayGroupSurface
+              : group.id === 'text' ? t.grayGroupText
+              : group.id === 'line' ? t.grayGroupLine
+              : group.id === 'fill' ? t.grayGroupFill
+              : t.grayGroupDual;
             return (
               <div key={group.id}>
                 <h3 className="site-h3 mb-5">{groupTitle}</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
                   {group.swatches.map((color) => {
                     const isCopied = copied === color.hex;
                     const usage = color.usage[language];
@@ -444,10 +380,10 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                         className="bg-transparent p-0 text-left"
                       >
                         <div
-                          className="aspect-[5/4] rounded-[20px] border border-white/15"
+                          className="h-20 rounded-[20px] border border-white/15"
                           style={{ background: color.hex }}
                         />
-                        <div className="mt-3 flex items-center justify-between gap-2">
+                        <div className="mt-2 flex items-center justify-between gap-2">
                           <span className="font-sans text-[13px] font-medium tabular-nums text-white/80">
                             {color.hex}
                           </span>
@@ -498,10 +434,10 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
               >
                 <div className="w-full">
                   <div
-                    className="aspect-[5/4] rounded-[20px] transition-transform duration-300 group-hover:scale-[1.01]"
+                    className="h-20 rounded-[20px] transition-transform duration-300 group-hover:scale-[1.01]"
                     style={{ background: gradient.css }}
                   />
-                  <div className="mt-3.5 flex items-center justify-between gap-2">
+                  <div className="mt-2 flex items-center justify-between gap-2">
                     <span className="font-sans text-[14px] font-semibold text-white">
                       {gradient.name}
                     </span>

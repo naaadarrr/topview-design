@@ -34,10 +34,6 @@ const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {
 
   return (
     <div className="buttonInventory space-y-24">
-      <p className="max-w-2xl text-[20px] leading-[26px] font-sans text-white font-normal">
-        {t.pageLine}
-      </p>
-
       <section>
         <SectionHeading title={t.variants} />
         <div className="stage">
@@ -47,6 +43,16 @@ const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {
                 <button type="button" className={variant.className}>Button</button>
               </span>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading title={t.groupTitle} />
+        <div className="stage">
+          <div className="button-group">
+            <button type="button" className="product-button board-type neutral-board">Button</button>
+            <button type="button" className="unicorn-cta unicorn-white">Button</button>
           </div>
         </div>
       </section>

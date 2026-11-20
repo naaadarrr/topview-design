@@ -84,21 +84,16 @@ const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
 // Alerts moved here from the Glass page (mem640). Markup and glass-specimens.css recipes unchanged.
 const Feedback: React.FC<FeedbackProps> = ({ language }) => {
   const t = translations[language].feedback;
-  // Sample copy is the locked Chinese set from the glass-alert library (shared with the Rules specimens).
-  const zh = translations.zh.glass;
+  const copy = translations.en.glass;
   const alerts = [
-    { tone: 'info', title: zh.alertInfoTitle, body: zh.alertInfoBody },
-    { tone: 'success', title: zh.alertSuccessTitle, body: zh.alertSuccessBody },
-    { tone: 'warning', title: zh.alertWarningTitle, body: zh.alertWarningBody },
-    { tone: 'danger', title: zh.alertDangerTitle, body: zh.alertDangerBody },
+    { tone: 'info', title: copy.alertInfoTitle, body: copy.alertInfoBody },
+    { tone: 'success', title: copy.alertSuccessTitle, body: copy.alertSuccessBody },
+    { tone: 'warning', title: copy.alertWarningTitle, body: copy.alertWarningBody },
+    { tone: 'danger', title: copy.alertDangerTitle, body: copy.alertDangerBody },
   ];
 
   return (
     <div className="glassSpecimens space-y-24">
-      <p className="max-w-2xl text-[20px] leading-[26px] font-sans text-white font-normal">
-        {t.pageLine}
-      </p>
-
       <section id="glass-alert" className="scroll-mt-8">
         <SectionHeading title={t.alertDTitle} />
         <div className="alert-compare">

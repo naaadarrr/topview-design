@@ -1,5 +1,6 @@
 import React from 'react';
 import { Language, translations } from '../translations';
+import { RADIUS_SCALE, SPACING_SCALE, radiusPx, spacingPx } from '../constants/foundationTokens';
 import './foundations-specimens.css';
 
 interface FoundationsProps {
@@ -31,48 +32,43 @@ const Foundations: React.FC<FoundationsProps> = ({ language, section }) => {
   const s = translations[language].spacing;
   const r = translations[language].radius;
 
-  // Carbon-style single-level scale. Product names appear only as sources.
-  const spacingScale: SpaceToken[] = [
-    { token: '--spacing-01', px: 2 },
-    { token: '--spacing-02', px: 4 },
-    { token: '--spacing-03', px: 8 },
-    { token: '--spacing-04', px: 12 },
-    { token: '--spacing-05', px: 16 },
-    { token: '--spacing-06', px: 24 },
-    { token: '--spacing-07', px: 32 },
-    { token: '--spacing-08', px: 40 },
-  ];
+  // Same list as index.css :root. Product names appear only as sources.
+  const spacingScale: SpaceToken[] = SPACING_SCALE.map((item) => ({ token: item.token, px: item.px }));
 
   const spacingRhythm: RhythmRow[] = [
-    { where: s.levelInline, token: '--spacing-03', px: 8 },
-    { where: s.levelInset, token: '--spacing-04', px: 12 },
-    { where: s.levelGroup, token: '--spacing-04', px: 12, pending: s.levelGroupPending },
-    { where: s.levelStack, token: '--spacing-05', px: 16 },
+    { where: s.levelInline, token: '--spacing-03', px: spacingPx('--spacing-03') },
+    { where: s.levelInset, token: '--spacing-04', px: spacingPx('--spacing-04') },
+    { where: s.levelGroup, token: '--spacing-04', px: spacingPx('--spacing-04'), pending: s.levelGroupPending },
+    { where: s.levelStack, token: '--spacing-05', px: spacingPx('--spacing-05') },
     { where: s.levelSection, pending: s.pending },
-    { where: s.levelModule, token: '--spacing-08', px: 40 },
+    { where: s.levelModule, token: '--spacing-08', px: spacingPx('--spacing-08') },
   ];
 
-
-  // Site-only numbering, like Spacing; every token is 待定. Use stays as the source line.
-  const radiusScale: { token: string; name: string; value: string; radius: string }[] = [
-    { token: '--radius-01', name: r.scaleTab, value: '6px', radius: '6px' },
-    { token: '--radius-02', name: r.scaleButton, value: '8px', radius: '8px' },
-    { token: '--radius-03', name: r.scaleSegmentItem, value: '10px', radius: '10px' },
-    { token: '--radius-04', name: r.scaleItem, value: '12px', radius: '12px' },
-    { token: '--radius-05', name: r.scalePanel, value: '16px', radius: '16px' },
-    { token: '--radius-pill', name: r.scalePill, value: `${r.pillValue} (9999px)`, radius: '9999px' },
-  ];
+  const radiusNames: Record<(typeof RADIUS_SCALE)[number]['token'], string> = {
+    '--radius-01': r.scaleTab,
+    '--radius-02': r.scaleButton,
+    '--radius-03': r.scaleSegmentItem,
+    '--radius-04': r.scaleItem,
+    '--radius-05': r.scalePanel,
+    '--radius-pill': r.scalePill,
+  };
+  const radiusScale = RADIUS_SCALE.map((item) => ({
+    token: item.token,
+    name: radiusNames[item.token],
+    value: item.token === '--radius-pill' ? `${r.pillValue} (${item.px}px)` : `${item.px}px`,
+    radius: `${item.px}px`,
+  }));
 
   const radiusDuties: Duty[] = [
-    { name: r.dutyTooltip, value: '--radius-01 · 6px', used: r.dutyTooltipUsed },
-    { name: r.dutyTab, value: '--radius-01 · 6px', used: r.dutyTabUsed },
-    { name: r.dutyButton, value: '--radius-02 · 8px', used: r.dutyButtonUsed },
-    { name: r.dutyIcon, value: '--radius-02 · 8px', used: r.dutyIconUsed },
+    { name: r.dutyTooltip, value: `--radius-01 · ${radiusPx('--radius-01')}px`, used: r.dutyTooltipUsed },
+    { name: r.dutyTab, value: `--radius-01 · ${radiusPx('--radius-01')}px`, used: r.dutyTabUsed },
+    { name: r.dutyButton, value: `--radius-02 · ${radiusPx('--radius-02')}px`, used: r.dutyButtonUsed },
+    { name: r.dutyIcon, value: `--radius-02 · ${radiusPx('--radius-02')}px`, used: r.dutyIconUsed },
     { name: r.dutyMenuItem, value: r.pending, used: r.dutyMenuItemUsed },
-    { name: r.dutySegmentItem, value: '--radius-03 · 10px', used: r.dutySegmentItemUsed },
-    { name: r.dutyItem, value: '--radius-04 · 12px', used: r.dutyItemUsed },
-    { name: r.dutySegmentTrack, value: '--radius-04 · 12px', used: r.dutySegmentTrackUsed },
-    { name: r.dutyPanel, value: '--radius-05 · 16px', used: r.dutyPanelUsed },
+    { name: r.dutySegmentItem, value: `--radius-03 · ${radiusPx('--radius-03')}px`, used: r.dutySegmentItemUsed },
+    { name: r.dutyItem, value: `--radius-04 · ${radiusPx('--radius-04')}px`, used: r.dutyItemUsed },
+    { name: r.dutySegmentTrack, value: `--radius-04 · ${radiusPx('--radius-04')}px`, used: r.dutySegmentTrackUsed },
+    { name: r.dutyPanel, value: `--radius-05 · ${radiusPx('--radius-05')}px`, used: r.dutyPanelUsed },
     { name: r.dutyPill, value: r.pending, used: r.dutyPillUsed },
     { name: r.dutyToast, value: r.pending, used: r.dutyToastUsed },
     { name: r.dutySheet, value: r.pending, used: r.dutySheetUsed },

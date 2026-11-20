@@ -4,53 +4,22 @@ export type HomepageGraySwatch = {
 };
 
 export type HomepageGrayGroup = {
-  id: 'shell' | 'rail' | 'modules' | 'preview';
+  id: 'surface' | 'text' | 'line' | 'fill' | 'dual';
   swatches: HomepageGraySwatch[];
 };
 
-/** Existing homepage hardcoded dark/gray colors only. Not tokens. Not merged. Not invented. */
+/** Existing homepage hardcoded dark/gray colors only. Not tokens. Not merged. Not invented.
+ *  Grouped by duty: surface, text, line, fill. A hex that is both a ground and ink stays in dual.
+ */
 export const HOMEPAGE_GRAY_GROUPS: HomepageGrayGroup[] = [
   {
-    id: 'shell',
+    id: 'surface',
     swatches: [
       {
         hex: '#0E0E13',
         usage: {
-          en: 'HomePageClient whole-page fallback; category Tab focus-ring outer.',
-          zh: 'HomePageClient 整页回退底；分类 Tab 焦点环外圈。',
-        },
-      },
-      {
-        hex: '#101010',
-        usage: {
-          en: 'Homepage main canvas; left-rail selected state; Community top bar (often /95) and list left/right fades.',
-          zh: '首页主画布；左栏选中态；Community 顶栏（常带 /95）以及列表左右渐隐。',
-        },
-      },
-    ],
-  },
-  {
-    id: 'rail',
-    swatches: [
-      {
-        hex: '#131313',
-        usage: {
-          en: 'Left sidebar and Home Left Dock column background.',
-          zh: '左侧栏与 Home Left Dock 列背景。',
-        },
-      },
-      {
-        hex: '#232323',
-        usage: {
-          en: 'Left-rail right border; Dock stroke.',
-          zh: '左栏右边框；Dock 描边。',
-        },
-      },
-      {
-        hex: '#1A1A1A',
-        usage: {
-          en: 'Dock popover; sidebar menu ground (often /95).',
-          zh: 'Dock 弹出层；侧栏菜单底（常带 /95）。',
+          en: 'Category Tab focus-ring outer.',
+          zh: '分类 Tab 焦点环外圈。',
         },
       },
       {
@@ -75,19 +44,73 @@ export const HOMEPAGE_GRAY_GROUPS: HomepageGrayGroup[] = [
         },
       },
       {
-        hex: '#2F2F2F',
+        hex: '#1B1B1B',
         usage: {
-          en: 'Dock hover/emphasis fill; sidebar secondary-item hover.',
-          zh: 'Dock 悬停 / 强调填充；侧栏次要项悬停。',
+          en: 'Homepage main input/conversation module surface; sidebar item hover.',
+          zh: '首页主输入 / 对话模块表面；侧栏条目悬停。',
         },
       },
       {
-        hex: '#2A2A2A',
+        hex: '#181818',
         usage: {
-          en: 'Dock skeleton placeholder bars.',
-          zh: 'Dock 骨架占位条。',
+          en: 'Tool-list icon tile.',
+          zh: '工具列表图标底。',
         },
       },
+      {
+        hex: '#1C1C1C',
+        usage: {
+          en: 'Input area, session menu, hint bars, material-library popover, and Quick Starts popover.',
+          zh: '输入区、会话菜单、提示条、素材库弹出层，以及 Quick Starts 弹出层。',
+        },
+      },
+      {
+        hex: '#171717',
+        usage: {
+          en: 'Canvas featured-skill bar/bubble. Same hex as the already-locked micro-glass daily card; recorded here only as a homepage usage.',
+          zh: 'Canvas 精选技能条 / 气泡。与已锁定的微 glass daily 卡片同色值，这里只记录为首页用法。',
+        },
+      },
+      {
+        hex: '#090A0A',
+        usage: {
+          en: 'Film Studio module shell.',
+          zh: 'Film Studio 模块外壳。',
+        },
+      },
+      {
+        hex: '#080808',
+        usage: {
+          en: 'Asset/preview thumbnail ground, and the Video Style dialog preview.',
+          zh: '素材 / 预览缩略图底，以及 Video Style 对话框预览。',
+        },
+      },
+      {
+        hex: '#0F0F0F',
+        usage: {
+          en: 'Template-list sticky bar; some preview hover.',
+          zh: '模板列表粘性栏；部分预览悬停。',
+        },
+      },
+      {
+        hex: '#000000',
+        usage: {
+          en: 'Case-preview canvas. Some uses are a CSS mask only, not a fill.',
+          zh: '案例预览画布。部分用法只作为 CSS mask，不是填色。',
+        },
+      },
+      {
+        hex: '#111111',
+        usage: {
+          en: 'Occasional overlay/popover ground.',
+          zh: '偶尔用作遮罩 / 弹出层底。',
+        },
+      },
+    ],
+  },
+  {
+    id: 'text',
+    swatches: [
       {
         hex: '#8A8A8A',
         usage: {
@@ -119,41 +142,13 @@ export const HOMEPAGE_GRAY_GROUPS: HomepageGrayGroup[] = [
     ],
   },
   {
-    id: 'modules',
+    id: 'line',
     swatches: [
       {
-        hex: '#1B1B1B',
+        hex: '#232323',
         usage: {
-          en: 'Homepage main input/conversation module surface; sidebar item hover.',
-          zh: '首页主输入 / 对话模块表面；侧栏条目悬停。',
-        },
-      },
-      {
-        hex: '#181818',
-        usage: {
-          en: 'Input-area container, session-mode menu, some hint bars (often paired with border #353537).',
-          zh: '输入区容器、会话模式菜单、部分提示条（常与描边 #353537 成对出现）。',
-        },
-      },
-      {
-        hex: '#1C1C1D',
-        usage: {
-          en: 'Another input-area state; asset-library popover.',
-          zh: '另一种输入区状态；素材库弹出层。',
-        },
-      },
-      {
-        hex: '#1C1C1C',
-        usage: {
-          en: 'Quick Starts popover solid ground and input default ground.',
-          zh: 'Quick Starts 弹出层实底与输入默认底。',
-        },
-      },
-      {
-        hex: '#171717',
-        usage: {
-          en: 'Canvas featured-skill bar/bubble. Same hex as the already-locked micro-glass daily card; recorded here only as a homepage usage.',
-          zh: 'Canvas 精选技能条 / 气泡。与已锁定的微 glass daily 卡片同色值，这里只记录为首页用法。',
+          en: 'Left-rail right border; Dock stroke.',
+          zh: '左栏右边框；Dock 描边。',
         },
       },
       {
@@ -161,6 +156,25 @@ export const HOMEPAGE_GRAY_GROUPS: HomepageGrayGroup[] = [
         usage: {
           en: 'Common stroke for the input area and upload button.',
           zh: '输入区与上传按钮的常用描边。',
+        },
+      },
+      {
+        hex: '#434343',
+        usage: {
+          en: 'Preview card, filter chip, hint-bar stroke.',
+          zh: '预览卡、筛选芯片、提示条描边。',
+        },
+      },
+    ],
+  },
+  {
+    id: 'fill',
+    swatches: [
+      {
+        hex: '#2A2A2A',
+        usage: {
+          en: 'Dock skeleton placeholder bars.',
+          zh: 'Dock 骨架占位条。',
         },
       },
       {
@@ -185,50 +199,22 @@ export const HOMEPAGE_GRAY_GROUPS: HomepageGrayGroup[] = [
         },
       },
       {
-        hex: '#303030',
+        hex: '#202020',
         usage: {
-          en: 'Small tooltip / menu item; some preview hover.',
-          zh: '小 tooltip / 菜单项；部分预览悬停。',
-        },
-      },
-      {
-        hex: '#434343',
-        usage: {
-          en: 'Preview card, filter chip, hint-bar stroke.',
-          zh: '预览卡、筛选芯片、提示条描边。',
+          en: 'Upload-card hover; user-menu shadow ground.',
+          zh: '上传卡悬停；用户菜单阴影底。',
         },
       },
     ],
   },
   {
-    id: 'preview',
+    id: 'dual',
     swatches: [
       {
-        hex: '#090A0A',
+        hex: '#1A1A1A',
         usage: {
-          en: 'Film Studio module shell.',
-          zh: 'Film Studio 模块外壳。',
-        },
-      },
-      {
-        hex: '#080808',
-        usage: {
-          en: 'Asset/preview thumbnail ground.',
-          zh: '素材 / 预览缩略图底。',
-        },
-      },
-      {
-        hex: '#0D0D0D',
-        usage: {
-          en: 'Video Style dialog preview ground.',
-          zh: 'Video Style 对话框预览底。',
-        },
-      },
-      {
-        hex: '#0F0F0F',
-        usage: {
-          en: 'Template-list sticky bar; some preview hover.',
-          zh: '模板列表粘性栏；部分预览悬停。',
+          en: 'Dock popover and sidebar menu ground (often /95). Also the Video Style dialog shell.',
+          zh: 'Dock 弹出层和侧栏菜单底（常带 /95）。也是 Video Style 对话框外壳。',
         },
       },
       {
@@ -236,34 +222,6 @@ export const HOMEPAGE_GRAY_GROUPS: HomepageGrayGroup[] = [
         usage: {
           en: 'Preview phone frame; also dark text on white buttons.',
           zh: '预览手机外框；也用作白底按钮上的深色文字。',
-        },
-      },
-      {
-        hex: '#000000',
-        usage: {
-          en: 'Case-preview canvas. Some uses are a CSS mask only, not a fill.',
-          zh: '案例预览画布。部分用法只作为 CSS mask，不是填色。',
-        },
-      },
-      {
-        hex: '#111111',
-        usage: {
-          en: 'Occasional overlay/popover ground.',
-          zh: '偶尔用作遮罩 / 弹出层底。',
-        },
-      },
-      {
-        hex: '#1A1A1C',
-        usage: {
-          en: 'Video Style large dialog shell.',
-          zh: 'Video Style 大对话框外壳。',
-        },
-      },
-      {
-        hex: '#202020',
-        usage: {
-          en: 'Upload-card hover; user-menu shadow ground.',
-          zh: '上传卡悬停；用户菜单阴影底。',
         },
       },
       {

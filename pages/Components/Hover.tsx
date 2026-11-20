@@ -22,9 +22,6 @@ const Hover: React.FC<HoverProps> = ({ language }) => {
         <p className="font-sans text-[16px] leading-[22px] text-white max-w-2xl">
           {t.rule}
         </p>
-        <p className="mt-3 font-sans text-[12px] leading-[18px] text-white/45 max-w-2xl">
-          {t.ruleNote}
-        </p>
       </section>
 
       <section>
@@ -42,6 +39,7 @@ const Hover: React.FC<HoverProps> = ({ language }) => {
               <span className="glow" aria-hidden="true" />
               <span className="floor" aria-hidden="true" />
             </button>
+            <div className="hf-tile" aria-hidden="true" />
           </div>
         </div>
       </section>

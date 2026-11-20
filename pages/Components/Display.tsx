@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Language, translations } from '../../translations';
+import StatusBadgeLab from './StatusBadgeLab';
 import './overlays-specimens.css';
 import './display-specimens.css';
 import './glass-specimens.css';
@@ -15,7 +16,6 @@ const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
 );
 
 // Product data strings (origin/develop b0c5a29), shown as-is in both languages.
-const MODEL_BADGES = ['HOT', 'NEW'] as const; // AIModelBadge in types/gen/ai-creation
 const SAMPLE_TAGS = ['Chinese & English', 'Best Emotion Cloning', '80+ Languages']; // InstantVoiceClone/config.ts
 
 const SparklesIcon = () => (
@@ -97,23 +97,6 @@ const SubtoolTabs: React.FC<{ labels: Record<(typeof TAB_IDS)[number], string> }
   );
 };
 
-const BotIcon = () => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 8V4H8" />
-    <rect width="16" height="12" x="4" y="8" rx="2" />
-    <path d="M2 14h2" />
-    <path d="M20 14h2" />
-    <path d="M15 13v2" />
-    <path d="M9 13v2" />
-  </svg>
-);
-
-const CheckIcon = () => (
-  <svg className="model-check" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 6 9 17l-5-5" />
-  </svg>
-);
-
 const Display: React.FC<DisplayProps> = ({ language }) => {
   const t = translations[language].display;
   const tabs = [
@@ -124,30 +107,12 @@ const Display: React.FC<DisplayProps> = ({ language }) => {
   const [activeTab, setActiveTab] = useState('public');
   const [bfIndex, setBfIndex] = useState(0);
   const [homeTab, setHomeTab] = useState<'functions' | 'skills'>('functions');
-  const [modelId, setModelId] = useState<'seedance' | 'seedance2'>('seedance');
-  const models = [
-    { id: 'seedance' as const, name: t.modelSeedance, hot: true },
-    { id: 'seedance2' as const, name: t.modelSeedance2, hot: false },
-  ];
 
   return (
     <div className="overlaySpecimens displaySpecimens space-y-24">
-      <p className="max-w-2xl text-[20px] leading-[26px] font-sans text-white font-normal">{t.pageLine}</p>
-
       <section>
-        <SectionHeading title={t.badgeTitle} />
-        <div className="stage">
-          <div className="model-badges">
-            {MODEL_BADGES.map((item) => (
-              <div key={item} className="model-badge">
-                <div className={`model-badge-face is-${item.toLowerCase()}`}>
-                  <span>{item}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <p className="caption">{t.badgeNote}</p>
+        <SectionHeading title={t.statusBadgeTitle} />
+        <StatusBadgeLab language={language} />
       </section>
 
       <section>
@@ -161,7 +126,6 @@ const Display: React.FC<DisplayProps> = ({ language }) => {
             ))}
           </div>
         </div>
-        <p className="caption">{t.tagNote}</p>
       </section>
 
       <section>
@@ -178,7 +142,7 @@ const Display: React.FC<DisplayProps> = ({ language }) => {
                 <span className="avatar-size">32</span>
               </div>
               <div className="avatar-item">
-                <span className="avatar is-muted is-40" />
+                <span className="avatar is-user is-40" />
                 <span className="avatar-size">40</span>
               </div>
             </div>
@@ -189,42 +153,6 @@ const Display: React.FC<DisplayProps> = ({ language }) => {
             </button>
           </div>
         </div>
-        <p className="caption">{t.avatarNote}</p>
-      </section>
-
-      <section>
-        <SectionHeading title={t.rowTitle} />
-        <div className="stage">
-          <div className="model-list" role="listbox" aria-label={t.rowTitle}>
-            {models.map((model) => {
-              const selected = modelId === model.id;
-              return (
-                <button
-                  key={model.id}
-                  type="button"
-                  role="option"
-                  aria-selected={selected}
-                  className={selected ? 'model-row is-selected' : 'model-row'}
-                  onClick={() => setModelId(model.id)}
-                >
-                  <span className="model-icon"><BotIcon /></span>
-                  <span className="model-copy">
-                    <span className="model-name-line">
-                      <span className="model-name">{model.name}</span>
-                      {model.hot ? (
-                        <span className="model-badge">
-                          <span className="model-badge-face is-hot"><span>HOT</span></span>
-                        </span>
-                      ) : null}
-                    </span>
-                  </span>
-                  {selected ? <CheckIcon /> : null}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-        <p className="caption">{t.rowNote}</p>
       </section>
 
       <section>
@@ -254,7 +182,6 @@ const Display: React.FC<DisplayProps> = ({ language }) => {
             </div>
           </div>
         </div>
-        <p className="caption">{t.cardNote}</p>
       </section>
 
       <section>
@@ -276,7 +203,6 @@ const Display: React.FC<DisplayProps> = ({ language }) => {
             ))}
           </div>
         </div>
-        <p className="caption">{t.tabsNote}</p>
 
         <div id="display-bf-segmented-b" className="mt-12 scroll-mt-8">
           <h4 className="font-heading text-[14px] leading-[20px] font-semibold text-white/70 mb-4">{t.bfTitle}</h4>

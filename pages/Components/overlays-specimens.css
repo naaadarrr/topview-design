@@ -10,7 +10,7 @@
   padding: 64px 48px;
   min-height: 320px;
   overflow: hidden;
-  background: #101010;
+  background: var(--background);
   border: 1px solid #ffffff10;
   display: flex;
   flex-direction: column;
@@ -46,20 +46,46 @@
 }
 
 .overlaySpecimens .overlay-trigger {
+  position: relative;
+  isolation: isolate;
+  --rim-top: 0.32;
+  --rim-bot: 0.22;
   appearance: none;
-  background: none;
-  border: 0;
   margin: 0;
-  padding: 0;
+  border: 0;
+  border-radius: var(--radius-02);
+  padding: var(--spacing-03) var(--spacing-05);
+  background: transparent;
   color: #fff;
   font: inherit;
   font-size: 14px;
   line-height: 20px;
   cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.overlaySpecimens .overlay-trigger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, var(--rim-top)), rgba(255, 255, 255, var(--rim-bot)) 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.overlaySpecimens .overlay-trigger:hover {
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .overlaySpecimens .overlay-trigger:focus-visible {
   outline: none;
+  box-shadow: 0 0 0 2px #8a8a8a;
 }
 
 /* Board glass popover: BoardPopoverContent (ToolPanel/components/primitives/BoardPopover/index.tsx)
@@ -74,18 +100,18 @@
 
 .overlaySpecimens .popover-panel {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + var(--spacing-03));
   right: 0;
   z-index: 50;
   width: 18rem;
   overflow: hidden;
   border: 0;
-  border-radius: 16px;
+  border-radius: var(--radius-05);
   padding: 0;
   color: #fff;
   outline: none;
   background-color: transparent;
-  background-image: linear-gradient(to bottom, #101010 0%, #101010 65%, rgba(16, 16, 16, 0.68) 100%);
+  background-image: linear-gradient(to bottom, var(--background) 0%, var(--background) 65%, color-mix(in srgb, var(--background) 68%, transparent) 100%);
   -webkit-backdrop-filter: blur(40px);
   backdrop-filter: blur(40px);
   box-shadow:
@@ -169,109 +195,145 @@
 
 .overlaySpecimens .dialog-panel {
   position: relative;
+  isolation: isolate;
   z-index: 2;
   display: grid;
   width: 100%;
   max-width: 28rem;
-  gap: 16px;
+  gap: var(--spacing-05);
   margin: 0;
-  border: 1px solid #232323;
-  background: #141414;
+  border: 0;
+  --rim-top: 0.10;
+  --rim-bot: 0.04;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 50%), rgba(23, 23, 23, 0.92);
   color: #ffffff;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  padding: var(--spacing-06);
+  border-radius: var(--radius-05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(3px) saturate(1.1);
+  -webkit-backdrop-filter: blur(3px) saturate(1.1);
 }
 
-.overlaySpecimens .dialog-panel .dialog-title {
+.overlaySpecimens .dialog-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, var(--rim-top)), rgba(255, 255, 255, var(--rim-bot)) 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.overlaySpecimens .dialog-title {
+  margin: 0;
+  font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
   color: #ffffff;
 }
 
 .overlaySpecimens .dialog-field {
   display: grid;
-  gap: 8px;
+  gap: var(--spacing-03);
   font-size: 14px;
   line-height: 20px;
   color: #8A8A8A;
 }
 
 .overlaySpecimens .dialog-input {
+  box-sizing: border-box;
   height: 40px;
   width: 100%;
-  padding: 0 12px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  background: rgba(255, 255, 255, 0.08);
+  margin: 0;
+  padding: 0 var(--spacing-04);
+  border: 0;
+  border-radius: var(--radius-02);
+  background: #242424;
   color: #ffffff;
+  box-shadow: inset 0 -1px 0 #202020;
   font: inherit;
   font-size: 14px;
+  line-height: 20px;
+  caret-color: #b57bff;
   outline: none;
 }
 
 .overlaySpecimens .dialog-input:focus {
-  background: rgba(255, 255, 255, 0.12);
+  outline: 2px solid #9452ff;
+  outline-offset: 2px;
 }
 
 .overlaySpecimens .dialog-footer {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  gap: 8px;
-  margin-top: 24px;
+  gap: var(--spacing-03);
+  margin-top: var(--spacing-06);
 }
 
 .overlaySpecimens .dialog-cancel {
   appearance: none;
-  height: 36px;
-  padding: 0 16px;
+  padding: var(--spacing-03) var(--spacing-05);
   border: 0;
-  border-radius: 8px;
-  background: none;
-  color: #8A8A8A;
-  font: inherit;
+  border-radius: var(--radius-02);
+  background: #242424;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 0 #353537,
+    inset 0 -1px 0 0 #202020;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
+  font-weight: 400;
   line-height: 20px;
   cursor: pointer;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .overlaySpecimens .dialog-cancel:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--fill);
 }
 
 .overlaySpecimens .dialog-save {
   appearance: none;
-  height: 36px;
-  padding: 0 16px;
+  padding: var(--spacing-03) var(--spacing-05);
   border: 0;
-  border-radius: 8px;
-  background: #731DFB;
-  color: #ffffff;
-  font: inherit;
+  border-radius: var(--radius-02);
+  background-color: rgba(255, 255, 255, 0.86);
+  background-image: none;
+  color: #181818;
+  box-shadow:
+    inset 0 1px 0 0 #fff,
+    inset 0 -1px 0 0 #c4c4c4;
+  font-family: Inter, -apple-system, system-ui, sans-serif;
   font-size: 14px;
+  font-weight: 600;
   line-height: 20px;
+  letter-spacing: -0.01em;
   cursor: pointer;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .overlaySpecimens .dialog-save:hover {
-  background: #6317E3;
+  background-color: #fff;
 }
 
-.overlaySpecimens .dialog-save:active {
-  background: #5614C9;
-}
-
-.overlaySpecimens .dialog-save:disabled {
+.overlaySpecimens .dialog-save:disabled,
+.overlaySpecimens .dialog-save:disabled:hover {
+  background-color: rgba(255, 255, 255, 0.86);
   opacity: 0.4;
   cursor: default;
 }
 
-.overlaySpecimens .dialog-title {
-  margin: 0;
-  font-size: 18px;
-  line-height: 1;
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  color: hsl(210, 40%, 98%);
+@media (prefers-reduced-motion: reduce) {
+  .overlaySpecimens .dialog-cancel,
+  .overlaySpecimens .dialog-save {
+    transition: none;
+  }
 }
 
 .overlaySpecimens .dialog-layer {
@@ -296,12 +358,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-03);
 }
 .overlaySpecimens .date-filter-label {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-03);
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
@@ -328,7 +390,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-03);
 }
 .overlaySpecimens .date-filter-preset {
   padding: 4px 8px;

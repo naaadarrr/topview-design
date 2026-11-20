@@ -204,7 +204,7 @@ export const LINE_HEIGHTS = [
 /**
  * HIDDEN_SECTIONS: the one switch for hiding a section without deleting it.
  * A listed id (and every id under it, e.g. `components-rules/<lock>`) is left out of the
- * left nav, the Landing catalog and the page content. Its hashes redirect (App.tsx
+ * left nav and the page content. Its hashes redirect (App.tsx
  * resolveHiddenTarget): a hidden top-level section goes to the catalog, a hidden child
  * goes to the first visible child of its parent. Pages, translation keys and
  * contracts/locked-system.json stay in place.
@@ -298,8 +298,10 @@ export const ALL_NAV_ITEMS: NavItem[] = [
     id: 'components',
     label: 'Components',
     path: '/components',
+    // Nav-only group. Forms, Buttons, Overlays, Display, and Feedback stay separate pages.
+    group: true,
     children: [
-      // Same order as ComponentsPage content: Rules, Forms, Buttons, Overlays, Display, Feedback.
+      // Same order as the pages: Rules, Forms, Buttons, Overlays, Display, Feedback.
       // Rule children follow the Rules list on the page (lockedSystem.locks order).
       {
         id: 'components-rules',

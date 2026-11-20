@@ -35,7 +35,7 @@ const Rules: React.FC<RulesProps> = ({ language, onNavigate }) => {
                 {lock.page?.hash && (
                   <button
                     type="button"
-                    onClick={() => onNavigate?.('components', `components-rules/${lock.id}`)}
+                    onClick={() => onNavigate?.('components-rules', `components-rules/${lock.id}`)}
                     className="text-[12px] leading-[16px] text-white/55 hover:text-white"
                   >
                     {t.openRulePage}

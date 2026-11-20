@@ -12,11 +12,23 @@ import { isHiddenSection } from '../../constants';
 
 interface ComponentsPageProps {
   language: Language;
+  page: string;
   activeSubId?: string | null;
   onNavigate?: (id: string, subId?: string) => void;
 }
 
-const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, activeSubId, onNavigate }) => {
+const PageHeader: React.FC<{ title: string; line?: string }> = ({ title, line }) => (
+  <div className="flex flex-col md:flex-row justify-between items-start gap-8 w-full">
+    <h1 className="site-h1">{title}</h1>
+    {line ? (
+      <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
+        {line}
+      </p>
+    ) : null}
+  </div>
+);
+
+const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, page, activeSubId, onNavigate }) => {
   const t = translations[language].components;
   const lockId = activeSubId?.startsWith('components-rules/')
     ? activeSubId.slice('components-rules/'.length)
@@ -24,7 +36,7 @@ const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, activeSubId, 
   // Rules and the lock rule pages are hidden while 'components-rules' is in HIDDEN_SECTIONS (constants.tsx).
   const showRules = !isHiddenSection('components-rules');
   const isLockPage = Boolean(
-    showRules && lockId && lockedSystem.locks.some((lock) => lock.id === lockId)
+    showRules && page === 'components-rules' && lockId && lockedSystem.locks.some((lock) => lock.id === lockId)
   );
 
   if (isLockPage && lockId) {
@@ -37,77 +49,44 @@ const ComponentsPage: React.FC<ComponentsPageProps> = ({ language, activeSubId, 
     );
   }
 
+  const pages: Record<string, { title: string; line?: string; body: React.ReactNode }> = {
+    'components-rules': {
+      title: t.rules,
+      body: <Rules language={language} onNavigate={onNavigate} />,
+    },
+    'components-controls': {
+      title: t.controls,
+      line: t.formsLine,
+      body: <Controls language={language} />,
+    },
+    'components-button': {
+      title: t.buttons,
+      line: translations[language].buttonInventory.pageLine,
+      body: <ButtonInventory language={language} />,
+    },
+    'components-overlays': {
+      title: t.overlays,
+      line: translations[language].overlays.pageLine,
+      body: <Overlays language={language} />,
+    },
+    'components-display': {
+      title: t.display,
+      line: translations[language].display.pageLine,
+      body: <Display language={language} />,
+    },
+    'components-feedback': {
+      title: t.feedback,
+      line: translations[language].feedback.pageLine,
+      body: <Feedback language={language} />,
+    },
+  };
+
+  const current = pages[page] ?? pages['components-controls'];
+
   return (
-    <div className="max-w-full text-white space-y-32 pb-40">
-      <section className="fade-in scroll-mt-8">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-6 w-full">
-          <h1 className="site-h1">
-            {t.title}
-          </h1>
-          <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
-            {t.desc}
-          </p>
-        </div>
-      </section>
-
-      {showRules ? (
-        <section id="components-rules" className="fade-in scroll-mt-8" style={{ animationDelay: '0.08s' }}>
-          <div className="mb-12">
-            <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">
-              {t.rules}
-            </h2>
-          </div>
-          <Rules language={language} onNavigate={onNavigate} />
-        </section>
-      ) : null}
-
-      <section id="components-controls" className="fade-in scroll-mt-8" style={{ animationDelay: '0.12s' }}>
-        <div className="mb-12">
-          <h2 className="site-h2">
-            {t.controls}
-          </h2>
-          <p className="mt-3 max-w-2xl text-[16px] leading-[22px] font-sans text-white/70 font-normal">
-            {t.formsLine}
-          </p>
-        </div>
-        <Controls language={language} />
-      </section>
-
-      <section id="components-button" className="fade-in scroll-mt-8" style={{ animationDelay: '0.18s' }}>
-        <div className="mb-12">
-          <h2 className="site-h2">
-            {t.buttons}
-          </h2>
-        </div>
-        <ButtonInventory language={language} />
-      </section>
-
-      <section id="components-overlays" className="fade-in scroll-mt-8" style={{ animationDelay: '0.16s' }}>
-        <div className="mb-12">
-          <h2 className="site-h2">
-            {t.overlays}
-          </h2>
-        </div>
-        <Overlays language={language} />
-      </section>
-
-      <section id="components-display" className="fade-in scroll-mt-8" style={{ animationDelay: '0.16s' }}>
-        <div className="mb-12">
-          <h2 className="site-h2">
-            {t.display}
-          </h2>
-        </div>
-        <Display language={language} />
-      </section>
-
-      <section id="components-feedback" className="fade-in scroll-mt-8" style={{ animationDelay: '0.16s' }}>
-        <div className="mb-12">
-          <h2 className="site-h2">
-            {t.feedback}
-          </h2>
-        </div>
-        <Feedback language={language} />
-      </section>
+    <div className="max-w-full text-white space-y-16 pb-40">
+      <PageHeader title={current.title} line={current.line} />
+      <div className="fade-in">{current.body}</div>
     </div>
   );
 };

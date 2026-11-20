@@ -13,7 +13,7 @@
   border-radius: 16px;
   padding: 64px 48px;
   overflow: hidden;
-  background: #101010;
+  background: var(--background);
   border: 1px solid #ffffff10;
   display: flex;
   flex-direction: column;
@@ -61,8 +61,8 @@
   --rim-top: 0.32;
   --rim-bot: 0.22;
   border: 0;
-  border-radius: 8px;
-  padding: 8px 16px;
+  border-radius: var(--radius-02);
+  padding: var(--spacing-03) var(--spacing-05);
   background: transparent;
   color: #fff;
   font: inherit;
@@ -100,6 +100,18 @@
   max-width: 100%;
 }
 
+.buttonInventory .button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-03);
+}
+.buttonInventory .button-group .unicorn-cta.unicorn-white {
+  padding: var(--spacing-03) var(--spacing-05);
+  font-size: 14px;
+  line-height: 20px;
+}
+
 .buttonInventory .product-button {
   box-sizing: border-box;
   display: inline-flex;
@@ -135,8 +147,8 @@
 .buttonInventory .product-button.legacy-indigo {
   width: 112px;
   height: 40px;
-  border-radius: 8px;
-  padding: 6px 12px;
+  border-radius: var(--radius-02);
+  padding: 6px var(--spacing-04);
   background: #4e40f3;
   font-size: 14px;
   line-height: 16px;
@@ -151,7 +163,7 @@
   width: 100%;
   margin-bottom: 3px;
   border-radius: 13px;
-  padding: 12px 16px;
+  padding: var(--spacing-04) var(--spacing-05);
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
@@ -164,21 +176,21 @@
 .buttonInventory .product-button.pricing-ledge:active { transform: translateY(2px); }
 
 .buttonInventory .product-button.neutral-board {
-  border-radius: 8px;
-  padding: 8px 16px;
+  border-radius: var(--radius-02);
+  padding: var(--spacing-03) var(--spacing-05);
   background: #242424;
   font-size: 14px;
   line-height: 20px;
   box-shadow:
-    inset 0 1px 0 0 #4a4a4a,
+    inset 0 1px 0 0 #353537,
     inset 0 -1px 0 0 #202020;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.buttonInventory .product-button.neutral-board:hover { background: #2F2F2F; }
+.buttonInventory .product-button.neutral-board:hover { background: var(--fill); }
 .buttonInventory .product-button.ghost-board {
   height: 36px;
-  border-radius: 8px;
-  padding: 0 16px;
+  border-radius: var(--radius-02);
+  padding: 0 var(--spacing-05);
   color: #8A8A8A;
   font-size: 14px;
   line-height: 20px;
@@ -187,8 +199,8 @@
 /* Same edge as the purple primary. Reds stay #dc2626 / #ef4444 / #f87171.
    Top uses the existing lighter red. Bottom #C32222 is the same lightness step as #731DFB to #6317E3. */
 .buttonInventory .product-button.danger-board {
-  border-radius: 8px;
-  padding: 8px 16px;
+  border-radius: var(--radius-02);
+  padding: var(--spacing-03) var(--spacing-05);
   background-color: #dc2626;
   background-image: none;
   font-size: 14px;
@@ -258,7 +270,7 @@
 
 /* AuthModal footer link. LogInForm “Sign up” and SignUpStepOne “Sign in” override the link variant to #FFF. The #4E40F3 color is only the inline error link. */
 .buttonInventory .product-button.auth-link {
-  gap: 8px;
+  gap: var(--spacing-03);
   height: auto;
   border: none;
   border-radius: 6px;
@@ -410,7 +422,7 @@ html.light .buttonInventory .size-table-row code {
   justify-content: center;
   padding: 10px 20px;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-02);
   background-color: rgba(255, 255, 255, 0.86);
   background-image:
     linear-gradient(180deg, #fff 0 1px, transparent 1px),
@@ -487,7 +499,7 @@ html.light .buttonInventory .size-table-row code {
    inset 1px bottom the brand-flat hover #6317E3.
    Hover fill is linear-gradient(180deg, #731DFB 0%, #9452FF 100%). */
 .buttonInventory .unicorn-cta.unicorn-primary {
-  background-color: #731dfb;
+  background-color: var(--topview-purple);
   background-image: none;
   color: #fff;
   box-shadow:
@@ -501,7 +513,7 @@ html.light .buttonInventory .size-table-row code {
   opacity: 0;
 }
 .buttonInventory .unicorn-cta.unicorn-primary:hover {
-  background-image: linear-gradient(180deg, #731DFB 0%, #9452FF 100%);
+  background-image: linear-gradient(180deg, var(--topview-purple) 0%, #9452FF 100%);
 }
 @media (prefers-reduced-motion: reduce) {
   .buttonInventory .unicorn-cta,
@@ -509,3 +521,4 @@ html.light .buttonInventory .size-table-row code {
     transition: none;
   }
 }
+
