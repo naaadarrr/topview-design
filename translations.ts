@@ -331,7 +331,15 @@ export const translations = {
       muted: "Muted",
       pendingTitle: "Not locked",
       iconBtnTitle: "Small icon buttons",
-      botBubbleTitle: "Bot guide bubble"
+      botBubbleTitle: "Bot memory tour",
+      tourAnchor: "Let Bot know you",
+      tourTitle: "Reopen Bot memory anytime",
+      tourBody: "Open the ⋯ menu on a session tab and choose 'Let Bot know you' to reopen the memory card.",
+      tourHighlight: "Let Bot know you",
+      tourMore: "⋯",
+      tourAction: "Got it",
+      tourClose: "Close",
+      tourShow: "Show tour"
     },
     menu: {
       oldTitle: "Old",
@@ -847,7 +855,15 @@ export const translations = {
       muted: "已静音",
       pendingTitle: "未锁定",
       iconBtnTitle: "小图标按钮",
-      botBubbleTitle: "Bot guide bubble"
+      botBubbleTitle: "Bot 记忆引导",
+      tourAnchor: "让 Bot 认识你",
+      tourTitle: "随时可重新打开 Bot 记忆",
+      tourBody: "之后可在会话标签的 ⋯ 菜单中，选择「让 Bot 认识你」重新打开记忆卡片。",
+      tourHighlight: "让 Bot 认识你",
+      tourMore: "⋯",
+      tourAction: "知道了",
+      tourClose: "关闭",
+      tourShow: "显示引导"
     },
     menu: {
       oldTitle: "旧版",

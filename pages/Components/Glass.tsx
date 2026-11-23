@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Language, translations } from '../../translations';
+import GuideBubbleSpecimen from './GuideBubbleSpecimen';
 import './glass-specimens.css';
 
 interface GlassProps {
@@ -189,6 +190,9 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
 
           <div>
             <SectionHeading title={t.botBubbleTitle} />
+            <div className="stage">
+              <GuideBubbleSpecimen language={language} />
+            </div>
           </div>
         </div>
       </section>
