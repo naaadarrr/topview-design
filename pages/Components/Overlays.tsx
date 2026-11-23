@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Language, translations } from '../../translations';
 import './overlays-specimens.css';
 import './glass-specimens.css';
+import '../../registry/button.css';
 import Hover from './Hover';
 import DropdownMenu from './DropdownMenu';
-import PopoverDateFilter, { DateFilterSelection } from './PopoverDateFilter';
 
 interface OverlaysProps {
   language: Language;
@@ -23,7 +23,7 @@ const DIALOG_NAME_INITIAL = 'Asset';
 const Overlays: React.FC<OverlaysProps> = ({ language }) => {
   const t = translations[language].overlays;
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const [dateFilter, setDateFilter] = useState<DateFilterSelection>(null);
+  const [copied, setCopied] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogName, setDialogName] = useState(DIALOG_NAME_INITIAL);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -70,7 +70,7 @@ const Overlays: React.FC<OverlaysProps> = ({ language }) => {
           <div className="popover-wrap" ref={popoverRef}>
             <button
               type="button"
-              className="overlay-trigger"
+              className="cancel-board"
               aria-expanded={popoverOpen}
               aria-haspopup="dialog"
               onClick={() => setPopoverOpen((open) => !open)}
@@ -78,10 +78,28 @@ const Overlays: React.FC<OverlaysProps> = ({ language }) => {
               {t.popoverTrigger}
             </button>
             {popoverOpen ? (
-              <div className="popover-panel" role="dialog" aria-label={t.popover}>
-                <span className="popover-edge" aria-hidden />
-                <div className="popover-body">
-                  <PopoverDateFilter language={language} value={dateFilter} onChange={setDateFilter} />
+              <div className="share-panel" role="dialog" aria-label={t.popoverTitle}>
+                <div className="share-head">
+                  <p className="share-title">{t.popoverTitle}</p>
+                  <p className="share-desc">{t.popoverDescription}</p>
+                </div>
+                <div className="share-link">
+                  <input readOnly value={t.popoverLink} aria-label={t.popoverLink} />
+                  <button
+                    type="button"
+                    className="share-copy"
+                    onClick={() => {
+                      const write = navigator.clipboard?.writeText(t.popoverLink);
+                      if (write) {
+                        write.then(() => {
+                          setCopied(true);
+                          window.setTimeout(() => setCopied(false), 1500);
+                        }).catch(() => {});
+                      }
+                    }}
+                  >
+                    {copied ? t.popoverCopied : t.popoverCopy}
+                  </button>
                 </div>
               </div>
             ) : null}

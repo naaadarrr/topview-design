@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Language, translations } from '../../translations';
 import './controls-specimens.css';
 
@@ -169,7 +169,8 @@ const BoardSwitch: React.FC<{
     data-state={checked ? 'checked' : 'unchecked'}
     data-size={size}
     disabled={disabled}
-    onClick={() => {
+    onClick={(event) => {
+      event.stopPropagation();
       if (disabled) return;
       onCheckedChange?.(!checked);
     }}
@@ -476,6 +477,49 @@ const LucideCheckSquareIcon = () => (
   </svg>
 );
 
+const PasswordEye: React.FC<{ clipId: string }> = ({ clipId }) => (
+  <svg className="password-eye" viewBox="0 0 24 24" aria-hidden="true">
+    <defs>
+      <clipPath id={clipId}>
+        <path className="password-eye-lid" />
+      </clipPath>
+    </defs>
+    <circle className="password-eye-pupil" cx="12" cy="12" r="3" clipPath={`url(#${clipId})`} />
+    <path className="password-eye-lid" />
+    <path className="password-eye-lash" pathLength={1} d="M4.4 14.6 3 16.4" />
+    <path className="password-eye-lash" pathLength={1} d="M9 16.6 8.5 19" />
+    <path className="password-eye-lash" pathLength={1} d="M15 16.6 15.5 19" />
+    <path className="password-eye-lash" pathLength={1} d="M19.6 14.6 21 16.4" />
+  </svg>
+);
+
+const PasswordField: React.FC<{ showLabel: string; hideLabel: string }> = ({ showLabel, hideLabel }) => {
+  const [visible, setVisible] = useState(false);
+  const clipId = `password-eye${useId().replace(/:/g, '')}`;
+
+  return (
+    <div className="login-password">
+      <input
+        className="login-input"
+        type={visible ? 'text' : 'password'}
+        placeholder="Password"
+        aria-label="Password"
+        autoComplete="off"
+      />
+      <button
+        type="button"
+        className={`login-password-toggle${visible ? ' is-open' : ''}`}
+        aria-pressed={visible}
+        aria-label={visible ? hideLabel : showLabel}
+        onMouseDown={(event) => event.preventDefault()}
+        onClick={() => setVisible((open) => !open)}
+      >
+        <PasswordEye clipId={clipId} />
+      </button>
+    </div>
+  );
+};
+
 const LucideUploadIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -486,17 +530,14 @@ const LucideUploadIcon = () => (
 
 const Controls: React.FC<ControlsProps> = ({ language }) => {
   const t = translations[language].controls;
-  const [switchOn, setSwitchOn] = useState(true);
-  const [switchOff, setSwitchOff] = useState(false);
-  const [switchSm, setSwitchSm] = useState(true);
+  const [notify, setNotify] = useState(false);
   const [sliderMd, setSliderMd] = useState(2);
   const [sliderTicks, setSliderTicks] = useState(3);
   const [sliderSm, setSliderSm] = useState(2);
   const [gridSize, setGridSize] = useState(4);
   const [batchMode, setBatchMode] = useState(false);
   const [proof, setProof] = useState('');
-  const [ack, setAck] = useState(false);
-  const [ackOn, setAckOn] = useState(true);
+  const [keepCopy, setKeepCopy] = useState(true);
   const [resolution, setResolution] = useState<'720' | '1080'>('1080');
   const [menuQuery, setMenuQuery] = useState('');
   const searchRef = useRef<HTMLInputElement>(null);
@@ -523,7 +564,7 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
           <div className="field-stack">
             <div className="login-fields">
               <input className="login-input" type="email" placeholder="Email" aria-label="Email" />
-              <input className="login-input" type="password" placeholder="Password" aria-label="Password" />
+              <PasswordField showLabel={t.passwordShow} hideLabel={t.passwordHide} />
             </div>
             <div className="form-field">
               <label className="form-field-label" htmlFor="activity-proof">{t.textareaLabel}</label>
@@ -658,58 +699,13 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
         <GroupLabel title={t.choicesTitle} />
         <div className="mt-6 space-y-24">
       <section>
-        <SectionHeading title={t.switchTitle} />
         <div className="stage">
-          <div className="row">
-            <figure>
-              <div className="state-label">{t.stateOn}</div>
-              <BoardSwitch checked={switchOn} onCheckedChange={setSwitchOn} ariaLabel={t.stateOn} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateOff}</div>
-              <BoardSwitch checked={switchOff} onCheckedChange={setSwitchOff} ariaLabel={t.stateOff} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateFocus}</div>
-              <BoardSwitch checked showFocus ariaLabel={t.stateFocus} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateDisabled}</div>
-              <BoardSwitch checked disabled ariaLabel={t.stateDisabled} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateSm}</div>
-              <BoardSwitch
-                checked={switchSm}
-                onCheckedChange={setSwitchSm}
-                size="sm"
-                ariaLabel={t.stateSm}
-              />
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading title={t.checkboxTitle} />
-        <div className="stage">
-          <div className="row">
-            <figure>
-              <div className="state-label">{t.stateOff}</div>
-              <FormCheckbox checked={ack} label={t.checkboxLabel} onCheckedChange={setAck} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateOn}</div>
-              <FormCheckbox checked={ackOn} label={t.checkboxLabel} onCheckedChange={setAckOn} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateFocus}</div>
-              <FormCheckbox checked showFocus label={t.checkboxLabel} />
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateDisabled}</div>
-              <FormCheckbox checked disabled label={t.checkboxLabel} />
-            </figure>
+          <div className="choice-cluster">
+            <FormCheckbox checked={keepCopy} label={t.choiceCopy} onCheckedChange={setKeepCopy} />
+            <div className="choice-row" onClick={() => setNotify((on) => !on)}>
+              <BoardSwitch checked={notify} onCheckedChange={setNotify} ariaLabel={t.choiceNotify} />
+              <span>{t.choiceNotify}</span>
+            </div>
           </div>
         </div>
       </section>

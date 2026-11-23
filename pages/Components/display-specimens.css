@@ -388,16 +388,30 @@
   width: min(236px, 100%);
 }
 .displaySpecimens .board-card-shell {
+  position: relative;
   overflow: hidden;
-  border: 1px solid var(--border-subtle);
+  border: 0;
   border-radius: var(--radius-05);
-  background: rgba(0, 0, 0, 0.45);
+  background: var(--background);
   padding: var(--spacing-02);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 -1px 0 rgba(0, 0, 0, 0.68),
     0 10px 24px rgba(0, 0, 0, 0.22);
-  transition: background-color 200ms, border-color 200ms, box-shadow 200ms;
+  transition: box-shadow 200ms ease;
+}
+.displaySpecimens .board-card-shell::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(217, 237, 254, 0.12),
+    inset 0 1px 0 rgba(217, 237, 254, 0.14);
+  transition: box-shadow 200ms ease;
 }
 .displaySpecimens .board-card-cover {
   position: relative;
@@ -409,7 +423,6 @@
 .displaySpecimens .board-card-cover-inner {
   position: absolute;
   inset: 0;
-  transition: transform 300ms ease-out;
 }
 .displaySpecimens .board-card-mosaic {
   position: absolute;
@@ -461,15 +474,16 @@
     transition-duration: 320ms;
   }
   .displaySpecimens .board-card:hover .board-card-shell {
-    border-color: rgba(255, 255, 255, 0.14);
-    background: rgba(0, 0, 0, 0.55);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.18),
       inset 0 -1px 0 rgba(0, 0, 0, 0.72),
       0 14px 30px rgba(0, 0, 0, 0.3);
   }
-  .displaySpecimens .board-card:hover .board-card-cover-inner {
-    transform: scale(1.04);
+  .displaySpecimens .board-card:hover .board-card-shell::after {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(217, 237, 254, 0.24),
+      inset 0 1px 0 rgba(217, 237, 254, 0.3);
   }
 }
 
@@ -494,13 +508,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .displaySpecimens .board-card-cover-inner,
   .displaySpecimens .board-card-shell,
+  .displaySpecimens .board-card-shell::after,
   .displaySpecimens .dock-row {
     transition: none;
-  }
-  .displaySpecimens .board-card:hover .board-card-cover-inner {
-    transform: none;
   }
 }
 

@@ -229,7 +229,7 @@ html.light .site-docs .prompt-copy:hover {
   height: 36px;
   border-radius: var(--radius-02);
   padding: 0 var(--spacing-05);
-  color: #8A8A8A;
+  color: #fff;
   font-size: 14px;
   line-height: 20px;
 }

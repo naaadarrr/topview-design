@@ -148,7 +148,7 @@
   height: 36px;
   border-radius: var(--radius-02, 8px);
   padding: 0 var(--spacing-05, 16px);
-  color: #8A8A8A;
+  color: #fff;
   font-size: 14px;
   line-height: 20px;
 }
