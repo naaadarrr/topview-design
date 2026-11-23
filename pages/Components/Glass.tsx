@@ -12,6 +12,7 @@ type GlassMaterial = {
   id: 'banner' | 'card-a' | 'daily';
   plateClass: string;
   name: string;
+  spec: string;
   use: string;
   status: MaterialStatus;
 };
@@ -66,6 +67,7 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
       id: 'banner',
       plateClass: 'material-plate g',
       name: t.materialBanner,
+      spec: t.materialBannerSpec,
       use: t.materialBannerUse,
       status: 'locked',
     },
@@ -73,6 +75,7 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
       id: 'daily',
       plateClass: 'material-plate card-micro daily',
       name: t.materialDaily,
+      spec: t.materialDailySpec,
       use: t.materialDailyUse,
       status: 'candidate',
     },
@@ -80,6 +83,7 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
       id: 'card-a',
       plateClass: 'material-plate card-micro a',
       name: t.materialCardA,
+      spec: t.materialCardASpec,
       use: t.materialCardAUse,
       status: 'locked',
     },
@@ -100,7 +104,8 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
                 aria-pressed={material.id === selectedId}
                 onClick={() => setSelectedId(material.id)}
               >
-                {material.name}
+                <span className="material-name">{material.name}</span>
+                <span className="material-spec">{material.spec}</span>
               </button>
             ))}
           </div>

@@ -638,7 +638,10 @@
   min-height: 112px;
   padding: 16px;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 2px;
   text-align: left;
   color: #fff;
   font: inherit;
@@ -653,6 +656,17 @@
 
 .glassSpecimens .material-plate.g:active {
   transform: none;
+}
+
+/* The banner bevel is a 3px, 40% bar meant for the 36px arrow.
+   On this 200px plate it reads as a bright top and bottom edge.
+   Keep the fill and blur; use a 1px hairline like the other plates. */
+.glassSpecimens .material-plate.g {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 4px 12px -3px rgba(0, 0, 0, 0.5);
 }
 
 .glassSpecimens button.material-plate.g {
@@ -673,6 +687,15 @@
   outline-offset: 3px;
 }
 
+.glassSpecimens .material-name {
+  font-weight: 600;
+}
+.glassSpecimens .material-spec {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.72);
+}
 .glassSpecimens .material-use {
   margin: 16px 0 0;
   min-height: 18px;
