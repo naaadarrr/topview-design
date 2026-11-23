@@ -119,11 +119,11 @@
     inset 0px -1px 0px 0px rgba(255, 255, 255, 0.16),
     0 16px 40px rgba(0, 0, 0, 0.55);
   transform-origin: top center;
-  animation: bselIn 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: bselIn var(--dur-slow) var(--ease-enter);
 }
 .menuSpecimens .bsel-menu[data-state='closed'] {
   pointer-events: none;
-  animation: bselOut 150ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: bselOut 150ms var(--ease-enter) forwards;
 }
 @keyframes bselIn {
   from {

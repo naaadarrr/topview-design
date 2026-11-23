@@ -361,6 +361,7 @@ html.light .site-docs .prompt-copy:hover {
 .buttonInventory .cta-primary.size-h32 { height: 32px; }
 .buttonInventory .cta-primary.size-h36 { height: 36px; }
 .buttonInventory .cta-primary.size-h40 { height: 40px; }
+.buttonInventory .cta-primary.size-h48 { height: 48px; }
 .buttonInventory .size-dim {
   display: flex;
   align-items: center;
@@ -371,6 +372,7 @@ html.light .site-docs .prompt-copy:hover {
 .buttonInventory .size-dim.size-h32 { height: 32px; }
 .buttonInventory .size-dim.size-h36 { height: 36px; }
 .buttonInventory .size-dim.size-h40 { height: 40px; }
+.buttonInventory .size-dim.size-h48 { height: 48px; }
 .buttonInventory .size-dim-line {
   position: relative;
   width: 0;
@@ -514,7 +516,8 @@ html.light .buttonInventory .size-table-row code {
   outline-offset: 2px;
 }
 /* White button in the purple primary structure: flat fill, 1px top lighter, 1px bottom darker.
-   Bottom #C4C4C4 is the same lightness step as #731DFB to #6317E3. Hover fill is #fff. */
+   Bottom #C4C4C4 is the same lightness step as #731DFB to #6317E3. Hover fill is #fff.
+   Blur stays the shared blur(4px) from .product-cta. */
 .buttonInventory .product-cta.cta-white {
   background-color: rgba(255, 255, 255, 0.86);
   background-image: none;
@@ -522,8 +525,6 @@ html.light .buttonInventory .size-table-row code {
   box-shadow:
     inset 0 1px 0 0 #fff,
     inset 0 -1px 0 0 #c4c4c4;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 .buttonInventory .product-cta.cta-white::before,
 .buttonInventory .product-cta.cta-white:hover::before {

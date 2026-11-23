@@ -4,7 +4,7 @@ import { Language, translations } from '../../translations';
 import './controls-specimens.css';
 import './button-inventory.css';
 
-export const BUTTON_PROMPT = `Add a Topview button to this project. Read https://raw.githubusercontent.com/naaadarrr/topview-design/main/registry/button.tsx and https://raw.githubusercontent.com/naaadarrr/topview-design/main/registry/button.css. Copy that component. Use only the variants it defines. Do not invent new ones.`;
+export const BUTTON_PROMPT = `Add a Topview button to this project. Read https://raw.githubusercontent.com/naaadarrr/topview-design/main/registry/button.tsx and https://raw.githubusercontent.com/naaadarrr/topview-design/main/registry/button.css. Copy that component. Use only the variants and sizes it defines. Heights are 32, 36, 40, and 48. Radius stays 8px on every size. The white button uses rgba(255, 255, 255, 0.86) and backdrop-filter: blur(4px). Do not invent new ones.`;
 
 export const ButtonInstall: React.FC<{ language: Language }> = ({ language }) => {
   const t = translations[language].buttonInventory;
@@ -55,9 +55,10 @@ const VARIANTS = [
 ];
 
 const SIZE_ROWS = [
-  { labelKey: 'ctrlSmall' as const, heightClass: 'size-h32', measure: '32 / 2' },
-  { labelKey: 'ctrlMedium' as const, heightClass: 'size-h36', measure: '36 / 2.25' },
-  { labelKey: 'ctrlLarge' as const, heightClass: 'size-h40', measure: '40 / 2.5' },
+  { labelKey: 'ctrlSmall' as const, heightClass: 'size-h32', measure: '32 / 8' },
+  { labelKey: 'ctrlMedium' as const, heightClass: 'size-h36', measure: '36 / 8' },
+  { labelKey: 'ctrlLarge' as const, heightClass: 'size-h40', measure: '40 / 8' },
+  { labelKey: 'ctrlXLarge' as const, heightClass: 'size-h48', measure: '48 / 8' },
 ];
 
 const ButtonInventory: React.FC<ButtonInventoryProps> = ({ language }) => {

@@ -211,7 +211,6 @@ export const LINE_HEIGHTS = [
  * To restore a section, delete its line below.
  */
 export const HIDDEN_SECTIONS: ReadonlySet<string> = new Set([
-  'motion', // mem647: Motion with Principles / Incorrect / Specs
   'components-rules', // mem648: Components › Rules and the lock rule pages
 ]);
 
@@ -282,16 +281,7 @@ export const ALL_NAV_ITEMS: NavItem[] = [
         ],
       },
       { id: 'glass', label: 'Glass', path: '/glass' },
-    ],
-  },
-  {
-    id: 'motion',
-    label: 'Motion',
-    path: '/motion',
-    children: [
-      { id: 'motion-principles', label: 'Principles', path: '/motion/principles' },
-      { id: 'motion-incorrect', label: 'Incorrect', path: '/motion/incorrect' },
-      { id: 'motion-spec', label: 'Specs', path: '/motion/spec' },
+      { id: 'motion', label: 'Motion', path: '/motion' },
     ],
   },
   {

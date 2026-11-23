@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Language, translations } from '../../translations';
 import './glass-specimens.css';
 
 interface GlassProps {
   language: Language;
 }
+
+type MaterialStatus = 'locked' | 'candidate';
+
+type GlassMaterial = {
+  id: 'banner' | 'card-a' | 'daily';
+  plateClass: string;
+  name: string;
+  use: string;
+  status: MaterialStatus;
+};
 
 // lucide chevron-left, as TopviewBanner.tsx imports it (lucide-react 0.468.0, origin/develop b0c5a29).
 const ChevronLeftIcon = () => (
@@ -50,9 +60,54 @@ const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
 
 const Glass: React.FC<GlassProps> = ({ language }) => {
   const t = translations[language].glass;
+  const [selectedId, setSelectedId] = useState<GlassMaterial['id'] | null>(null);
+  const materials: GlassMaterial[] = [
+    {
+      id: 'banner',
+      plateClass: 'material-plate g',
+      name: t.materialBanner,
+      use: t.materialBannerUse,
+      status: 'locked',
+    },
+    {
+      id: 'daily',
+      plateClass: 'material-plate card-micro daily',
+      name: t.materialDaily,
+      use: t.materialDailyUse,
+      status: 'candidate',
+    },
+    {
+      id: 'card-a',
+      plateClass: 'material-plate card-micro a',
+      name: t.materialCardA,
+      use: t.materialCardAUse,
+      status: 'locked',
+    },
+  ];
+  const selected = materials.find((material) => material.id === selectedId);
 
   return (
     <div className="glassSpecimens space-y-24">
+      <section>
+        <SectionHeading title={t.materialsTitle} />
+        <div className="stage">
+          <div className="material-field">
+            {materials.map((material) => (
+              <button
+                key={material.id}
+                type="button"
+                className={material.id === selectedId ? `${material.plateClass} is-selected` : material.plateClass}
+                aria-pressed={material.id === selectedId}
+                onClick={() => setSelectedId(material.id)}
+              >
+                {material.name}
+              </button>
+            ))}
+          </div>
+          <p className="material-use">{selected?.use ?? ''}</p>
+        </div>
+      </section>
+
       <section id="glass-banner-arrow">
         <SectionHeading title={t.arrowTitle} />
         <div className="stage">

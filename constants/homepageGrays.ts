@@ -16,13 +16,6 @@ export const HOMEPAGE_GRAY_GROUPS: HomepageGrayGroup[] = [
     id: 'surface',
     swatches: [
       {
-        hex: '#0E0E13',
-        usage: {
-          en: 'Category Tab focus-ring outer.',
-          zh: '分类 Tab 焦点环外圈。',
-        },
-      },
-      {
         hex: '#1D1D1D',
         usage: {
           en: 'User-menu plan/quota card.',
@@ -189,13 +182,6 @@ export const HOMEPAGE_GRAY_GROUPS: HomepageGrayGroup[] = [
         usage: {
           en: 'Session-mode hover/active; some disabled controls.',
           zh: '会话模式悬停 / 激活；部分禁用控件。',
-        },
-      },
-      {
-        hex: '#3E3E47',
-        usage: {
-          en: 'Template-card and tool-card hover.',
-          zh: '模板卡与工具卡悬停。',
         },
       },
       {

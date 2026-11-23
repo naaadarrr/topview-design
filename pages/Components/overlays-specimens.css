@@ -129,7 +129,7 @@ html.light .site-docs .overlaySpecimens .stage.is-popover {
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 -1px 0 rgba(0, 0, 0, 0.68),
     0 10px 24px rgba(0, 0, 0, 0.22);
-  animation: boardPopoverIn 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: boardPopoverIn var(--dur-slow) var(--ease-enter);
 }
 
 .overlaySpecimens .share-panel::after {
@@ -250,7 +250,7 @@ html.light .site-docs .overlaySpecimens .stage.is-popover {
     0 16px 40px rgba(0, 0, 0, 0.55);
   transform-origin: top right;
   /* popover.tsx animate-in fade-in-0 zoom-in-95 slide-in-from-top-2; 250ms cubic-bezier(0.22,1,0.36,1) */
-  animation: boardPopoverIn 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: boardPopoverIn var(--dur-slow) var(--ease-enter);
 }
 
 @keyframes boardPopoverIn {

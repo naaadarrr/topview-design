@@ -244,6 +244,205 @@
   gap: 10px;
 }
 
+/* Collapsed toast pile: the front card stays whole, the next two
+   drop by --pile-lip and scale in so only their bottom edge shows.
+   Hover fans the column back out. The fourth card stays hidden until then. */
+.glassSpecimens .toast-pile {
+  position: relative;
+  width: 100%;
+  height: var(--pile-rest, 88px);
+  transition: height 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+.glassSpecimens .toast-pile-item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: calc(8 - var(--i, 0));
+  transform-origin: top center;
+  transform: translateY(var(--rest-y, calc(var(--i, 0) * var(--pile-lip, 14px)))) scale(var(--pile-scale, calc(1 - var(--i, 0) * 0.05)));
+  clip-path: inset(var(--clip-top, 0px) 0 0 0);
+  transition: transform 240ms cubic-bezier(0.2, 0, 0, 1), opacity 240ms cubic-bezier(0.2, 0, 0, 1), clip-path 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+.glassSpecimens .toast-pile:not(.is-open) .toast-pile-item:not(:first-child) .glass-toast {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.glassSpecimens .toast-pile:not(.is-open):has(.toast-pile-item:nth-child(2)) .toast-pile-item:first-child .glass-toast {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.glassSpecimens .toast-pile:not(.is-open) .toast-pile-item:not(:first-child) .pt-icon,
+.glassSpecimens .toast-pile:not(.is-open) .toast-pile-item:not(:first-child) .pt-title,
+.glassSpecimens .toast-pile:not(.is-open) .toast-pile-item:not(:first-child) .pt-body {
+  opacity: 0;
+}
+.glassSpecimens .toast-pile-item:nth-child(n + 4) {
+  opacity: 0;
+}
+.glassSpecimens .toast-pile.is-open {
+  height: var(--pile-open, auto);
+}
+.glassSpecimens .toast-pile.is-open .toast-pile-item {
+  opacity: 1;
+  clip-path: none;
+  transform: translateY(var(--open-y, 0px)) scale(1);
+}
+.glassSpecimens .toast-pile .glass-toast {
+  width: 100%;
+}
+.glassSpecimens .toast-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-08);
+  min-height: 420px;
+}
+.glassSpecimens .toast-demo .toast-pile {
+  width: min(320px, 100%);
+}
+.glassSpecimens .toast-triggers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-04);
+}
+.glassSpecimens .toast-trigger-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-04);
+}
+.glassSpecimens .toast-dock {
+  position: fixed;
+  top: var(--spacing-05);
+  left: 0;
+  right: 0;
+  z-index: 80;
+  width: min(320px, calc(100vw - var(--spacing-07)));
+  margin-inline: auto;
+  pointer-events: none;
+}
+.glassSpecimens .toast-dock .toast-pile {
+  width: 100%;
+  pointer-events: auto;
+}
+/* The pile item is the transformed layer, so the frost lives here.
+   A parent transform would trap backdrop-filter inside the card. */
+.glassSpecimens .toast-dock .toast-pile-item {
+  overflow: hidden;
+  border-radius: var(--radius-05);
+  -webkit-backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
+  backdrop-filter: blur(16px) brightness(1) contrast(0.9) saturate(1.8);
+  box-shadow: 0 var(--spacing-03) var(--spacing-06) rgba(0, 0, 0, 0.28);
+}
+.glassSpecimens .toast-dock .toast-pile:not(.is-open):has(.toast-pile-item:nth-child(2)) .toast-pile-item {
+  box-shadow: none;
+}
+/* Docked toast only. Glass fill so the 16px frost shows. The locked white .glass-toast stays. */
+.glassSpecimens .toast-dock .glass-toast {
+  border-radius: var(--radius-05);
+  padding: var(--spacing-04) var(--spacing-05);
+  color: #ededed;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 50%), rgba(23, 23, 23, 0.92);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  align-items: flex-start;
+  gap: var(--spacing-03);
+}
+.glassSpecimens .toast-dock .glass-toast::before {
+  content: "";
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.12));
+}
+.glassSpecimens .toast-dock .glass-toast .pt-twoline {
+  gap: var(--spacing-01);
+}
+.glassSpecimens .toast-dock .glass-toast .pt-body {
+  padding-left: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  line-height: 18px;
+}
+.glassSpecimens .toast-dock .glass-toast .pt-title {
+  color: #ededed;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+.glassSpecimens .toast-dock .pt-icon[data-tone="info"] { color: #b2d6ff; }
+.glassSpecimens .toast-dock .pt-icon[data-tone="success"] { color: #7cebc0; }
+.glassSpecimens .toast-dock .pt-icon[data-tone="warning"] { color: #ffd27a; }
+.glassSpecimens .toast-dock .pt-icon[data-tone="error"] { color: #ffa6b7; }
+.glassSpecimens .toast-dock .glass-toast .pt-title {
+  font-weight: 500;
+}
+.glassSpecimens .toast-dock .glass-toast .pt-body {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.glassSpecimens .toast-trigger {
+  position: relative;
+  isolation: isolate;
+  --rim-top: 0.32;
+  --rim-bot: 0.22;
+  height: 36px;
+  margin: 0;
+  border: 0;
+  border-radius: var(--radius-02);
+  padding: 0 var(--spacing-05);
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: background-color 150ms var(--ease-fast);
+}
+.glassSpecimens .toast-trigger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, var(--rim-top)), rgba(255, 255, 255, var(--rim-bot)) 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.glassSpecimens .toast-trigger:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+.glassSpecimens .toast-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--spacing-01) #8A8A8A;
+}
+@media (prefers-reduced-motion: reduce) {
+  .glassSpecimens .toast-pile,
+  .glassSpecimens .toast-pile-item {
+    transition: none;
+  }
+  .glassSpecimens .toast-pile {
+    height: var(--pile-open, auto);
+  }
+  .glassSpecimens .toast-pile .toast-pile-item {
+    opacity: 1;
+    clip-path: none;
+    transform: translateY(var(--open-y, 0px)) scale(1);
+  }
+  .glassSpecimens .toast-pile:not(.is-open) .toast-pile-item:not(:first-child) .pt-icon,
+  .glassSpecimens .toast-pile:not(.is-open) .toast-pile-item:not(:first-child) .pt-title,
+  .glassSpecimens .toast-pile:not(.is-open) .toast-pile-item:not(:first-child) .pt-body {
+    opacity: 1;
+  }
+  .glassSpecimens .toast-trigger {
+    transition: none;
+  }
+}
+
 /* ===== 4b BF compact Segmented · B lock (glass-edge-light thumb) ===== */
 .glassSpecimens .bf-seg {
   position: relative;
@@ -421,6 +620,69 @@
   margin: 0;
   text-wrap: pretty;
 }
+
+.glassSpecimens .material-field {
+  width: 100%;
+  padding: 28px;
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: stretch;
+  background: linear-gradient(180deg, #D893FF 0%, #B919FF 100%);
+}
+
+.glassSpecimens .material-plate {
+  width: 200px;
+  min-height: 112px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-end;
+  text-align: left;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  border-radius: var(--radius-05);
+  position: relative;
+}
+
+.glassSpecimens .material-plate.g:active {
+  transform: none;
+}
+
+.glassSpecimens button.material-plate.g {
+  padding: 16px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.glassSpecimens .material-plate.card-micro {
+  width: 200px;
+}
+
+.glassSpecimens .material-plate.is-selected,
+.glassSpecimens .material-plate:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+.glassSpecimens .material-use {
+  margin: 16px 0 0;
+  min-height: 18px;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.62);
+  text-align: center;
+  width: 100%;
+}
+
 /* Module hover icons — literals from turbo COMMUNITY_* / FILM_SUITE_* classes.
    size-8 (32×32), rounded-lg (8px), fill/sheen/blur match .arrow-final. Not rounded-full. */
 .glassSpecimens .module-card {
@@ -606,8 +868,8 @@
 .glassSpecimens .product-toast-stage {
   background: var(--background);
   border: 1px solid #ffffff10;
-  border-radius: 16px;
-  padding: 20px 16px;
+  border-radius: var(--radius-05);
+  padding: 20px var(--spacing-05);
 }
 
 
@@ -673,6 +935,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
 }
 .glassSpecimens .glass-toast .pt-icon {
   flex-shrink: 0;

@@ -1,0 +1,195 @@
+/* Motion tokens live in index.css. The tables reuse the spacing token chip. */
+
+.motionSpecimens .motion-dur-grid {
+  grid-template-columns: minmax(180px, 1.2fr) 96px minmax(180px, 2fr);
+}
+
+.motionSpecimens .motion-job-grid {
+  grid-template-columns: minmax(140px, 0.8fr) minmax(160px, 0.9fr) minmax(220px, 2fr);
+}
+
+.motionSpecimens .motion-live code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.motionSpecimens .stage {
+  margin-top: 24px;
+  border-radius: 16px;
+  padding: 48px;
+  background: var(--background);
+  border: 1px solid #ffffff10;
+}
+
+.motionSpecimens .motion-live {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 40px 48px;
+}
+
+.motionSpecimens figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+}
+
+.motionSpecimens .state-label {
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.motionSpecimens .motion-zoom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 128px;
+}
+
+.motionSpecimens .motion-zoom .motion-icon {
+  transform: scale(4);
+}
+
+.motionSpecimens .motion-icon {
+  position: relative;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #8a8a8a;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-fast);
+}
+
+.motionSpecimens .motion-icon svg {
+  position: relative;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+}
+
+.motionSpecimens .motion-plate {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-02);
+  background: #3a3a3a;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition: transform var(--dur-fast) var(--ease-fast);
+}
+
+.motionSpecimens .stage.is-on .motion-icon.is-play {
+  color: #fff;
+}
+
+.motionSpecimens .stage.is-on .motion-icon.is-play .motion-plate {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.motionSpecimens .motion-icon.is-play {
+  cursor: default;
+  pointer-events: none;
+}
+
+.motionSpecimens .motion-edge {
+  width: min(180px, 100%);
+  height: 96px;
+  border-radius: var(--radius-05);
+  background: var(--background);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.68),
+    0 10px 24px rgba(0, 0, 0, 0.22);
+  transition: box-shadow var(--dur-base) ease;
+}
+
+.motionSpecimens .motion-edge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(217, 237, 254, 0.12),
+    inset 0 1px 0 rgba(217, 237, 254, 0.14);
+  transition: box-shadow var(--dur-base) ease;
+}
+
+.motionSpecimens .motion-edge {
+  position: relative;
+}
+
+.motionSpecimens .stage.is-on .motion-edge {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.72),
+    0 14px 30px rgba(0, 0, 0, 0.3);
+}
+
+.motionSpecimens .stage.is-on .motion-edge::after {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(217, 237, 254, 0.24),
+    inset 0 1px 0 rgba(217, 237, 254, 0.3);
+}
+
+.motionSpecimens .motion-enter {
+  width: min(180px, 100%);
+  height: 64px;
+  border-radius: var(--radius-05);
+  background: #161616;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transform: translateY(-8px) scale(0.95);
+  transition:
+    opacity var(--dur-slow) var(--ease-enter),
+    transform var(--dur-slow) var(--ease-enter);
+}
+
+.motionSpecimens .stage.is-on .motion-enter {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .motionSpecimens .motion-icon:hover {
+    color: #fff;
+  }
+
+  .motionSpecimens .motion-icon:hover .motion-plate {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.motionSpecimens .motion-icon:focus-visible {
+  outline: 2px solid #8a8a8a;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motionSpecimens .motion-icon,
+  .motionSpecimens .motion-plate,
+  .motionSpecimens .motion-edge,
+  .motionSpecimens .motion-edge::after,
+  .motionSpecimens .motion-enter {
+    transition: none;
+  }
+}

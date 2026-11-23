@@ -380,63 +380,6 @@ const BoardSlider: React.FC<{
   );
 };
 
-// Board MainToolbar right group (origin/develop b0c5a29):
-// GridSizeSlider = BoardSlider min 3 / max 5 / step 0.5 / showTicks false / showTrackMarks.
-const GridSizeSlider: React.FC<{ value: number; onChange: (value: number) => void; label: string }> = ({
-  value,
-  onChange,
-  label,
-}) => {
-  const min = 3;
-  const max = 5;
-  const step = 0.5;
-  const thumbPx = 14;
-  const span = max - min;
-  const marks: number[] = [];
-  for (let n = min; n <= max; n += step) marks.push(n);
-  const at = (v: number) => {
-    const p = ((v - min) / span) * 100;
-    return `calc(${p}% + ${(0.5 - p / 100) * thumbPx}px)`;
-  };
-  const snap = (raw: number) => Math.min(max, Math.max(min, Math.round(raw / step) * step));
-  return (
-    <div className="grid-size-slot">
-      <div className="board-slider is-marks">
-        <div
-          className="board-slider-root"
-          role="slider"
-          aria-label={label}
-          aria-valuemin={min}
-          aria-valuemax={max}
-          aria-valuenow={value}
-          tabIndex={0}
-          onClick={(event) => {
-            const rect = event.currentTarget.getBoundingClientRect();
-            const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-            onChange(snap(min + ratio * span));
-          }}
-          onKeyDown={(event) => {
-            if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
-              event.preventDefault();
-              onChange(snap(value + step));
-            }
-            if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
-              event.preventDefault();
-              onChange(snap(value - step));
-            }
-          }}
-        >
-          <div className="board-slider-track" />
-          {marks.map((mark) => (
-            <span key={mark} aria-hidden className="board-slider-mark" style={{ left: at(mark) }} />
-          ))}
-          <span className="board-slider-thumb" style={{ left: at(value) }} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const ToolbarIconButton: React.FC<{
   label: string;
   active?: boolean;
@@ -520,21 +463,12 @@ const PasswordField: React.FC<{ showLabel: string; hideLabel: string }> = ({ sho
   );
 };
 
-const LucideUploadIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="17 8 12 3 7 8" />
-    <line x1="12" x2="12" y1="3" y2="15" />
-  </svg>
-);
-
 const Controls: React.FC<ControlsProps> = ({ language }) => {
   const t = translations[language].controls;
   const [notify, setNotify] = useState(false);
   const [sliderMd, setSliderMd] = useState(2);
   const [sliderTicks, setSliderTicks] = useState(3);
   const [sliderSm, setSliderSm] = useState(2);
-  const [gridSize, setGridSize] = useState(4);
   const [batchMode, setBatchMode] = useState(false);
   const [proof, setProof] = useState('');
   const [keepCopy, setKeepCopy] = useState(true);
@@ -695,17 +629,19 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
         </div>
       </div>
 
-      <div>
-        <GroupLabel title={t.choicesTitle} />
-        <div className="mt-6 space-y-24">
       <section>
+        <SectionHeading title={t.checkboxTitle} />
         <div className="stage">
-          <div className="choice-cluster">
-            <FormCheckbox checked={keepCopy} label={t.choiceCopy} onCheckedChange={setKeepCopy} />
-            <div className="choice-row" onClick={() => setNotify((on) => !on)}>
-              <BoardSwitch checked={notify} onCheckedChange={setNotify} ariaLabel={t.choiceNotify} />
-              <span>{t.choiceNotify}</span>
-            </div>
+          <FormCheckbox checked={keepCopy} label={t.choiceCopy} onCheckedChange={setKeepCopy} />
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading title={t.switchTitle} />
+        <div className="stage">
+          <div className="choice-row" onClick={() => setNotify((on) => !on)}>
+            <BoardSwitch checked={notify} onCheckedChange={setNotify} ariaLabel={t.choiceNotify} />
+            <span>{t.choiceNotify}</span>
           </div>
         </div>
       </section>
@@ -713,48 +649,32 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
       <section>
         <SectionHeading title={t.radioTitle} />
         <div className="stage">
-          <div className="row">
-            <figure>
-              <div className="state-label">{t.stateDefault}</div>
-              <div className="radio-field">
-                <span className="radio-field-label">{t.radioLabel}</span>
-                <div className="radio-group" role="radiogroup" aria-label={t.radioLabel}>
-                  <RadioOption
-                    selected={resolution === '720'}
-                    label={t.radio720}
-                    onSelect={() => setResolution('720')}
-                  />
-                  <RadioOption
-                    selected={resolution === '1080'}
-                    label={t.radio1080}
-                    onSelect={() => setResolution('1080')}
-                  />
-                </div>
-              </div>
-            </figure>
-            <figure>
-              <div className="state-label">{t.stateHover}</div>
-              <RadioOption showHover label={t.radio720} selected={false} />
-            </figure>
+          <div className="radio-field">
+            <span className="radio-field-label">{t.radioLabel}</span>
+            <div className="radio-group" role="radiogroup" aria-label={t.radioLabel}>
+              <RadioOption
+                selected={resolution === '720'}
+                label={t.radio720}
+                onSelect={() => setResolution('720')}
+              />
+              <RadioOption
+                selected={resolution === '1080'}
+                label={t.radio1080}
+                onSelect={() => setResolution('1080')}
+              />
+            </div>
           </div>
         </div>
       </section>
-        </div>
-      </div>
 
       <section>
         <SectionHeading title={t.sliderTitle} />
         <div className="stage">
-          <div className="state-label">{t.stateDefault}</div>
-          <BoardSlider value={sliderMd} onChange={setSliderMd} />
-          <div className="state-label" style={{ marginTop: 20 }}>
-            {t.stateTicks}
+          <div className="flex w-full max-w-[320px] flex-col gap-8">
+            <BoardSlider value={sliderMd} onChange={setSliderMd} />
+            <BoardSlider value={sliderTicks} onChange={setSliderTicks} showTicks />
+            <BoardSlider value={sliderSm} onChange={setSliderSm} size="sm" />
           </div>
-          <BoardSlider value={sliderTicks} onChange={setSliderTicks} showTicks />
-          <div className="state-label" style={{ marginTop: 20 }}>
-            {t.stateSm}
-          </div>
-          <BoardSlider value={sliderSm} onChange={setSliderSm} size="sm" />
         </div>
       </section>
 
@@ -762,7 +682,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
         <SectionHeading title={t.toolbarTitle} />
         <div className="stage">
           <div className="board-toolbar-right">
-            <GridSizeSlider value={gridSize} onChange={setGridSize} label={t.toolbarSize} />
             <ToolbarIconButton label={t.toolbarView}>
               <JustifiedLayoutIcon />
             </ToolbarIconButton>
@@ -776,10 +695,6 @@ const Controls: React.FC<ControlsProps> = ({ language }) => {
               onClick={() => setBatchMode((on) => !on)}
             >
               <LucideCheckSquareIcon />
-            </ToolbarIconButton>
-            <div className="toolbar-divider" aria-hidden />
-            <ToolbarIconButton label={t.toolbarUpload}>
-              <LucideUploadIcon />
             </ToolbarIconButton>
           </div>
         </div>

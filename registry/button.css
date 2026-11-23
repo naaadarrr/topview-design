@@ -71,8 +71,6 @@
   box-shadow:
     inset 0 1px 0 0 #fff,
     inset 0 -1px 0 0 #c4c4c4;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 .product-cta.cta-white::before,
 .product-cta.cta-white:hover::before {
@@ -100,12 +98,14 @@
 }
 .product-cta.cta-primary.size-h32,
 .product-cta.cta-primary.size-h36,
-.product-cta.cta-primary.size-h40 {
+.product-cta.cta-primary.size-h40,
+.product-cta.cta-primary.size-h48 {
   padding: 0 20px;
 }
 .product-cta.cta-primary.size-h32 { height: 32px; }
 .product-cta.cta-primary.size-h36 { height: 36px; }
 .product-cta.cta-primary.size-h40 { height: 40px; }
+.product-cta.cta-primary.size-h48 { height: 48px; }
 
 .product-button {
   box-sizing: border-box;

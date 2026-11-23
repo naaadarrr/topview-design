@@ -2,7 +2,7 @@ import './button.css';
 import type { ButtonHTMLAttributes } from 'react';
 
 type Variant = 'primary' | 'white' | 'neutral' | 'outline' | 'ghost' | 'danger' | 'link';
-type Size = 'sm' | 'md' | 'lg';
+type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 const variantClass: Record<Variant, string> = {
   primary: 'product-cta cta-primary',
@@ -18,6 +18,7 @@ const sizeClass: Record<Size, string> = {
   sm: 'size-h32',
   md: 'size-h36',
   lg: 'size-h40',
+  xl: 'size-h48',
 };
 
 export function Button({

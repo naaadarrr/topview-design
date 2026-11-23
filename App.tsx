@@ -93,7 +93,7 @@ const legacyComponentsHash = (raw: string): HashTarget => {
 
 /**
  * Sections in HIDDEN_SECTIONS (constants.tsx) never render. A hidden top-level section
- * (e.g. #motion, #motion/motion-spec) opens Logo. A hidden page inside a nav
+ * A hidden top-level section opens Logo. A hidden page inside a nav
  * group (e.g. #components-rules) opens that group's first visible page.
  */
 const resolveHiddenTarget = (section: string, subId: string | null): HashTarget | 'catalog' | null => {

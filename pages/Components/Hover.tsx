@@ -1,6 +1,41 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 import { Language, translations } from '../../translations';
+import '../../registry/hover.css';
+import './button-inventory.css';
 import './hover-specimens.css';
+
+const HOVER_PROMPT = `Add a Topview hover card to this project. Read https://raw.githubusercontent.com/naaadarrr/topview-design/main/registry/hover.css. Copy those treatments. Use only .hover-seedance, .hover-poster, .hover-quickstart, and .hf-tile. Hover is an edge highlight or sheen, plus glow and a bottom highlight. Do not substitute a brighter gray. Do not invent a new hover.`;
+
+const HoverPrompt: React.FC<{ language: Language }> = ({ language }) => {
+  const t = translations[language].buttonInventory;
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<number | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) window.clearTimeout(timer.current);
+  }, []);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(HOVER_PROMPT);
+      setCopied(true);
+      if (timer.current) window.clearTimeout(timer.current);
+      timer.current = window.setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div className="prompt-row">
+      <button type="button" className="prompt-copy" onClick={copy}>
+        {copied ? <Check size={14} strokeWidth={2} /> : <Copy size={14} strokeWidth={2} />}
+        {copied ? t.copiedCommand : t.copyCommand}
+      </button>
+    </div>
+  );
+};
 
 interface HoverProps {
   language: Language;
@@ -16,6 +51,7 @@ const Hover: React.FC<HoverProps> = ({ language }) => {
 
   return (
     <div className="hoverSpecimens space-y-12">
+      <HoverPrompt language={language} />
 
       <section>
         <SubLabel title={t.ruleLabel} />

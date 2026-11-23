@@ -187,7 +187,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                 type="button"
                 onClick={() => copyToClipboard(color.hex)}
                 aria-label={isCopied ? `Copied ${color.hex}` : `Copy ${color.hex}`}
-                className="bg-transparent p-0 text-left"
+                className="flex w-full flex-col items-stretch bg-transparent p-0 text-left"
               >
                 <div
                   className="h-20 rounded-[20px] border border-white/10"
@@ -377,7 +377,7 @@ const Colors: React.FC<ColorsProps> = ({ language }) => {
                         type="button"
                         onClick={() => copyToClipboard(color.hex)}
                         aria-label={isCopied ? `Copied ${color.hex}` : `Copy ${color.hex}`}
-                        className="bg-transparent p-0 text-left"
+                        className="flex w-full flex-col items-stretch bg-transparent p-0 text-left"
                       >
                         <div
                           className="h-20 rounded-[20px] border border-white/15"

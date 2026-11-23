@@ -1,120 +1,133 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Language, translations } from '../translations';
+import { DURATION_SCALE } from '../constants/foundationTokens';
+import './foundations-specimens.css';
+import './motion-specimens.css';
 
 interface MotionProps {
   language: Language;
 }
 
+const SectionHeading: React.FC<{ title: string }> = ({ title }) => (
+  <h3 className="site-h3 mb-6">{title}</h3>
+);
+
+const LayoutIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" aria-hidden="true">
+    <rect x="1.75" y="2.25" width="12.5" height="11.5" rx="1" />
+    <path d="M1.75 6.08h12.5M1.75 9.92h12.5M6.5 2.25v3.83M10 6.08v3.84M5.5 9.92v3.83" />
+  </svg>
+);
+
 const Motion: React.FC<MotionProps> = ({ language }) => {
   const t = translations[language].motion;
-  const principles = t.principles;
+  const [on, setOn] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (query.matches) {
+      setOn(true);
+      return;
+    }
+    const id = window.setInterval(() => setOn((value) => !value), 1400);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const durations = [
+    { token: DURATION_SCALE[0].token, time: `${DURATION_SCALE[0].ms}ms`, used: t.fastUsed },
+    { token: DURATION_SCALE[1].token, time: `${DURATION_SCALE[1].ms}ms`, used: t.baseUsed },
+    { token: DURATION_SCALE[2].token, time: `${DURATION_SCALE[2].ms}ms`, used: t.slowUsed },
+  ];
+
+  const jobs = [
+    { job: t.jobPlate, token: '--dur-fast', moves: t.jobPlateMoves },
+    { job: t.jobEdge, token: '--dur-base', moves: t.jobEdgeMoves },
+    { job: t.jobEnter, token: '--dur-slow', moves: t.jobEnterMoves },
+  ];
 
   return (
-    <div className="max-w-full text-white space-y-32 pb-40">
-      {/* Philosophy Section */}
-      <section id="motion-principles" className="fade-in scroll-mt-8">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-20 w-full">
-          <h1 className="catalog-title text-[64px] md:text-[88px] lg:text-[112px] leading-none tracking-tight">
-            {t.title}
-          </h1>
+    <div className="motionSpecimens max-w-full text-white space-y-16 pb-40 overflow-x-hidden">
+      <section className="fade-in scroll-mt-8">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-8 w-full">
+          <h1 className="site-h1">{t.title}</h1>
           <p className="max-w-md text-[20px] leading-[26px] font-sans text-white mt-4 md:mt-10 font-normal">
-            {t.desc}
+            {t.pageLine}
           </p>
         </div>
       </section>
 
-      {/* Principles Grid */}
-      <section className="fade-in" style={{ animationDelay: '0.1s' }}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {principles.map((p, idx) => (
-            <div key={idx} className="bg-[#222222] border border-white/5 rounded-[10px] p-8">
-              <h4 className="text-xl font-bold mb-3 font-sans text-white uppercase tracking-wider">{p.title}</h4>
-              <p className="text-sm text-neutral-500 font-sans leading-relaxed">{p.desc}</p>
+      <section>
+        <SectionHeading title={t.durations} />
+        <div className="foundationsSpecimens">
+          <div className="space-table">
+            <div className="space-table-head motion-dur-grid">
+              <span>{t.colToken}</span>
+              <span>{t.colTime}</span>
+              <span>{t.colUsed}</span>
             </div>
-          ))}
+            {durations.map((row) => (
+              <div className="space-table-row motion-dur-grid" key={row.token}>
+                <span className="space-token-cell">
+                  <code className="space-token">{row.token}</code>
+                </span>
+                <span className="space-value">{row.time}</span>
+                <span className="space-where">{row.used}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </section>
 
-      {/* Incorrect Examples Section - Moved above Specs */}
-      <section id="motion-incorrect" className="fade-in pt-20 scroll-mt-8" style={{ animationDelay: '0.2s' }}>
-        <div className="mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{translations[language].colors.incorrect}</h2>
-        </div>
-
-        <div className="flex">
-          {/* Unified Motion Principles Card */}
-          <div className="group bg-white/5 hover:bg-white/10 transition-all duration-500 rounded-[12px] p-6 md:p-8 w-fit max-w-full overflow-hidden">
-            <div className="bg-black rounded-[8px] flex items-center justify-center p-6 md:p-12 mb-8 border border-white/5 w-fit">
-              <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center justify-center">
-                {/* Correct Example (item1.png - No Outline) */}
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-64 md:w-80 lg:w-[400px] aspect-square rounded-sm relative group/item">
-                    <img src="/motion/item1.png" alt="Correct Motion" className="w-full h-full object-contain rounded-sm" />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#731DFB" strokeWidth="4">
-                        <path d="M20 6L9 17L4 12" />
-                      </svg>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">Correct Alignment</span>
-                </div>
-                {/* Incorrect Example (item2.png - With Outline) */}
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-64 md:w-80 lg:w-[400px] aspect-square rounded-sm relative">
-                    <img src="/motion/item2.png" alt="Incorrect Motion" className="w-full h-full object-contain rounded-sm" />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 z-10">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                        <path d="M18 6L6 18M6 6l12 12" />
-                      </svg>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">Avoid Outlines</span>
+        <div className={`stage${on ? ' is-on' : ''}`}>
+          <div className="motion-live">
+            <figure>
+              <code>--dur-fast</code>
+              <div className="motion-zoom">
+                <div className="motion-icon is-play" aria-hidden="true">
+                  <span className="motion-plate" />
+                  <LayoutIcon />
                 </div>
               </div>
-            </div>
-            <h4 className="text-xl font-bold mb-2 font-sans group-hover:text-white transition-colors">{language === 'zh' ? '模块 Hover Motion' : "Module Hover Motion"}</h4>
+            </figure>
+            <figure>
+              <code>--dur-base</code>
+              <div className="motion-edge" aria-hidden="true" />
+            </figure>
+            <figure>
+              <code>--dur-slow</code>
+              <div className="motion-enter" aria-hidden="true" />
+            </figure>
+            <figure>
+              <div className="state-label">{t.hoverLabel}</div>
+              <button type="button" className="motion-icon" aria-label={t.hoverLabel}>
+                <span className="motion-plate" aria-hidden="true" />
+                <LayoutIcon />
+              </button>
+            </figure>
           </div>
         </div>
       </section>
 
-      {/* Related Specs Section */}
-      <section id="motion-spec" className="fade-in pt-20 scroll-mt-8" style={{ animationDelay: '0.3s' }}>
-        <div className="mb-16">
-          <h2 className="text-[44px] md:text-[56px] leading-[1.1] md:leading-[72px] font-heading tracking-tight">{t.spec}</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="group relative bg-[#222222] border border-white/5 rounded-[10px] p-8 transition-all duration-500 overflow-hidden hover:bg-neutral-800">
-            <div className="aspect-video bg-[#111111] border border-white/5 rounded-[10px] mb-8 flex items-center justify-center overflow-hidden">
-              <video 
-                src="/motion/hero-animation-preview.mp4" 
-                className="w-full h-full object-cover"
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-              />
+      <section>
+        <SectionHeading title={t.byJob} />
+        <div className="foundationsSpecimens">
+          <div className="space-table">
+            <div className="space-table-head motion-job-grid">
+              <span>{t.colJob}</span>
+              <span>{t.colTime}</span>
+              <span>{t.colMoves}</span>
             </div>
-            <h4 className="text-xl font-bold mb-2 font-sans group-hover:bg-gradient-to-r group-hover:from-[#A873FF] group-hover:to-[#E2CCFF] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 text-white">{t.heroSpec}</h4>
-            <p className="text-sm text-neutral-500 font-sans mb-8">{t.heroDesc}</p>
-            
-            <button 
-              onClick={() => window.open('/HERO_ANIMATION_SPEC.md', '_blank')}
-              className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#731DFB] hover:text-white transition-all duration-300"
-            >
-              {t.downloadSpec}
-              <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-            </button>
+            {jobs.map((row) => (
+              <div className="space-table-row motion-job-grid" key={row.token}>
+                <span className="space-where">{row.job}</span>
+                <span className="space-token-cell">
+                  <code className="space-token">{row.token}</code>
+                </span>
+                <span className="space-source">{row.moves}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* Footer / Pending Text */}
-      <footer className="pt-24 pb-12 opacity-20 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] font-sans">
-          {language === 'zh' ? '更多规范待补充' : 'More specs pending'}
-        </p>
-      </footer>
     </div>
   );
 };

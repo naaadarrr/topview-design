@@ -23,6 +23,12 @@
   --radius-04: 12px;
   --radius-05: 16px;
   --radius-pill: 9999px;
+
+  --dur-fast: 160ms;
+  --dur-base: 200ms;
+  --dur-slow: 250ms;
+  --ease-fast: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Site chrome theme mapping.

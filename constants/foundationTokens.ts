@@ -13,6 +13,17 @@ export const SPACING_SCALE = [
   { token: '--spacing-08', px: 40 },
 ] as const;
 
+export const DURATION_SCALE = [
+  { token: '--dur-fast', ms: 160 },
+  { token: '--dur-base', ms: 200 },
+  { token: '--dur-slow', ms: 250 },
+] as const;
+
+export const EASE_SCALE = [
+  { token: '--ease-fast', value: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+  { token: '--ease-enter', value: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+] as const;
+
 export const RADIUS_SCALE = [
   { token: '--radius-01', px: 6 },
   { token: '--radius-02', px: 8 },
