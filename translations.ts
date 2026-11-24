@@ -338,6 +338,8 @@ export const translations = {
       tourHighlight: "Let Bot know you",
       tourMore: "⋯",
       tourAction: "Got it",
+      tourStep: "1 / 3",
+      tourStepSpec: "Step sits bottom-left. 11px, medium, white 35%.",
       tourClose: "Close",
       tourShow: "Show tour"
     },
@@ -862,6 +864,8 @@ export const translations = {
       tourHighlight: "让 Bot 认识你",
       tourMore: "⋯",
       tourAction: "知道了",
+      tourStep: "1 / 3",
+      tourStepSpec: "步骤在左下。11px，中等，白色 35%。",
       tourClose: "关闭",
       tourShow: "显示引导"
     },

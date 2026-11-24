@@ -192,6 +192,7 @@ const Glass: React.FC<GlassProps> = ({ language }) => {
             <SectionHeading title={t.botBubbleTitle} />
             <div className="stage">
               <GuideBubbleSpecimen language={language} />
+              <p className="material-use">{t.tourStepSpec}</p>
             </div>
           </div>
         </div>

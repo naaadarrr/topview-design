@@ -124,9 +124,12 @@ const GuideBubbleSpecimen: React.FC<{ language: Language }> = ({ language }) => 
             </div>
             <p className="guide-body">{highlights(t.tourBody, [t.tourHighlight, t.tourMore])}</p>
           </div>
-          <button type="button" className="guide-action" onClick={() => setOpen(false)}>
-            {t.tourAction}
-          </button>
+          <div className="guide-footer">
+            <span className="guide-step">{t.tourStep}</span>
+            <button type="button" className="guide-action" onClick={() => setOpen(false)}>
+              {t.tourAction}
+            </button>
+          </div>
         </div>
       ) : (
         <button type="button" className="tour-replay" onClick={() => setOpen(true)}>
