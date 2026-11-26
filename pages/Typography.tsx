@@ -96,19 +96,59 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
     }
   };
 
-  const textStyles = [
-    { id: '2xs', size: '10px', line: '14px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: 'xs', size: '12px', line: '16px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: 'sm', size: '14px', line: '20px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: 'md', size: '16px', line: '24px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: 'lg', size: '18px', line: '28px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: 'xl', size: '20px', line: '30px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: '2xl', size: '24px', line: '32px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: '3xl', size: '30px', line: '38px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: '4xl', size: '36px', line: '44px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: '5xl', size: '48px', line: '60px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: '6xl', size: '60px', line: '72px', sample: 'Create Any Video, Just Tell Your Agent' },
-    { id: '7xl', size: '72px', line: '92px', sample: 'Create Any Video, Just Tell Your Agent' },
+  const videoFonts = [
+    { name: 'Saira Extra Condensed', family: '"Saira Extra Condensed", sans-serif', weight: 700, href: 'https://fonts.google.com/specimen/Saira+Extra+Condensed' },
+    { name: 'Archivo Black', family: '"Archivo Black", sans-serif', weight: 400, href: 'https://fonts.google.com/specimen/Archivo+Black' },
+    { name: 'Bebas Neue', family: '"Bebas Neue", sans-serif', weight: 400, href: 'https://fonts.google.com/specimen/Bebas+Neue' },
+    { name: 'League Gothic', family: '"League Gothic", sans-serif', weight: 400, href: 'https://fonts.google.com/specimen/League+Gothic' },
+    { name: 'Google Sans Flex', family: '"Google Sans Flex", sans-serif', weight: 400, href: 'https://fonts.google.com/specimen/Google+Sans+Flex' },
+    { name: 'Lexend Deca', family: '"Lexend Deca", sans-serif', weight: 400, href: 'https://fonts.google.com/specimen/Lexend+Deca' },
+    { name: 'Montserrat', family: '"Montserrat", sans-serif', weight: 500, href: 'https://fonts.google.com/specimen/Montserrat' },
+  ];
+
+  const typeRoles = [
+    {
+      id: 'display',
+      name: t.roleDisplay,
+      meta: t.roleDisplayMeta,
+      sample: t.sampleDisplay,
+      className: 'font-darker text-[52px] font-black uppercase leading-none tracking-[-1.5px] text-white',
+    },
+    {
+      id: 'section',
+      name: t.roleSection,
+      meta: t.roleSectionMeta,
+      sample: t.sampleSection,
+      className: 'font-darker text-[32px] font-black uppercase leading-none tracking-[-1.5px] text-white',
+    },
+    {
+      id: 'group',
+      name: t.roleGroup,
+      meta: t.roleGroupMeta,
+      sample: t.sampleGroup,
+      className: 'font-sans text-[14px] font-semibold leading-[20px] text-white',
+    },
+    {
+      id: 'body',
+      name: t.roleBody,
+      meta: t.roleBodyMeta,
+      sample: t.sampleBody,
+      className: 'font-sans text-[14px] font-normal leading-[20px] text-white',
+    },
+    {
+      id: 'small',
+      name: t.roleSmall,
+      meta: t.roleSmallMeta,
+      sample: t.sampleSmall,
+      className: 'font-sans text-[12px] font-normal leading-[16px] text-white/60',
+    },
+    {
+      id: 'mono',
+      name: t.roleMono,
+      meta: t.roleMonoMeta,
+      sample: t.sampleMono,
+      className: 'mono text-[12px] font-normal leading-[16px] text-white',
+    },
   ];
 
   return (
@@ -125,7 +165,9 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
 
       {/* 2. Fonts Section — Current */}
       <div id="typography-families" className="space-y-24 fade-in scroll-mt-8" style={{ animationDelay: '0.1s' }}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h2 className="site-h2 mb-12">{t.siteTitle}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="p-12 rounded-[10px] bg-[#222222] border border-white/5 h-[400px] flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-white mb-8 block font-sans">{t.brandMarketing}</span>
@@ -159,44 +201,53 @@ const Typography: React.FC<TypographyProps> = ({ language }) => {
               </button>
             </div>
           </div>
+          </div>
         </div>
+
+        <section className="space-y-16">
+          <div>
+            <h2 className="site-h2">{t.videoTitle}</h2>
+            <p className="mt-4 max-w-xl text-sm leading-5 font-sans text-white/60">{t.videoNote}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {videoFonts.map((font) => (
+              <a
+                key={font.name}
+                href={font.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex min-h-[188px] flex-col justify-between rounded-[10px] border border-white/5 bg-[#222222] p-6 text-white transition-colors duration-200 hover:bg-[#2a2a2a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-white"
+              >
+                <span className="text-[28px] leading-[0.95] lg:text-[32px]" style={{ fontFamily: font.family, fontWeight: font.weight }}>
+                  {font.name}
+                </span>
+                <span className="inline-flex w-fit items-center gap-2 self-start whitespace-nowrap rounded-full bg-white px-5 py-2.5 font-sans text-sm font-bold text-black opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+                  {t.downloadGoogleFonts}
+                  <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
 
       </div>
 
-      {/* 3. Text Styles (Chakra UI Inspired) */}
       <section id="typography-text-styles" className="fade-in pt-12 scroll-mt-8" style={{ animationDelay: '0.15s' }}>
-        <div className="flex flex-col gap-4 mb-16">
-          <h2 className="site-h2">Text Styles</h2>
-          <p className="text-sm text-white/40 font-sans">Hierarchical scale inspired by industry standards.</p>
-        </div>
-        
-        <div className="space-y-12">
-          {textStyles.map((style) => (
-            <div key={style.id} className="group border-b border-white/5 pb-8 last:border-0">
-              <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4 mb-4">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
-                  textStyle: {style.id} — {style.size} / {style.line}
-                </span>
+        <h2 className="site-h2 mb-12">{t.textStylesTitle}</h2>
+        <div className="flex flex-col gap-10">
+          {typeRoles.map((role) => (
+            <div key={role.id} className="grid grid-cols-1 items-baseline gap-3 md:grid-cols-[240px_minmax(0,1fr)] md:gap-12">
+              <div>
+                <p className="font-sans text-sm font-medium leading-5 text-white">{role.name}</p>
+                <p className="mt-1 font-sans text-sm leading-5 text-white/60">{role.meta}</p>
               </div>
-              <p 
-                className="font-sans font-medium tracking-tight text-white"
-                style={{ fontSize: style.size, lineHeight: style.line }}
-              >
-                {style.sample}
-              </p>
+              <p className={role.className}>{role.sample}</p>
             </div>
           ))}
         </div>
-
-        <div className="mt-20">
-          <button 
-            onClick={() => window.open('https://chakra-ui.com/docs/theming/typography', '_blank')}
-            className="group relative flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-sans font-bold text-sm hover:bg-[#731DFB] hover:text-white transition-all duration-300"
-          >
-            Chakra UI Typography
-            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-          </button>
-        </div>
+        <p className="mt-10 max-w-xl font-sans text-sm leading-5 text-white/60">{t.rolePending}</p>
+        <p className="mt-2 max-w-xl font-sans text-sm leading-5 text-white/60">{t.roleFaceNote}</p>
       </section>
 
       {/* 4. Exhibition Section */}
